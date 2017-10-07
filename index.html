@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Go Browser</title>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
+    
+</head>
+<body>
+  
+    
+
+  <div class='row'>
+    <div class='container'>
+      <div class='col-lg-8'>
+        <div id="map"></div>
+      </div>
+      <div class='col-lg-4'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Pokemon Collected</h3>
+          </div>
+          <div id='pokemon' class="panel-body">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<div class='row'>
+  <div class='container'>
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          <div id='opponent'></div>
+          <div id='user'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGo7wJFDJdX_rlOnu49NKxv3qnpQeu6-I&libraries=places&callback=initMap" async defer></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    
+  </body>
+</html>

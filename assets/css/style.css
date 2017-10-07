@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+#map {
+    position: absolute;
+    height: 400px;
+    width: 700px;
+  }
+
+.poke {
+    height: 100px;
+    width: 100px;
+}
+
+#id01 {
+    position: absolute;
+    top: 500px;
+    height: 200px;
+    width: 600px;
+    display: none;
+    background: black;
+    color: white;
+}
+.w3-button {
+    color: white;
+}
