@@ -44,7 +44,7 @@ function initMap() {
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
         location: location,
-        radius: 50,
+        radius: 350,
         type: gplaces
       }, callback);
     });
@@ -124,15 +124,15 @@ var removeMarker = function(marker, markerId) {
 
 database.ref().on("child_added", function(childSnapshot){
 
-   var image = $("<img class='poke'>").attr("src", childSnapshot.val().image)
-   var button = $("<button data-id='" + childSnapshot.key + "'>").append(image)
-  
-   $("#pokemon").append(button)
+   var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+   var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
+   
+   $("#pokemoncollection").prepend(button)
 });
 
 //onclick
 
-$('#pokemon').on("click", "button", function() {
+$('#pokemoncollection').on("click", "button", function() {
   $('#id01').css("display", "block");
   $('#user').empty();
 
@@ -150,5 +150,14 @@ $('#pokemon').on("click", "button", function() {
   $("#opponent").append(image)
 })
 
+//on click open and close pouch
+
+$('#pouchbutton').on("click", function() {
+  $('#pouch').css("display", "block");
+})
+
+$('#closepouch').on("click", function() {
+  $('#pouch').css("display", "none")
+})
 
 
