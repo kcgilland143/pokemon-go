@@ -49,6 +49,19 @@ button {
     width: 90px;
 }
 
+/*places button*/
+
+#placesbutton {
+    position: absolute;
+    top: 270px;
+    left: 25px;
+}
+
+#pokeballpng {
+    height: 180px;
+    width: 180px;
+}
+
 /*pouch div*/
 
 #pouch {

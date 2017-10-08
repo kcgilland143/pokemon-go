@@ -39,6 +39,7 @@ function initMap() {
         zoom: 15
       });
 
+
       infowindow = new google.maps.InfoWindow();
 
       var service = new google.maps.places.PlacesService(map);
@@ -47,9 +48,32 @@ function initMap() {
         radius: 350,
         type: gplaces
       }, callback);
-    });
+    }); 
   }
-}
+
+
+  $('#placesbutton').on("click", function() {
+
+// get position of window (no solution yet), then reintilize map and window
+// https://www.w3.org/TR/2016/REC-geolocation-API-20161108/
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: location,
+        zoom: 15
+      });
+
+      infowindow = new google.maps.InfoWindow();
+
+      var service = new google.maps.places.PlacesService(map);
+      service.nearbySearch({
+        location: location,
+        radius: 350,
+        type: gplaces
+      }, callback);
+    
+  });
+}    
+
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -154,10 +178,10 @@ $('#pokemoncollection').on("click", "button", function() {
 
 $('#pouchbutton').on("click", function() {
   $('#pouch').css("display", "block");
-})
+});
 
 $('#closepouch').on("click", function() {
-  $('#pouch').css("display", "none")
-})
+  $('#pouch').css("display", "none");
+});
 
 
