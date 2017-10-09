@@ -2,18 +2,102 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background: red;
   }
+
+/*centers map and main container*/
+
+#maincontainer {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 700px;
+  height: 400px;
+  background-color: black;
+  border-radius: 3px;
+}
+
 
 #map {
     position: absolute;
     height: 400px;
     width: 700px;
-  }
+}
+
+/*all buttons, gets ride of default styling*/
+
+button {
+    outline: none;
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+/*pouch buttons*/
+
+#pouchbutton {
+    position: absolute;
+    top: 305px;
+    left: -5px;
+}
+
+#pouchpng {
+    height: 100px;
+    width: 90px;
+}
+
+/*pouch div*/
+
+#pouch {
+    height: 400px;
+    width: 700px;
+    position: relative;
+    display: none;
+    background: rgba(0,0,0,.5);
+}
+
+#closepouch {
+    position: absolute;
+    top: 10px;
+    left: 661px;
+    font-size: 40px;
+    color: white;
+}
+
+#div1 {
+    position: absolute;
+    left: 45px;
+    top: 20px;
+    max-height: 90%;
+    overflow: auto;
+}
+
+#div2 {
+    overflow: hidden;
+}
+
+#collectionspacer {
+    height: 20px;
+}
+
+/*pokemon selectors*/
+
+#pokeselectorbutton {
+    background: white;
+    margin: 10px;
+    border-radius: 8px;
+}
 
 .poke {
     height: 100px;
     width: 100px;
 }
+
+
+/*battle mode*/
 
 #id01 {
     position: absolute;
