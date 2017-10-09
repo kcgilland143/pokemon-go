@@ -17,7 +17,8 @@ html, body {
   width: 700px;
   height: 400px;
   background-color: black;
-  border-radius: 3px;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 
@@ -25,6 +26,7 @@ html, body {
     position: absolute;
     height: 400px;
     width: 700px;
+    border-radius: 20px;
 }
 
 /*all buttons, gets ride of default styling*/
@@ -39,14 +41,26 @@ button {
 /*pouch buttons*/
 
 #pouchbutton {
-    position: absolute;
-    top: 305px;
-    left: -5px;
+    position: relative;
+    top: 2px;
+    left: 2px;
 }
 
 #pouchpng {
     height: 100px;
-    width: 90px;
+    width: 100px;
+}
+
+#mapbuttons {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 110px;
+    width: 110px;
+    border-right: 4px solid black;
+    border-top: 4px solid red;
+    background: rgba(0,0,0,.8);
+    border-radius: 0px 20px 0px 20px;
 }
 
 /*pouch div*/
@@ -57,6 +71,7 @@ button {
     position: relative;
     display: none;
     background: rgba(0,0,0,.5);
+    border-radius: 20px;
 }
 
 #closepouch {

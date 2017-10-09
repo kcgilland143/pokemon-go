@@ -15,8 +15,9 @@ var database = firebase.database();
 //Map, Markers, Marker Remove, Marker Action
 
 var map;
+var service;
 var infowindow;
-var gplaces = ['restraunts', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
+var gplaces = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
 var markers = {};
 
 function initMap() {
@@ -24,8 +25,12 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 15
+        zoom: 17
       });
+
+  service = new google.maps.places.PlacesService(map);
+
+  infowindow = new google.maps.InfoWindow();
   
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -34,24 +39,22 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: location,
-        zoom: 15
-      });
-
-      infowindow = new google.maps.InfoWindow();
-
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch({
-        location: location,
-        radius: 350,
-        type: gplaces
-      }, callback);
-    });
+      map.panTo(location)
+    }); 
   }
-}
 
-function callback(results, status) {
+
+  map.addListener('tilesloaded', function (event) {
+    service.nearbySearch({
+        location: map.getCenter(),
+        radius: 1,
+        type: gplaces
+      }, createPokeMarkers);
+  });
+}    
+
+
+function createPokeMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]); 
@@ -60,18 +63,19 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-          var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(100,100));
-          var markerId = place.geometry.location;
-          var marker = new google.maps.Marker({
-            position: markerId,
-            icon: image,
-            map: map,
-            id: 'marker_' + markerId,
-          });
-
-          markers[marker.get('id')] = marker;
-          bindMarkerEvents(marker);   
-      }
+  var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(40,40));
+  var markerId = place.geometry.location;
+  if (!markers['marker_' + markerId]) {
+    var marker = new google.maps.Marker({
+      position: markerId,
+      icon: image,
+      map: map,
+      id: 'marker_' + markerId,
+    });
+   markers[marker.get('id')] = marker;
+   bindMarkerEvents(marker);
+  }
+}
 
 //http://jsfiddle.net/fatihacet/CKegk/
 
@@ -80,15 +84,17 @@ var getMarkerUniqueId = function(lat, lng) {
 }
 
 var bindMarkerEvents = function(marker) {
-    google.maps.event.addListener(marker, "click", function (point) {
+    // google.maps.event.addListener(marker, 
+    marker.addListener("click", function (point) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
+        fetchAjax().done(addPokeToDB);
     });    
 };
 
 //ajax and variables
-
+//bunch of global variables hidden deep in code
 var randomNumber;
 var pokeName;
 var pokeHealth;
@@ -96,34 +102,32 @@ var pokeImage;
 
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
-  $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber,   
+  return $.ajax({
+      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber + '/',
       dataType: 'json',
-      method: 'GET',
-  }).done(function(response) {
-        pokeName = response.name;
-        pokeHealth = response.base_experience;
-        pokeImage = response.sprites.front_shiny; 
+      method: 'GET'
   });
 }
 
-fetchAjax();
+function addPokeToDB(response) {
+  pokeName = response.name;
+  pokeHealth = response.base_experience;
+  pokeImage = response.sprites.front_shiny;
+  database.ref().push({ 
+    name: pokeName,
+    health: pokeHealth,
+    image: pokeImage
+  });
+}
 
 var removeMarker = function(marker, markerId) {
-      marker.setMap(null);
-      delete markers[markerId];
-      fetchAjax();
-      database.ref().push({ 
-        name: pokeName,
-        health: pokeHealth,
-        image: pokeImage
-      });
-  };  
+    marker.setMap(null);
+    delete markers[markerId];
+};
 
 //firebase
 
 database.ref().on("child_added", function(childSnapshot){
-
    var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
    var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
    
@@ -144,7 +148,7 @@ $('#pokemoncollection').on("click", "button", function() {
      console.log("Error: " + error.code);
   });
 
-  fetchAjax();
+  // fetchAjax(); may be unneccesary
   $('#opponent').empty();
   var image = $("<img class='poke'>").attr("src", pokeImage)
   $("#opponent").append(image)
@@ -154,10 +158,10 @@ $('#pokemoncollection').on("click", "button", function() {
 
 $('#pouchbutton').on("click", function() {
   $('#pouch').css("display", "block");
-})
+});
 
 $('#closepouch').on("click", function() {
-  $('#pouch').css("display", "none")
-})
+  $('#pouch').css("display", "none");
+});
 
 
