@@ -60,18 +60,19 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-          var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(100,100));
-          var markerId = place.geometry.location;
-          var marker = new google.maps.Marker({
-            position: markerId,
-            icon: image,
-            map: map,
-            id: 'marker_' + markerId,
-          });
-
-          markers[marker.get('id')] = marker;
-          bindMarkerEvents(marker);   
-      }
+  var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(35, 35));
+  var markerId = place.geometry.location;
+  if (!markers['marker_' + markerId]) {
+    var marker = new google.maps.Marker({
+      position: markerId,
+      icon: image,
+      map: map,
+      id: 'marker_' + markerId,
+    });
+   markers[marker.get('id')] = marker;
+   bindMarkerEvents(marker);
+  }
+}
 
 //http://jsfiddle.net/fatihacet/CKegk/
 
