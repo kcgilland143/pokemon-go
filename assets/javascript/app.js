@@ -113,7 +113,7 @@ var pokeImage;
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   return $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber,   
+      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber + '/',
       dataType: 'json',
       method: 'GET',
   });
