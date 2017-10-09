@@ -62,15 +62,14 @@ button {
 #closepouch {
     position: absolute;
     top: 10px;
-    left: 661px;
+    right: 25px;
     font-size: 40px;
     color: white;
 }
 
 #div1 {
-    position: absolute;
-    left: 45px;
-    top: 20px;
+    margin-left: 45px;
+    padding-top: 20px;
     max-height: 90%;
     overflow: auto;
 }
