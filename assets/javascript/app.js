@@ -25,7 +25,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 15
+        zoom: 17
       });
 
   service = new google.maps.places.PlacesService(map);
@@ -47,17 +47,7 @@ function initMap() {
   map.addListener('tilesloaded', function (event) {
     service.nearbySearch({
         location: map.getCenter(),
-        radius: 100,
-        type: gplaces
-      }, createPokeMarkers);
-  });
-
-// this may not be necessary
-  $('#placesbutton').on("click", function() {
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch({
-        location: location,
-        radius: 350,
+        radius: 1,
         type: gplaces
       }, createPokeMarkers);
   });
@@ -73,7 +63,7 @@ function createPokeMarkers(results, status) {
 }
 
 function createMarker(place) {
-  var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(100,100));
+  var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(40,40));
   var markerId = place.geometry.location;
   if (!markers['marker_' + markerId]) {
     var marker = new google.maps.Marker({
@@ -115,7 +105,7 @@ function fetchAjax() {
   return $.ajax({
       url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber + '/',
       dataType: 'json',
-      method: 'GET',
+      method: 'GET'
   });
 }
 
