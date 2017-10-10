@@ -89,7 +89,8 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
-        fetchAjax().done(addPokeToDB);
+        // fetchAjax().done(addPokeToVariables);
+        battleMode();
     });    
 };
 
@@ -111,16 +112,23 @@ function fetchAjax() {
   });
 }
 
-function addPokeToDB(response) {
+function addPokeToVariables(response) {
   pokeName = response.name;
   pokeHealth = response.base_experience;
   pokeImage = response.sprites.front_shiny;
-  database.ref().push({ 
-    name: pokeName,
-    health: pokeHealth,
-    image: pokeImage
-  });
 }
+
+function battleMode() {
+  $('#battleMode').css("display", "block");
+}
+
+
+
+// database.ref().push({ 
+//     name: pokeName,
+//     health: pokeHealth,
+//     image: pokeImage
+//   });
 
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
@@ -138,23 +146,23 @@ database.ref().on("child_added", function(childSnapshot){
 
 //onclick
 
-$('#pokemoncollection').on("click", "button", function() {
-  $('#id01').css("display", "block");
-  $('#user').empty();
+// $('#pokemoncollection').on("click", "button", function() {
+//   $('#id01').css("display", "block");
+//   $('#user').empty();
 
-  var ref = firebase.database().ref($(this).attr("data-id"));
-  ref.on("value", function(snapshot) {
-     var image1 = $("<img class='poke'>").attr("src", snapshot.val().image);
-      $('#user').append(image1)
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
+//   var ref = firebase.database().ref($(this).attr("data-id"));
+//   ref.on("value", function(snapshot) {
+//      var image1 = $("<img class='poke'>").attr("src", snapshot.val().image);
+//       $('#user').append(image1)
+//   }, function (error) {
+//      console.log("Error: " + error.code);
+//   });
 
-  // fetchAjax(); may be unneccesary
-  $('#opponent').empty();
-  var image = $("<img class='poke'>").attr("src", pokeImage)
-  $("#opponent").append(image)
-})
+//   // fetchAjax(); may be unneccesary
+//   $('#opponent').empty();
+//   var image = $("<img class='poke'>").attr("src", pokeImage)
+//   $("#opponent").append(image)
+// })
 
 //on click open and close pouch
 
@@ -162,8 +170,12 @@ $('#pouchbutton').on("click", function() {
   $('#pouch').css("display", "block");
 });
 
-$('#closepouch').on("click", function() {
+$('#closePouch').on("click", function() {
   $('#pouch').css("display", "none");
+});
+
+$('#closeBattle').on("click", function() {
+  $('#battleMode').css("display", "none");
 });
 
 

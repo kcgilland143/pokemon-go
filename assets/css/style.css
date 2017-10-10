@@ -91,7 +91,7 @@ button {
     border-radius: 20px;
 }
 
-#closepouch {
+#closePouch {
     position: absolute;
     top: 10px;
     right: 25px;
@@ -130,7 +130,52 @@ button {
 
 /*battle mode*/
 
-#id01 {
+#battleMode {
+    position: relative;
+    height: 400px;
+    width: 700px;
+    background: rgba(0,0,0,.8);
+    display: none;
+}
+
+#closeBattle {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 40px;
+    color: white;
+}
+
+#mainFrame {
+    position: absolute;
+    top: 25px;
+    left: 50px;
+    background: white;
+    height: 350px;
+    width: 600px;
+}
+
+#catch {
+    background: black;
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    width: 150px;
+    height: 150px;
+}
+
+#user {
+    background: black;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 150px;
+    height: 150px;
+}
+
+
+
+/*#id01 {
     position: absolute;
     top: 500px;
     height: 200px;
@@ -141,4 +186,4 @@ button {
 }
 .w3-button {
     color: white;
-}
+}*/
