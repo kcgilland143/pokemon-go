@@ -109,6 +109,11 @@ var referenceId;
 var userHealth;
 var catchHealth;
 
+var pikachu = new Audio("assets/audioClips/pikachu.wav");
+var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
+var catched = new Audio("assets/audioClips/catch.wav")
+
+
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   return $.ajax({
@@ -166,8 +171,12 @@ $('#pokemonCollection').on("click", "button", function() {
 
 function battleMode() {
   $('#battleMode').css("display", "block");
+      battleTheme.play();
+
 
   $('#attackButton').on("click", function() {
+      pikachu.play();
+
       userHealth = userHealth - 10;
       catchHealth = catchHealth - 10;
 
@@ -181,6 +190,7 @@ function battleMode() {
 
       $('#catchButton').on("click", function() {
         if (catchHealth < 10 && catchHealth > 0) {
+          catched.play();
           database.ref().push({ 
             name: pokeName,
             health: pokeHealth,
