@@ -106,6 +106,8 @@ var pokeImage;
 
 var referenceId;
 
+var userHealth;
+var catchHealth;
 
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -119,7 +121,14 @@ function fetchAjax() {
 function addPokeToVariables(response) {
   pokeName = response.name;
   pokeHealth = response.base_experience;
+  catchHealth = response.base_experience;
   pokeImage = response.sprites.front_shiny;
+
+  // database.ref().push({ 
+  //           name: pokeName,
+  //           health: pokeHealth,
+  //           image: pokeImage
+  //         });
 }
 
 
@@ -131,16 +140,25 @@ $('#pokemonCollection').on("click", "button", function() {
   referenceId = $(this).attr("data-id");
   var ref = firebase.database().ref(referenceId);
   ref.on("value", function(snapshot) {
-     var image1 = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
-      $('#user').append(image1)
+
+    userHealth = snapshot.val().health
+
+    var nameEntry = $('<h3>').text(snapshot.val().name)
+    var healthEntry = $('<h2>').text(userHealth)
+    var imageEntry = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
+
+    $('#user').append(imageEntry, healthEntry, nameEntry)
+
   }, function (error) {
      console.log("Error: " + error.code);
   });
 
 //loads the pokemon from the random Ajax call into the catch side of battlemode
   $('#catch').empty();
-  var image = $("<img class='pokeBattle'>").attr("src", pokeImage)
-  $("#catch").append(image)
+  var nameEntry = $('<h3>').text(pokeName)
+  var healthEntry = $('<h2>').text(catchHealth)
+  var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
+  $("#catch").append(imageEntry, healthEntry, nameEntry)
 
   battleMode();
 })
@@ -149,20 +167,30 @@ $('#pokemonCollection').on("click", "button", function() {
 function battleMode() {
   $('#battleMode').css("display", "block");
 
-// add catched pokemon to the database
-  // if (userWins) {
-  //   database.ref().push({ 
-  //       name: pokeName,
-  //       health: pokeHealth,
-  //       image: pokeImage
-  //     });
-  // }
+  $('#attackButton').on("click", function() {
+      userHealth = userHealth - 10;
+      catchHealth = catchHealth - 10;
 
-// removes user pokemon from database
-  // if (playerLosses) {
-  //   var ref = firebase.database().ref(referenceId);
-  //   ref.remove()
-  // }
+      $('#catch h2').text(catchHealth);
+      $('#user h2').text(userHealth);
+
+      if (userHealth <= 0) {
+        var ref = firebase.database().ref(referenceId);
+        ref.remove()
+      };
+
+      $('#catchButton').on("click", function() {
+        if (catchHealth < 10 && catchHealth > 0) {
+          database.ref().push({ 
+            name: pokeName,
+            health: pokeHealth,
+            image: pokeImage
+          });
+        };
+      });   
+  });
+
+  
 
 // closes battle mode, potentially shows stats of pokemon collected
   // if (gameover) {

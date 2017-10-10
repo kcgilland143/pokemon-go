@@ -155,13 +155,33 @@ button {
     width: 600px;
 }
 
+#attackButton {
+    position: absolute;
+    bottom: 70px;
+    background: black;
+    height: 50px;
+    width: 100px;
+    left: 225px;
+    color: white;
+}
+
+#catchButton {
+    position: absolute;
+    bottom: 10px;
+    background: black;
+    height: 50px;
+    width: 100px;
+    left: 225px;
+    color: white;
+}
+
 #catch {
     border: 5px solid red;
     position: absolute;
     left: 25px;
-    bottom: 25px;
-    width: 150px;
-    height: 150px;
+    top: 25px;
+    width: 200px;
+    height: 200px;
 }
 
 #user {
@@ -169,8 +189,8 @@ button {
     position: absolute;
     right: 25px;
     top: 25px;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
 }
 
 .pokeBattle {
@@ -178,17 +198,3 @@ button {
     width: 150px;
 }
 
-
-
-/*#id01 {
-    position: absolute;
-    top: 500px;
-    height: 200px;
-    width: 600px;
-    display: none;
-    background: black;
-    color: white;
-}
-.w3-button {
-    color: white;
-}*/
