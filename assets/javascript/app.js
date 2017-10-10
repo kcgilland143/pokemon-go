@@ -95,6 +95,8 @@ var bindMarkerEvents = function(marker) {
 
 //ajax and variables
 //bunch of global variables hidden deep in code
+//#style
+
 var randomNumber;
 var pokeName;
 var pokeHealth;
