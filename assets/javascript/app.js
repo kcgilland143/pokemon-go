@@ -88,7 +88,7 @@ var bindMarkerEvents = function(marker) {
     marker.addListener("click", function (point) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
-        removeMarker(marker, markerId); 
+        removeMarker(marker); 
         fetchAjax().done(addPokeToDB);
     });    
 };
@@ -120,9 +120,8 @@ function addPokeToDB(response) {
   });
 }
 
-var removeMarker = function(marker, markerId) {
+var removeMarker = function(marker) {
     marker.setMap(null);
-    delete markers[markerId];
 };
 
 //firebase
