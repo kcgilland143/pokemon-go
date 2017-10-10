@@ -89,8 +89,9 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
-        // fetchAjax().done(addPokeToVariables);
-        battleMode();
+        loadPokemon();
+        fetchAjax().done(addPokeToVariables);
+        $('#pouch').css("display", "block");
     });    
 };
 
@@ -102,6 +103,9 @@ var randomNumber;
 var pokeName;
 var pokeHealth;
 var pokeImage;
+
+var referenceId;
+
 
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -118,17 +122,56 @@ function addPokeToVariables(response) {
   pokeImage = response.sprites.front_shiny;
 }
 
+
+$('#pokemonCollection').on("click", "button", function() {
+  $('#user').empty();
+  $('#pouch').css("display", "none");
+
+//loads the pokemon from the pokemonCollection into the user side of battlemode
+  referenceId = $(this).attr("data-id");
+  var ref = firebase.database().ref(referenceId);
+  ref.on("value", function(snapshot) {
+     var image1 = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
+      $('#user').append(image1)
+  }, function (error) {
+     console.log("Error: " + error.code);
+  });
+
+//loads the pokemon from the random Ajax call into the catch side of battlemode
+  $('#catch').empty();
+  var image = $("<img class='pokeBattle'>").attr("src", pokeImage)
+  $("#catch").append(image)
+
+  battleMode();
+})
+
+
 function battleMode() {
   $('#battleMode').css("display", "block");
+
+// add catched pokemon to the database
+  // if (userWins) {
+  //   database.ref().push({ 
+  //       name: pokeName,
+  //       health: pokeHealth,
+  //       image: pokeImage
+  //     });
+  // }
+
+// removes user pokemon from database
+  // if (playerLosses) {
+  //   var ref = firebase.database().ref(referenceId);
+  //   ref.remove()
+  // }
+
+// closes battle mode, potentially shows stats of pokemon collected
+  // if (gameover) {
+  // $('#battleMode').css("display", "none");
+  // }
+
 }
 
 
-
-// database.ref().push({ 
-//     name: pokeName,
-//     health: pokeHealth,
-//     image: pokeImage
-//   });
 
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
@@ -136,43 +179,28 @@ var removeMarker = function(marker, markerId) {
 };
 
 //firebase
+function loadPokemon() {
+  $('#pokemonCollection').empty()
 
-database.ref().on("child_added", function(childSnapshot){
-   var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
-   var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
-   
-   $("#pokemoncollection").prepend(button)
-});
+    database.ref().on("child_added", function(childSnapshot){
+       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+       var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
+       
+       $("#pokemonCollection").prepend(button)
+    });
+}
 
-//onclick
-
-// $('#pokemoncollection').on("click", "button", function() {
-//   $('#id01').css("display", "block");
-//   $('#user').empty();
-
-//   var ref = firebase.database().ref($(this).attr("data-id"));
-//   ref.on("value", function(snapshot) {
-//      var image1 = $("<img class='poke'>").attr("src", snapshot.val().image);
-//       $('#user').append(image1)
-//   }, function (error) {
-//      console.log("Error: " + error.code);
-//   });
-
-//   // fetchAjax(); may be unneccesary
-//   $('#opponent').empty();
-//   var image = $("<img class='poke'>").attr("src", pokeImage)
-//   $("#opponent").append(image)
-// })
 
 //on click open and close pouch
 
-$('#pouchbutton').on("click", function() {
-  $('#pouch').css("display", "block");
-});
+// $('#pouchbutton').on("click", function() {
+  // loadPokemon();
+//   $('#pouch').css("display", "block");
+// });
 
-$('#closePouch').on("click", function() {
-  $('#pouch').css("display", "none");
-});
+// $('#closePouch').on("click", function() {
+//   $('#pouch').css("display", "none");
+// });
 
 $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
