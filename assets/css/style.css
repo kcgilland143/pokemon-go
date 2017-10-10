@@ -165,6 +165,46 @@ button {
 }
 
 #closeBattle {
+<<<<<<< a94601db3fad1914df27441e0be75f8ffb7df8aa
+=======
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 40px;
+    color: white;
+}
+
+#mainFrame {
+    position: absolute;
+    top: 25px;
+    left: 50px;
+    background: white;
+    height: 350px;
+    width: 600px;
+}
+
+#catch {
+    background: black;
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    width: 150px;
+    height: 150px;
+}
+
+#user {
+    background: black;
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 150px;
+    height: 150px;
+}
+
+
+
+/*#id01 {
+>>>>>>> first steps switching branches
     position: absolute;
     top: 0px;
     right: 15px;
@@ -199,6 +239,7 @@ button {
     width: 100px;
     left: 225px;
     color: white;
+<<<<<<< a94601db3fad1914df27441e0be75f8ffb7df8aa
 }
 
 #catch {
@@ -224,3 +265,6 @@ button {
     width: 150px;
 }
 
+=======
+}*/
+>>>>>>> first steps switching branches

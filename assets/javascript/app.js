@@ -89,15 +89,14 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
-// <<<<<<< e587f8e7cd310efbbc11dc2f3f76d0bc1d842272
-        loadPokemon();
-        fetchAjax().done(addPokeToVariables);
-        $('#pouch').css("display", "block");
-// =======
-        // fetchAjax().done(function (resp) {
-        //   addPokeToPouch(getPokeValues(resp))
-        // });
-// >>>>>>> added isotope, changed poke render function as well as data handling functions
+        // loadPokemon();
+        // fetchAjax().done(addPokeToVariables);
+        // $('#pouch').css("display", "block");
+        fetchAjax().done(function (resp) {
+          var opponent = getPokeValues(resp)
+          addPokeToPouch(opponent)
+          battleMode();
+        });
     });    
 };
 
@@ -179,7 +178,7 @@ function getPokeValues(response) {
 
 function addPokeToPouch(pokeObj) {
   var $poke = renderPoke(pokeObj)
-  $pokemoncollection.prepend($poke).isotope('prepended', $poke).arrange()
+  $pokemoncollection.prepend($poke).isotope('prepended', $poke)
 }
 
 function addPokeToDB(pokeObj) {
@@ -219,6 +218,10 @@ function renderPoke(pokeObj, keys) {
   })
   return $div
 } //will output poke image and data in html
+
+function battleMode() {
+  $('#battleMode').css("display", "block");
+}
 
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
@@ -333,10 +336,13 @@ function loadPokemon() {
   // loadPokemon();
 //   $('#pouch').css("display", "block");
 // });
+$('#closePouch').on("click", function() {
+  $('#pouch').css("display", "none");
+});
 
-// $('#closePouch').on("click", function() {
-//   $('#pouch').css("display", "none");
-// });
+$('#closeBattle').on("click", function() {
+  $('#battleMode').css("display", "none");
+});
 
 $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
