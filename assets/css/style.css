@@ -29,8 +29,8 @@ html, body {
 
 #map {
     position: absolute;
-    width: 900px;
-    height: 615px;
+    height: 415px;
+    width: 700px;
     border-radius: 20px;
 }
 
@@ -77,6 +77,21 @@ button {
     border-radius: 0px 20px 0px 20px;
 }
 
+
+/*places button*/
+
+#placesbutton {
+    position: absolute;
+    top: 315px;
+    left: 75px;
+}
+
+#pokeballpng {
+    height: 80px;
+    width: 80px;
+}
+
+
 /*pouch div*/
 
 #pouch {
@@ -91,15 +106,14 @@ button {
 #closepouch {
     position: absolute;
     top: 10px;
-    left: 661px;
+    right: 25px;
     font-size: 40px;
     color: white;
 }
 
 #div1 {
-    position: absolute;
-    left: 45px;
-    top: 20px;
+    margin-left: 45px;
+    padding-top: 20px;
     max-height: 90%;
     overflow: auto;
 }
