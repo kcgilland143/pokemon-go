@@ -184,7 +184,7 @@ button {
 }
 
 #catch {
-    background: black;
+    border: 5px solid red;
     position: absolute;
     left: 25px;
     bottom: 25px;
@@ -193,12 +193,17 @@ button {
 }
 
 #user {
-    background: black;
+    border: 5px solid red;
     position: absolute;
     right: 25px;
     top: 25px;
     width: 150px;
     height: 150px;
+}
+
+.pokeBattle {
+    height: 150px;
+    width: 150px;
 }
 
 

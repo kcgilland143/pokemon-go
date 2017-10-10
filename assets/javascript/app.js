@@ -96,6 +96,7 @@ var bindMarkerEvents = function(marker) {
           var opponent = getPokeValues(resp)
           addPokeToPouch(opponent)
           battleMode();
+          loadPokemon();
         });
     });    
 };
@@ -108,6 +109,7 @@ var randomNumber;
 var pokeName;
 var pokeHealth;
 var pokeImage;
+var referenceId;
 
 var referenceId;
 
@@ -185,6 +187,28 @@ function addPokeToDB(pokeObj) {
   database.ref().push(pokeObj);
 }
 
+$('#pokemonCollection').on("click", "button", function() {
+  $('#user').empty();
+  $('#pouch').css("display", "none");
+
+//loads the pokemon from the pokemonCollection into the user side of battlemode
+  referenceId = $(this).attr("data-id");
+  var ref = firebase.database().ref(referenceId);
+  ref.on("value", function(snapshot) {
+     var image1 = renderPoke(snapshot.val());
+      $('#user').append(image1)
+  }, function (error) {
+     console.log("Error: " + error.code);
+  });
+
+//loads the pokemon from the random Ajax call into the catch side of battlemode
+  $('#catch').empty();
+  var image = renderPoke(opponent)
+  $("#catch").append(image)
+
+  battleMode();
+})
+
 function renderPoke(pokeObj, keys) {
   var $div = $("<button id='pokeselectorbutton' data-id='" + pokeObj.id + "'>")
   if (!keys || !keys.length) { keys = Object.getOwnPropertyNames(pokeObj) }
@@ -221,6 +245,25 @@ function renderPoke(pokeObj, keys) {
 
 function battleMode() {
   $('#battleMode').css("display", "block");
+  // add catched pokemon to the database
+  // if (userWins) {
+  //   database.ref().push({ 
+  //       name: pokeName,
+  //       health: pokeHealth,
+  //       image: pokeImage
+  //     });
+  // }
+
+// removes user pokemon from database
+  // if (playerLosses) {
+  //   var ref = firebase.database().ref(referenceId);
+  //   ref.remove()
+  // }
+
+// closes battle mode, potentially shows stats of pokemon collected
+  // if (gameover) {
+  // $('#battleMode').css("display", "none");
+  // }
 }
 
 var removeMarker = function(marker, markerId) {
@@ -237,6 +280,20 @@ $('#pokemonCollection').on("click", "button", function() {
 //loads the pokemon from the pokemonCollection into the user side of battlemode
   referenceId = $(this).attr("data-id");
   var ref = firebase.database().ref(referenceId);
+
+
+//firebase
+function loadPokemon() {
+  $('#pokemonCollection').empty()
+
+    database.ref().on("child_added", function(childSnapshot){
+       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+       var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
+       
+       $("#pokemonCollection").prepend(button)
+    });
+}
+
 // removed this because I broke firebase with data restructure
 
 // database.ref().on("child_added", function(childSnapshot){
@@ -336,6 +393,11 @@ function loadPokemon() {
   // loadPokemon();
 //   $('#pouch').css("display", "block");
 // });
+$('#pouchbutton').on("click", function() {
+  // loadPokemon();
+  $('#pouch').css("display", "block");
+});
+
 $('#closePouch').on("click", function() {
   $('#pouch').css("display", "none");
 });
