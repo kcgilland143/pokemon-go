@@ -2,7 +2,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: red;
+    background: #fcd4c2; /* Old browsers */
+    background: -moz-linear-gradient(top, #19224f 0%, #e78296 50%, #fcd4c2 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #19224f 0%,#e78296 50%,#fcd4c2 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #19224f 0%,#e78296 50%,#fcd4c2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcd4c2', 
+        endColorstr='#19224f',GradientType=0 ); /* IE6-9 */
   }
 
 /*centers map and main container*/
@@ -14,8 +19,8 @@ html, body {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 700px;
-  height: 400px;
+  width: 900px;
+  height: 600px;
   background-color: black;
   border-radius: 20px;
   overflow: hidden;
@@ -29,6 +34,15 @@ html, body {
     border-radius: 20px;
 }
 
+#loGO{
+    position:relative;
+    margin:4.5%;
+}
+
+#loGO img{
+    width:15%;
+}
+
 /*all buttons, gets ride of default styling*/
 
 button {
@@ -39,8 +53,6 @@ button {
 }
 
 /*pouch buttons*/
-
-/*hi there*/
 
 #pouchbutton {
     position: relative;

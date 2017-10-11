@@ -141,6 +141,28 @@ $('#pouchControls .sortby.hp').on('click', function () {
 })
 
 
+var $pokemoncollection = $('#pokemoncollection').isotope({
+  itemselector: '.pokeselectorbutton',
+  layoutMode: 'fitRows',
+  getSortData: {
+    id: '.id',
+    name: '.name',
+    hp: '.hp',
+    type: '.type'
+  },
+  sortBy: ['id', 'hp']
+})
+$('#pouchControls .sortby.number').on('click', function () {
+  console.log('clicked me')
+  $pokemoncollection.isotope({sortBy : 'id'})
+})
+$('#pouchControls .sortby.type').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'type'})
+})
+$('#pouchControls .sortby.hp').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+})
+
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
   return $.ajax({
@@ -180,7 +202,7 @@ function addPokeToDB(pokeObj) {
 }
 
 function renderPoke(pokeObj, keys) {
-  var $div = $('<button class="pokeselectorbutton" data-id="' + pokeObj.id + '" >')
+  var $div = $("<button id='pokeselectorbutton' data-id='" + pokeObj.id + "'>")
   if (!keys || !keys.length) { keys = Object.getOwnPropertyNames(pokeObj) }
   keys.forEach(k => {
     switch(k) {
