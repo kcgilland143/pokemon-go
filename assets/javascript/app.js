@@ -185,7 +185,7 @@ function getPokeValues(response) {
 
 function addPokeToPouch(pokeObj) {
   var $poke = renderPoke(pokeObj)
-  $pokemoncollection.prepend($poke).isotope('prepended', $poke)
+  $pokemoncollection.prepend($poke).isotope('prepended', $poke).isotope()
 }
 
 function addPokeToDB(pokeObj) {
@@ -232,7 +232,7 @@ $('#pokemonCollection').on("click", "button", function() {
 })
 
 function renderPoke(pokeObj, keys) {
-  var $div = $("<button id='pokeselectorbutton' data-id='" + pokeObj.id + "'>")
+  var $div = $('<button class="pokeselectorbutton" data-id="' + pokeObj.id + '" >')
   if (!keys || !keys.length) { keys = Object.getOwnPropertyNames(pokeObj) }
   keys.forEach(k => {
     switch(k) {
