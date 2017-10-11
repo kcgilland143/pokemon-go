@@ -89,9 +89,16 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
-        loadPokemon();
-        fetchAjax().done(addPokeToVariables);
-        $('#pouch').css("display", "block");
+        // loadPokemon();
+        // fetchAjax().done(addPokeToVariables);
+        // $('#pouch').css("display", "block");
+        fetchAjax().done(function (resp) {
+          opponent = getPokeValues(resp)
+          // addPokeToPouch(opponent)
+          addPokeToDB(opponent)
+          battleMode();
+          loadPokemon();
+        });
     });    
 };
 
@@ -99,10 +106,8 @@ var bindMarkerEvents = function(marker) {
 //bunch of global variables hidden deep in code
 //#style
 
-var randomNumber;
-var pokeName;
-var pokeHealth;
-var pokeImage;
+var user;
+var opponent;
 
 var referenceId;
 
@@ -113,6 +118,50 @@ var pikachu = new Audio("assets/audioClips/pikachu.wav");
 var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
 var catched = new Audio("assets/audioClips/catch.wav")
 
+var $pokemoncollection = $('#pokemoncollection').isotope({
+  itemselector: '.pokeselectorbutton',
+  layoutMode: 'fitRows',
+  getSortData: {
+    id: '.id',
+    name: '.name',
+    hp: '.hp',
+    type: '.type'
+  },
+  sortBy: ['id', 'hp']
+})
+$('#pouchControls .sortby.number').on('click', function () {
+  console.log('clicked me')
+  $pokemoncollection.isotope({sortBy : 'id'})
+})
+$('#pouchControls .sortby.type').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'type'})
+})
+$('#pouchControls .sortby.hp').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+})
+
+
+var $pokemoncollection = $('#pokemoncollection').isotope({
+  itemselector: '.pokeselectorbutton',
+  layoutMode: 'fitRows',
+  getSortData: {
+    id: '.id',
+    name: '.name',
+    hp: '.hp',
+    type: '.type'
+  },
+  sortBy: ['id', 'hp']
+})
+$('#pouchControls .sortby.number').on('click', function () {
+  console.log('clicked me')
+  $pokemoncollection.isotope({sortBy : 'id'})
+})
+$('#pouchControls .sortby.type').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'type'})
+})
+$('#pouchControls .sortby.hp').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+})
 
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -124,97 +173,67 @@ function fetchAjax() {
 }
 
 function addPokeToVariables(response) {
-  pokeName = response.name;
-  pokeHealth = response.base_experience;
-  catchHealth = response.base_experience;
-  pokeImage = response.sprites.front_shiny;
-
-  // database.ref().push({ 
-  //           name: pokeName,
-  //           health: pokeHealth,
-  //           image: pokeImage
-  //         });
+  var poke = getPokeValues(response)
+  pokeName = poke.name;
+  pokeHealth = poke.hp;
+  catchHealth = poke.hp;
+  pokeImage = poke.image;
 }
 
+function getPokeValues(response) {
+  var res = {
+    id: response.id,
+    image: response.sprites.front_default,
+    name: response.name,
+    attack: response.stats[4].base_stat,
+    hp: response.stats[5].base_stat,
+    type: response.types[0].type.name
+  }
+  return res
+} //will decide what data gets saved
 
-$('#pokemonCollection').on("click", "button", function() {
-  $('#user').empty();
-  $('#pouch').css("display", "none");
-
-//loads the pokemon from the pokemonCollection into the user side of battlemode
-  referenceId = $(this).attr("data-id");
-  var ref = firebase.database().ref(referenceId);
-  ref.on("value", function(snapshot) {
-
-    userHealth = snapshot.val().health
-
-    var nameEntry = $('<h3>').text(snapshot.val().name)
-    var healthEntry = $('<h2>').text(userHealth)
-    var imageEntry = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
-
-    $('#user').append(imageEntry, healthEntry, nameEntry)
-
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
-
-//loads the pokemon from the random Ajax call into the catch side of battlemode
-  $('#catch').empty();
-  var nameEntry = $('<h3>').text(pokeName)
-  var healthEntry = $('<h2>').text(catchHealth)
-  var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
-  $("#catch").append(imageEntry, healthEntry, nameEntry)
-
-  battleMode();
-})
-
-
-function battleMode() {
-  $('#battleMode').css("display", "block");
-      battleTheme.play();
-
-
-  $('#attackButton').on("click", function() {
-      pikachu.play();
-
-      userHealth = userHealth - 10;
-      catchHealth = catchHealth - 10;
-
-      $('#catch h2').text(catchHealth);
-      $('#user h2').text(userHealth);
-
-      if (userHealth <= 0) {
-        var ref = firebase.database().ref(referenceId);
-        ref.remove()
-      };
-
-      $('#catchButton').on("click", function() {
-        if (catchHealth < 10 && catchHealth > 0) {
-          catched.play();
-          database.ref().push({ 
-            name: pokeName,
-            health: pokeHealth,
-            image: pokeImage
-          });
-        };
-      });   
-  });
-
-  
-
-// closes battle mode, potentially shows stats of pokemon collected
-  // if (gameover) {
-  // $('#battleMode').css("display", "none");
-  // }
-
+function addPokeToPouch(pokeObj) {
+  var $poke = renderPoke(pokeObj)
+  $pokemoncollection.prepend($poke).isotope('prepended', $poke).isotope()
 }
 
+function addPokeToDB(pokeObj) {
+  database.ref().push(pokeObj);
+}
 
-
-var removeMarker = function(marker, markerId) {
-    marker.setMap(null);
-    delete markers[markerId];
-};
+function renderPoke(pokeObj, keys) {
+  var $div = $("<button id='pokeselectorbutton' data-id='" + pokeObj.id + "'>")
+  if (!keys || !keys.length) { keys = Object.getOwnPropertyNames(pokeObj) }
+  keys.forEach(k => {
+    switch(k) {
+      case 'id': {
+        $div.append($('<div class="id">').text('id: ' + pokeObj.id))
+        break
+      }
+      case 'name': {
+        $div.append($('<div class="name">').text('name: ' + pokeObj.name))
+        break
+      }
+      case 'type': {
+        $div.append($('<div class="type">').text('type: ' + pokeObj.type))
+        break
+      }
+      case 'attack': {
+        $div.append($('<div class="attack">').text('attack: ' + pokeObj.attack))
+        break
+      }
+      case 'hp': {
+        $div.append($('<div class="hp">').text('hp: ' + pokeObj.hp))
+        break
+      }
+      case 'image': {
+        $div.append($("<img class='poke'>").attr("src", pokeObj.image))
+        break
+      }
+    }
+  })
+  return $div
+} //will output poke image and data in html
 
 //firebase
 function loadPokemon() {
@@ -231,20 +250,25 @@ function loadPokemon() {
     });
 }
 
+var removeMarker = function(marker, markerId) {
+    marker.setMap(null);
+    delete markers[markerId];
+};
 
 //on click open and close pouch
-
-// $('#pouchbutton').on("click", function() {
+$('#pouchbutton').on("click", function() {
   // loadPokemon();
-//   $('#pouch').css("display", "block");
-// });
+  $('#pouch').css("display", "block");
+});
 
-// $('#closePouch').on("click", function() {
-//   $('#pouch').css("display", "none");
-// });
+$('#closePouch').on("click", function() {
+  $('#pouch').css("display", "none");
+});
 
 $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
 });
 
-
+$('#closeBattle').on("click", function() {
+  $('#battleMode').css("display", "none");
+});
