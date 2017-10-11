@@ -11,6 +11,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
     <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
     
 </head>
@@ -26,11 +28,17 @@
     </div>
 
     <div id='pouch'>
-      <button id='closepouch'>&times;</button>
-      <div id="div1">
-        <div id="pokemoncollection">
-          <div id='collectionspacer'></div>
-        </div> 
+
+      <div id="pouchControls">
+        <span class='h3 label'>Sort By:</span>
+        <button class='sortby number'>number</button>
+        <button class='sortby type'>type</button>
+        <button class='sortby hp'>hp</button>
+        <button id='closepouch'>&times;</button>
+      </div>
+      <div id="pokemoncollection">
+        <div id='collectionspacer'></div>
+
       </div>
     </div>
   </div>
