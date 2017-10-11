@@ -21,6 +21,27 @@
   <div id='loGO'><img src='assets/images/GO.png'></div>
   <div id='maincontainer'>
 
+    <div id='userPortal'>
+      <div id='logInContainer'>
+        <div class="input-group">
+              <select id="sel1">
+                <option value="1">Log In</option>
+                <option value="2" selected="selected">Create Account</option>
+              </select>
+        </div>
+        <div class="input-group">
+              <input type="text" id="email" class="form-control" name="search" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+            <input type="text" id="password" class="form-control" name="begin" placeholder="Password" required>
+        </div>
+        <div class="input-group">
+            <button id="sumbit" class="btn btn-default" type="button">Submit</button>  
+        </div>
+      </div>
+    </div>
+
+
     <div id="map"></div>
 
     <div id='mapbuttons'>
@@ -28,6 +49,11 @@
     </div>
 
     <div id='pouch'>
+
+      <button id='closePouch'>&times;</button>
+      <div id="div1">
+        <div id="pokemonCollection"></div> 
+      </div>
       <div id="pouchControls">
         <span class='h3 label'>Sort By:</span>
         <button class='sortby number'>number</button>
@@ -35,9 +61,7 @@
         <button class='sortby hp'>hp</button>
         <button id='closePouch'>&times;</button>
       </div>
-        <div id="pokemonCollection">
-          <div id='collectionspacer'></div>
-        </div>
+        
     </div>
 
     <div id='battleMode'>

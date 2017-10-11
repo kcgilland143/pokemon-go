@@ -26,6 +26,22 @@ html, body {
   overflow: hidden;
 }
 
+#userPortal {
+    position: absolute;
+    z-index: 10;
+    background: rgba(0,0,0,.5);
+    height: 400px;
+    width: 700px;
+    border-radius: 20px;
+}
+
+#logInContainer {
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
 
 #map {
     position: absolute;
@@ -246,6 +262,7 @@ button {
     left: 225px;
     color: white;
 }
+
 
 #catch {
     border: 5px solid red;
