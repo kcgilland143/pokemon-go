@@ -11,6 +11,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
     <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
     
 </head>
@@ -18,6 +20,7 @@
   
   <div id='loGO'><img src='assets/images/GO.png'></div>
   <div id='maincontainer'>
+
     <div id='userPortal'>
       <div id='logInContainer'>
         <div class="input-group">
@@ -38,6 +41,7 @@
       </div>
     </div>
 
+
     <div id="map"></div>
 
     <div id='mapbuttons'>
@@ -45,10 +49,19 @@
     </div>
 
     <div id='pouch'>
+
       <button id='closePouch'>&times;</button>
       <div id="div1">
         <div id="pokemonCollection"></div> 
       </div>
+      <div id="pouchControls">
+        <span class='h3 label'>Sort By:</span>
+        <button class='sortby number'>number</button>
+        <button class='sortby type'>type</button>
+        <button class='sortby hp'>hp</button>
+        <button id='closePouch'>&times;</button>
+      </div>
+        
     </div>
 
     <div id='battleMode'>
@@ -67,6 +80,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+  <script type="text/javascript" src="assets/javascript/battle.js"></script>
     
 </body>
 </html>
