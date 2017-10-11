@@ -89,9 +89,15 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
+// <<<<<<< e587f8e7cd310efbbc11dc2f3f76d0bc1d842272
         loadPokemon();
         fetchAjax().done(addPokeToVariables);
         $('#pouch').css("display", "block");
+// =======
+        // fetchAjax().done(function (resp) {
+        //   addPokeToPouch(getPokeValues(resp))
+        // });
+// >>>>>>> added isotope, changed poke render function as well as data handling functions
     });    
 };
 
@@ -113,6 +119,28 @@ var pikachu = new Audio("assets/audioClips/pikachu.wav");
 var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
 var catched = new Audio("assets/audioClips/catch.wav")
 
+var $pokemoncollection = $('#pokemoncollection').isotope({
+  itemselector: '.pokeselectorbutton',
+  layoutMode: 'fitRows',
+  getSortData: {
+    id: '.id',
+    name: '.name',
+    hp: '.hp',
+    type: '.type'
+  },
+  sortBy: ['id', 'hp']
+})
+$('#pouchControls .sortby.number').on('click', function () {
+  console.log('clicked me')
+  $pokemoncollection.isotope({sortBy : 'id'})
+})
+$('#pouchControls .sortby.type').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'type'})
+})
+$('#pouchControls .sortby.hp').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+})
+
 
 function fetchAjax() {
   randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -124,10 +152,11 @@ function fetchAjax() {
 }
 
 function addPokeToVariables(response) {
-  pokeName = response.name;
-  pokeHealth = response.base_experience;
-  catchHealth = response.base_experience;
-  pokeImage = response.sprites.front_shiny;
+  var poke = getPokeValues(response)
+  pokeName = poke.name;
+  pokeHealth = poke.hp;
+  catchHealth = poke.hp;
+  pokeImage = poke.image;
 
   // database.ref().push({ 
   //           name: pokeName,
@@ -136,15 +165,84 @@ function addPokeToVariables(response) {
   //         });
 }
 
+function getPokeValues(response) {
+  var res = {
+    id: response.id,
+    image: response.sprites.front_default,
+    name: response.name,
+    attack: response.stats[4].base_stat,
+    hp: response.stats[5].base_stat,
+    type: response.types[0].type.name
+  }
+  return res
+} //will decide what data gets saved
 
+function addPokeToPouch(pokeObj) {
+  var $poke = renderPoke(pokeObj)
+  $pokemoncollection.prepend($poke).isotope('prepended', $poke).arrange()
+}
+
+function addPokeToDB(pokeObj) {
+  database.ref().push(pokeObj);
+}
+
+function renderPoke(pokeObj, keys) {
+  var $div = $("<button id='pokeselectorbutton' data-id='" + pokeObj.id + "'>")
+  if (!keys || !keys.length) { keys = Object.getOwnPropertyNames(pokeObj) }
+  keys.forEach(k => {
+    switch(k) {
+      case 'id': {
+        $div.append($('<div class="id">').text('id: ' + pokeObj.id))
+        break
+      }
+      case 'name': {
+        $div.append($('<div class="name">').text('name: ' + pokeObj.name))
+        break
+      }
+      case 'type': {
+        $div.append($('<div class="type">').text('type: ' + pokeObj.type))
+        break
+      }
+      case 'attack': {
+        $div.append($('<div class="attack">').text('attack: ' + pokeObj.attack))
+        break
+      }
+      case 'hp': {
+        $div.append($('<div class="hp">').text('hp: ' + pokeObj.hp))
+        break
+      }
+      case 'image': {
+        $div.append($("<img class='poke'>").attr("src", pokeObj.image))
+        break
+      }
+    }
+  })
+  return $div
+} //will output poke image and data in html
+
+var removeMarker = function(marker, markerId) {
+    marker.setMap(null);
+    delete markers[markerId];
+};
+
+//pokemon selector
 $('#pokemonCollection').on("click", "button", function() {
   $('#user').empty();
   $('#pouch').css("display", "none");
 
+
 //loads the pokemon from the pokemonCollection into the user side of battlemode
   referenceId = $(this).attr("data-id");
   var ref = firebase.database().ref(referenceId);
-  ref.on("value", function(snapshot) {
+// removed this because I broke firebase with data restructure
+
+// database.ref().on("child_added", function(childSnapshot){
+//    // var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+//    // var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
+//    var poke = getPokeValues(childSnapshot.val())
+//    $("#pokemoncollection").prepend(renderPoke(poke))
+// });
+
 
     userHealth = snapshot.val().health
 
@@ -154,9 +252,9 @@ $('#pokemonCollection').on("click", "button", function() {
 
     $('#user').append(imageEntry, healthEntry, nameEntry)
 
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
+  // }, function (error) {
+  //    console.log("Error: " + error.code);
+  // });
 
 //loads the pokemon from the random Ajax call into the catch side of battlemode
   $('#catch').empty();
