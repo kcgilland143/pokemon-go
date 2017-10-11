@@ -240,10 +240,13 @@ function loadPokemon() {
   $('#pokemonCollection').empty()
 
     database.ref().on("child_added", function(childSnapshot){
-       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
-       var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
-       
-       $("#pokemonCollection").prepend(button)
+      var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+      var name = $("<h4 class='hoverName'>").append(childSnapshot.val().name);
+      var health = $("<h4 class='hoverHealth'>").append(childSnapshot.val().health);
+      var button = $("<button class='button__description' data-id='" + childSnapshot.key + "'>").append(name, health);
+      var div = $("<div class='button__wrap'>").append(image, button);
+
+      $("#pokemonCollection").prepend(div)
     });
 }
 
