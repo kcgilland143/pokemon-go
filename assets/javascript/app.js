@@ -89,8 +89,15 @@ var bindMarkerEvents = function(marker) {
         var markerId = "marker_(" + getMarkerUniqueId(point.latLng.lat(), point.latLng.lng()) + ")";
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
+        // loadPokemon();
+        // fetchAjax().done(addPokeToVariables);
+        // $('#pouch').css("display", "block");
         fetchAjax().done(function (resp) {
-          addPokeToPouch(getPokeValues(resp))
+          opponent = getPokeValues(resp)
+          // addPokeToPouch(opponent)
+          addPokeToDB(opponent)
+          battleMode();
+          loadPokemon();
         });
     });    
 };
@@ -99,10 +106,40 @@ var bindMarkerEvents = function(marker) {
 //bunch of global variables hidden deep in code
 //#style
 
-var randomNumber;
-var pokeName;
-var pokeHealth;
-var pokeImage;
+var user;
+var opponent;
+
+var referenceId;
+
+var userHealth;
+var catchHealth;
+
+var pikachu = new Audio("assets/audioClips/pikachu.wav");
+var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
+var catched = new Audio("assets/audioClips/catch.wav")
+
+var $pokemoncollection = $('#pokemoncollection').isotope({
+  itemselector: '.pokeselectorbutton',
+  layoutMode: 'fitRows',
+  getSortData: {
+    id: '.id',
+    name: '.name',
+    hp: '.hp',
+    type: '.type'
+  },
+  sortBy: ['id', 'hp']
+})
+$('#pouchControls .sortby.number').on('click', function () {
+  console.log('clicked me')
+  $pokemoncollection.isotope({sortBy : 'id'})
+})
+$('#pouchControls .sortby.type').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'type'})
+})
+$('#pouchControls .sortby.hp').on('click', function () {
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+})
+
 
 var $pokemoncollection = $('#pokemoncollection').isotope({
   itemselector: '.pokeselectorbutton',
@@ -135,6 +172,14 @@ function fetchAjax() {
   });
 }
 
+function addPokeToVariables(response) {
+  var poke = getPokeValues(response)
+  pokeName = poke.name;
+  pokeHealth = poke.hp;
+  catchHealth = poke.hp;
+  pokeImage = poke.image;
+}
+
 function getPokeValues(response) {
   var res = {
     id: response.id,
@@ -149,7 +194,7 @@ function getPokeValues(response) {
 
 function addPokeToPouch(pokeObj) {
   var $poke = renderPoke(pokeObj)
-  $pokemoncollection.prepend($poke).isotope('prepended', $poke).arrange()
+  $pokemoncollection.prepend($poke).isotope('prepended', $poke).isotope()
 }
 
 function addPokeToDB(pokeObj) {
@@ -190,49 +235,37 @@ function renderPoke(pokeObj, keys) {
   return $div
 } //will output poke image and data in html
 
+//firebase
+function loadPokemon() {
+  $('#pokemonCollection').empty()
+
+    database.ref().on("child_added", function(childSnapshot){
+       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
+       var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
+       
+       $("#pokemonCollection").prepend(button)
+    });
+}
+
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
+    delete markers[markerId];
 };
 
-//firebase
-
-// removed this because I broke firebase with data restructure
-
-// database.ref().on("child_added", function(childSnapshot){
-//    // var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
-//    // var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
-//    var poke = getPokeValues(childSnapshot.val())
-//    $("#pokemoncollection").prepend(renderPoke(poke))
-// });
-
-//onclick
-
-$('#pokemoncollection').on("click", "button", function() {
-  $('#id01').css("display", "block");
-  $('#user').empty();
-
-  var ref = firebase.database().ref($(this).attr("data-id"));
-  ref.on("value", function(snapshot) {
-     var image1 = $("<img class='poke'>").attr("src", snapshot.val().image);
-      $('#user').append(image1)
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
-
-  // fetchAjax(); may be unneccesary
-  $('#opponent').empty();
-  var image = $("<img class='poke'>").attr("src", pokeImage)
-  $("#opponent").append(image)
-})
-
 //on click open and close pouch
-
 $('#pouchbutton').on("click", function() {
+  // loadPokemon();
   $('#pouch').css("display", "block");
 });
 
-$('#closepouch').on("click", function() {
+$('#closePouch').on("click", function() {
   $('#pouch').css("display", "none");
 });
 
+$('#closeBattle').on("click", function() {
+  $('#battleMode').css("display", "none");
+});
 
+$('#closeBattle').on("click", function() {
+  $('#battleMode').css("display", "none");
+});

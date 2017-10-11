@@ -28,31 +28,25 @@
     </div>
 
     <div id='pouch'>
-
       <div id="pouchControls">
         <span class='h3 label'>Sort By:</span>
         <button class='sortby number'>number</button>
         <button class='sortby type'>type</button>
         <button class='sortby hp'>hp</button>
-        <button id='closepouch'>&times;</button>
+        <button id='closePouch'>&times;</button>
       </div>
-      <div id="pokemoncollection">
-        <div id='collectionspacer'></div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='container'>
-      <div id="id01" class="w3-modal">
-        <div class="w3-modal-content">
-          <div class="w3-container">
-            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <div id='opponent'></div>
-            <div id='user'></div>
-          </div>
+        <div id="pokemonCollection">
+          <div id='collectionspacer'></div>
         </div>
+    </div>
+
+    <div id='battleMode'>
+      <button id='closeBattle'>&times;</button>
+      <div id='mainFrame'>
+        <div id='catch'></div>
+        <div id='user'></div>
+        <button id='attackButton'>Attack</button>
+        <button id='catchButton'>Catch</button>
       </div>
     </div>
   </div>
@@ -62,6 +56,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+  <script type="text/javascript" src="assets/javascript/battle.js"></script>
     
 </body>
 </html>
