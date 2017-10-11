@@ -13,7 +13,7 @@ function battleMode() {
       $('#user h2').text(userHealth);
 
       if (userHealth <= 0) {
-        var ref = firebase.database().ref(referenceId);
+        var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
         ref.remove()
       };
 
@@ -22,7 +22,7 @@ function battleMode() {
   $('#catchButton').on("click", function() {
     if (catchHealth < 10 && catchHealth > 0) {
       catched.play();
-      database.ref().push({ 
+      database.ref().child("Users").child(userId.uid).push({ 
         name: pokeName,
         health: pokeHealth,
         image: pokeImage
@@ -34,6 +34,38 @@ function battleMode() {
   // $('#battleMode').css("display", "none");
   // }
 }
+
+// $('#pokemonCollection').on("click", "button", function() {
+//   $('#user').empty();
+//   $('#pouch').css("display", "none");
+
+// //loads the pokemon from the pokemonCollection into the user side of battlemode
+//   referenceId = $(this).attr("data-id");
+//   var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
+//   ref.on("value", function(snapshot) {
+
+//     userHealth = snapshot.val().health
+
+//     var nameEntry = $('<h3>').text(snapshot.val().name)
+//     var healthEntry = $('<h2>').text(userHealth)
+//     var imageEntry = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
+
+//     $('#user').append(imageEntry, healthEntry, nameEntry)
+
+//   }, function (error) {
+//      console.log("Error: " + error.code);
+//   });
+
+// //loads the pokemon from the random Ajax call into the catch side of battlemode
+//   $('#catch').empty();
+//   var nameEntry = $('<h3>').text(pokeName)
+//   var healthEntry = $('<h2>').text(catchHealth)
+//   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
+//   $("#catch").append(imageEntry, healthEntry, nameEntry)
+
+//   battleMode();
+// })
+
 
 $('#pokemonCollection').on("click", "button", function selectUserPokemon() {
   $('#user').empty();
@@ -59,7 +91,8 @@ $('#pokemonCollection').on("click", "button", function selectUserPokemon() {
 
 //loads the pokemon from the random Ajax call into the catch side of battlemode
   $('#catch').empty();
-  var image = renderPoke(opponent)
+  var image = renderPoke(opponent, ['image'])
+  console.log(image)
   $("#catch").append(image)
 // ===
 //   var nameEntry = $('<h3>').text(pokeName)
