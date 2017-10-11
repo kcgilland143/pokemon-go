@@ -93,8 +93,9 @@ var bindMarkerEvents = function(marker) {
         // fetchAjax().done(addPokeToVariables);
         // $('#pouch').css("display", "block");
         fetchAjax().done(function (resp) {
-          var opponent = getPokeValues(resp)
-          addPokeToPouch(opponent)
+          opponent = getPokeValues(resp)
+          // addPokeToPouch(opponent)
+          addPokeToDB(opponent)
           battleMode();
           loadPokemon();
         });
@@ -105,16 +106,8 @@ var bindMarkerEvents = function(marker) {
 //bunch of global variables hidden deep in code
 //#style
 
-var randomNumber;
-var pokeName;
-var pokeHealth;
-var pokeImage;
-var referenceId;
-var userHealth;
-var catchHealth;
-var pikachu = new Audio("assets/audioClips/pikachu.wav");
-var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
-var catched = new Audio("assets/audioClips/catch.wav")
+var user;
+var opponent;
 
 var referenceId;
 
@@ -163,12 +156,6 @@ function addPokeToVariables(response) {
   pokeHealth = poke.hp;
   catchHealth = poke.hp;
   pokeImage = poke.image;
-
-  // database.ref().push({ 
-  //           name: pokeName,
-  //           health: pokeHealth,
-  //           image: pokeImage
-  //         });
 }
 
 function getPokeValues(response) {
@@ -191,45 +178,6 @@ function addPokeToPouch(pokeObj) {
 function addPokeToDB(pokeObj) {
   database.ref().push(pokeObj);
 }
-
-$('#pokemonCollection').on("click", "button", function() {
-  $('#user').empty();
-  $('#pouch').css("display", "none");
-
-//loads the pokemon from the pokemonCollection into the user side of battlemode
-  referenceId = $(this).attr("data-id");
-  var ref = firebase.database().ref(referenceId);
-  ref.on("value", function(snapshot) {
-     var image1 = renderPoke(snapshot.val());
-      $('#user').append(image1)
-// =======
-
-//     userHealth = snapshot.val().health
-
-//     var nameEntry = $('<h3>').text(snapshot.val().name)
-//     var healthEntry = $('<h2>').text(userHealth)
-//     var imageEntry = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
-
-//     $('#user').append(imageEntry, healthEntry, nameEntry)
-
-// >>>>>>> basics down, lots of bugs, but enough to work off of
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
-
-//loads the pokemon from the random Ajax call into the catch side of battlemode
-  $('#catch').empty();
-  var image = renderPoke(opponent)
-  $("#catch").append(image)
-// ===
-//   var nameEntry = $('<h3>').text(pokeName)
-//   var healthEntry = $('<h2>').text(catchHealth)
-//   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
-//   $("#catch").append(image)
-// >>>>>>> basics down, lots of bugs, but enough to work off of
-
-  battleMode();
-})
 
 function renderPoke(pokeObj, keys) {
   var $div = $('<button class="pokeselectorbutton" data-id="' + pokeObj.id + '" >')
@@ -265,68 +213,6 @@ function renderPoke(pokeObj, keys) {
   return $div
 } //will output poke image and data in html
 
-function battleMode() {
-  $('#battleMode').css("display", "block");
-  // add catched pokemon to the database
-  // if (userWins) {
-  //   database.ref().push({ 
-  //       name: pokeName,
-  //       health: pokeHealth,
-  //       image: pokeImage
-  //     });
-  // }
-      battleTheme.play();
-
-  $('#attackButton').on("click", function() {
-      pikachu.play();
-
-      userHealth = userHealth - 10;
-      catchHealth = catchHealth - 10;
-
-      $('#catch h2').text(catchHealth);
-      $('#user h2').text(userHealth);
-
-      if (userHealth <= 0) {
-        var ref = firebase.database().ref(referenceId);
-        ref.remove()
-      };
-
-      $('#catchButton').on("click", function() {
-        if (catchHealth < 10 && catchHealth > 0) {
-          catched.play();
-          database.ref().push({ 
-            name: pokeName,
-            health: pokeHealth,
-            image: pokeImage
-          });
-        };
-      });   
-  });
-
-  
-
-// closes battle mode, potentially shows stats of pokemon collected
-  // if (gameover) {
-  // $('#battleMode').css("display", "none");
-  // }
-}
-
-var removeMarker = function(marker, markerId) {
-    marker.setMap(null);
-    delete markers[markerId];
-};
-
-//pokemon selector
-$('#pokemonCollection').on("click", "button", function() {
-  $('#user').empty();
-  $('#pouch').css("display", "none");
-
-
-//loads the pokemon from the pokemonCollection into the user side of battlemode
-  referenceId = $(this).attr("data-id");
-  var ref = firebase.database().ref(referenceId);
-
-
 //firebase
 function loadPokemon() {
   $('#pokemonCollection').empty()
@@ -339,105 +225,12 @@ function loadPokemon() {
     });
 }
 
-// removed this because I broke firebase with data restructure
-
-// database.ref().on("child_added", function(childSnapshot){
-//    // var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
-//    // var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
-//    var poke = getPokeValues(childSnapshot.val())
-//    $("#pokemoncollection").prepend(renderPoke(poke))
-// });
-
-
-    userHealth = snapshot.val().health
-
-    var nameEntry = $('<h3>').text(snapshot.val().name)
-    var healthEntry = $('<h2>').text(userHealth)
-    var imageEntry = $("<img class='pokeBattle'>").attr("src", snapshot.val().image);
-
-    $('#user').append(imageEntry, healthEntry, nameEntry)
-
-  // }, function (error) {
-  //    console.log("Error: " + error.code);
-  // });
-
-//loads the pokemon from the random Ajax call into the catch side of battlemode
-  $('#catch').empty();
-  var nameEntry = $('<h3>').text(pokeName)
-  var healthEntry = $('<h2>').text(catchHealth)
-  var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
-  $("#catch").append(imageEntry, healthEntry, nameEntry)
-
-  battleMode();
-})
-
-
-function battleMode() {
-  $('#battleMode').css("display", "block");
-      battleTheme.play();
-
-
-  $('#attackButton').on("click", function() {
-      pikachu.play();
-
-      userHealth = userHealth - 10;
-      catchHealth = catchHealth - 10;
-
-      $('#catch h2').text(catchHealth);
-      $('#user h2').text(userHealth);
-
-      if (userHealth <= 0) {
-        var ref = firebase.database().ref(referenceId);
-        ref.remove()
-      };
-
-      $('#catchButton').on("click", function() {
-        if (catchHealth < 10 && catchHealth > 0) {
-          catched.play();
-          database.ref().push({ 
-            name: pokeName,
-            health: pokeHealth,
-            image: pokeImage
-          });
-        };
-      });   
-  });
-
-  
-
-// closes battle mode, potentially shows stats of pokemon collected
-  // if (gameover) {
-  // $('#battleMode').css("display", "none");
-  // }
-
-}
-
-
-
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
     delete markers[markerId];
 };
-
-//firebase
-function loadPokemon() {
-  $('#pokemonCollection').empty()
-
-    database.ref().on("child_added", function(childSnapshot){
-       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
-       var button = $("<button id='pokeselectorbutton' data-id='" + childSnapshot.key + "'>").append(image)
-       
-       $("#pokemonCollection").prepend(button)
-    });
-}
-
 
 //on click open and close pouch
-
-// $('#pouchbutton').on("click", function() {
-  // loadPokemon();
-//   $('#pouch').css("display", "block");
-// });
 $('#pouchbutton').on("click", function() {
   // loadPokemon();
   $('#pouch').css("display", "block");
@@ -454,5 +247,3 @@ $('#closeBattle').on("click", function() {
 $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
 });
-
-

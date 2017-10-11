@@ -63,6 +63,7 @@ button {
     border-top: 4px solid red;
     background: rgba(0,0,0,.8);
     border-radius: 0px 20px 0px 20px;
+    z-index: 100;
 }
 
 
