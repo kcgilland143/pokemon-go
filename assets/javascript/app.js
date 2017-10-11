@@ -8,9 +8,47 @@ var config = {
     storageBucket: "pokemon-g-6760b.appspot.com",
     messagingSenderId: "712269966690"
   };
+
 firebase.initializeApp(config);
 
 var database = firebase.database();
+var userId;
+
+
+// user input
+$('#sumbit').on("click", function() {
+   var select = $('#sel1').val();
+   var email = $('#email').val();
+   var password = $('#password').val();
+  
+   
+
+   if (select == 2) {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(success){
+        alert("New User Created");
+        userId = firebase.auth().currentUser;
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+      });
+   }
+   if (select == 1) {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function(success){
+        alert("Your Logged In");
+        userId = firebase.auth().currentUser;
+      }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+      });
+    };
+
+    $('#userPortal').hide();
+});
+   
+
+
+
+
 
 //Map, Markers, Marker Remove, Marker Action
 
@@ -129,12 +167,18 @@ function addPokeToVariables(response) {
   catchHealth = response.base_experience;
   pokeImage = response.sprites.front_shiny;
 
-  // database.ref().push({ 
-  //           name: pokeName,
-  //           health: pokeHealth,
-  //           image: pokeImage
-  //         });
+
+  var ref = database.ref().child("Users").child(userId.uid)
+  ref.push({ 
+            name: pokeName,
+            health: pokeHealth,
+            image: pokeImage
+          });
 }
+
+var removeMarker = function(marker) {
+    marker.setMap(null);
+};
 
 
 $('#pokemonCollection').on("click", "button", function() {
@@ -143,7 +187,7 @@ $('#pokemonCollection').on("click", "button", function() {
 
 //loads the pokemon from the pokemonCollection into the user side of battlemode
   referenceId = $(this).attr("data-id");
-  var ref = firebase.database().ref(referenceId);
+  var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
   ref.on("value", function(snapshot) {
 
     userHealth = snapshot.val().health
@@ -184,22 +228,27 @@ function battleMode() {
       $('#user h2').text(userHealth);
 
       if (userHealth <= 0) {
-        var ref = firebase.database().ref(referenceId);
+        var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
         ref.remove()
+        // load the you won the pokemon page
       };
 
-      $('#catchButton').on("click", function() {
-        if (catchHealth < 10 && catchHealth > 0) {
-          catched.play();
-          database.ref().push({ 
-            name: pokeName,
-            health: pokeHealth,
-            image: pokeImage
-          });
-        };
-      });   
+      // if (catchHealth <= 0) {
+      //   load you lost the pokemon page
+      // }
   });
 
+  $('#catchButton').on("click", function() {
+    if (catchHealth < 10) {
+      catched.play();
+      database.ref().child("Users").child(userId.uid).push({ 
+        name: pokeName,
+        health: pokeHealth,
+        image: pokeImage
+      });
+      console.log("this")
+    };
+  });   
   
 
 // closes battle mode, potentially shows stats of pokemon collected
@@ -208,8 +257,6 @@ function battleMode() {
   // }
 
 }
-
-
 
 var removeMarker = function(marker, markerId) {
     marker.setMap(null);
@@ -220,7 +267,9 @@ var removeMarker = function(marker, markerId) {
 function loadPokemon() {
   $('#pokemonCollection').empty()
 
-    database.ref().on("child_added", function(childSnapshot){
+    var ref = database.ref().child("Users").child(userId.uid)
+
+    ref.on("child_added", function(childSnapshot){
       var image = $("<img class='poke'>").attr("src", childSnapshot.val().image);
       var name = $("<h4 class='hoverName'>").append(childSnapshot.val().name);
       var health = $("<h4 class='hoverHealth'>").append(childSnapshot.val().health);
@@ -234,14 +283,14 @@ function loadPokemon() {
 
 //on click open and close pouch
 
-// $('#pouchbutton').on("click", function() {
-  // loadPokemon();
-//   $('#pouch').css("display", "block");
-// });
+$('#pouchbutton').on("click", function() {
+  loadPokemon();
+  $('#pouch').css("display", "block");
+});
 
-// $('#closePouch').on("click", function() {
-//   $('#pouch').css("display", "none");
-// });
+$('#closePouch').on("click", function() {
+  $('#pouch').css("display", "none");
+});
 
 $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
