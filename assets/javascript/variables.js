@@ -4,6 +4,8 @@ var randomNumber;
 var pokeName;
 var pokeHealth;
 var pokeImage;
+var pokeAttack;
+var pokeType;
 
 //very important for firebase
 
@@ -20,7 +22,6 @@ var pikachu = new Audio("assets/audioClips/pikachu.wav");
 var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
 var catched = new Audio("assets/audioClips/catch.wav")
 
-
 //map variables
 
 var map;
@@ -32,3 +33,5 @@ var markers = {};
 //isotope
 
 var selector;
+
+

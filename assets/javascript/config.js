@@ -27,7 +27,9 @@ function fetchAjax() {
 
 //isotope
 
-var $pokemoncollection = $('#pokemonCollection').isotope({
+var $pokemoncollection = $('#pokemonCollection');
+
+$pokemoncollection.isotope({
   itemselector: '.pokemon',
   layoutMode: 'fitRows',
   getSortData: {
@@ -36,28 +38,28 @@ var $pokemoncollection = $('#pokemonCollection').isotope({
     hp: '[data-hp]',
     type: '[data-type]'
   },
-  sortBy: ['id', 'hp']
-})
+  sortBy: 'hp'
+});
 
 //isotope controls
 
 $('#pouchControls .sortby.attack').on('click', function () {
-  selector = 'attack'
+  selector = 'attack';
   loadPokemon();
   $pokemoncollection.isotope({sortBy : 'attack', sortAscending: false})
 })
 $('#pouchControls .sortby.name').on('click', function () {
-  selector = 'name'
+  selector = 'name';
   loadPokemon();
   $pokemoncollection.isotope({sortBy : 'name', sortAscending: true})
 })
 $('#pouchControls .sortby.hp').on('click', function () {
-  selector = 'health'
+  selector = 'health';
   loadPokemon();
   $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
 })
 $('#pouchControls .sortby.type').on('click', function () {
-  selector = 'type'
+  selector = 'type';
   loadPokemon();
   $pokemoncollection.isotope({sortBy : 'type', sortAscending: true})
 })
@@ -69,7 +71,6 @@ $('#pouchControls .sortby.type').on('click', function () {
 $('#pouchbutton').on("click", function() {
   loadPokemon();
   $('#pouch').css("display", "block");
-  $pokemoncollection.isotope()
 });
 
 $('#closePouch').on("click", function() {

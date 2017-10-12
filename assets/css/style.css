@@ -169,6 +169,10 @@ button {
 
 /*pokemon selectors*/
 
+#pokemonCollection {
+  width: 700px;
+}
+
 .pokeselectorbutton {
     background: white;
     margin: 10px;
