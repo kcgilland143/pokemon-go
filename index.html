@@ -25,8 +25,8 @@
       <div id='logInContainer'>
         <div class="input-group">
               <select id="sel1">
-                <option value="1">Log In</option>
-                <option value="2" selected="selected">Create Account</option>
+                <option value="1" selected="selected">Log In</option>
+                <option value="2">Create Account</option>
               </select>
         </div>
         <div class="input-group">
@@ -51,17 +51,17 @@
     <div id='pouch'>
 
       <button id='closePouch'>&times;</button>
+      
+      <div id="pouchControls">
+        <span class='h3 label'>Sort By:</span>
+        <button class='sortby attack'>attack</button>
+        <button class='sortby name'>name</button>
+        <button class='sortby type'>type</button>
+        <button class='sortby hp'>hp</button>
+      </div>
       <div id="div1">
         <div id="pokemonCollection"></div> 
       </div>
-      <div id="pouchControls">
-        <span class='h3 label'>Sort By:</span>
-        <button class='sortby number'>number</button>
-        <button class='sortby type'>type</button>
-        <button class='sortby hp'>hp</button>
-        <button id='closePouch'>&times;</button>
-      </div>
-        
     </div>
 
     <div id='battleMode'>
@@ -79,8 +79,16 @@
   <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <script type="text/javascript" src="assets/javascript/app.js"></script>
 
+<!--   <script type="text/javascript" src="assets/javascript/app.js"></script>  -->
+  <!-- remove soon -->
+
+  <script type="text/javascript" src="assets/javascript/variables.js"></script>
+  <script type="text/javascript" src="assets/javascript/config.js"></script>
+  <script type="text/javascript" src="assets/javascript/map.js"></script>
+  <script type="text/javascript" src="assets/javascript/login.js"></script>
+  <script type="text/javascript" src="assets/javascript/markers.js"></script>
+  <script type="text/javascript" src="assets/javascript/render.js"></script>
   <script type="text/javascript" src="assets/javascript/battle.js"></script>
     
 </body>
