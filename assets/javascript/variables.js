@@ -1,0 +1,34 @@
+//stores...
+
+var randomNumber;
+var pokeName;
+var pokeHealth;
+var pokeImage;
+
+//very important for firebase
+
+var referenceId;
+
+//battle variables
+
+var userHealth;
+var catchHealth;
+
+//battle themes
+
+var pikachu = new Audio("assets/audioClips/pikachu.wav");
+var battleTheme = new Audio("assets/audioClips/battleTheme.wav")
+var catched = new Audio("assets/audioClips/catch.wav")
+
+
+//map variables
+
+var map;
+var service;
+var infowindow;
+var gplaces = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
+var markers = {};
+
+//isotope
+
+var selector;
