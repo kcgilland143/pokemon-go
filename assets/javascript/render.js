@@ -1,9 +1,7 @@
 function getPokeValues(response) {
-  fetchAjax();
-  var res = {
+  res = {
     attack: response.stats[4].base_stat,
     hp: response.stats[5].base_stat,
-    num: response.id,
     image: response.sprites.front_default,
     name: response.name,
     type: response.types[0].type.name
@@ -14,10 +12,13 @@ function getPokeValues(response) {
 
 function addPokeToVariables(response) {
   var poke = getPokeValues(response) 
+  console.log(poke)
   pokeName = poke.name;
   pokeHealth = poke.hp;
   catchHealth = poke.hp;
   pokeImage = poke.image;
+  pokeAttack = poke.attack;
+  pokeType = poke.type;
 
 // to add pokemon
 
@@ -31,7 +32,9 @@ function addPokeToVariables(response) {
 }
 
 
+
 $('#pokemonCollection').on("click", "button", function() {
+  fetchAjax().done(addPokeToVariables);
   $('#user').empty();
   $('#pouch').css("display", "none");
 
@@ -39,17 +42,18 @@ $('#pokemonCollection').on("click", "button", function() {
 //loads specific data into battlemode
 //important
 
+
   referenceId = $(this).attr("data-id");
   var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
   ref.on("value", function(snapshot) {
-    var poke = snapshot.val()
-    userHealth = poke.hp
+    var poke = snapshot.val();
+    userHealth = poke.hp;
 
-    var nameEntry = $('<h3>').text(poke.name)
-    var healthEntry = $('<h2>').text(userHealth)
+    var nameEntry = $('<h3>').text(poke.name);
+    var healthEntry = $('<h2>').text(userHealth);
     var imageEntry = $("<img class='pokeBattle'>").attr("src", poke.image);
 
-    $('#user').append(imageEntry, healthEntry, nameEntry)
+    $('#user').append(imageEntry, healthEntry, nameEntry);
 
   }, function (error) {
      console.log("Error: " + error.code);
@@ -68,8 +72,12 @@ $('#pokemonCollection').on("click", "button", function() {
 })
 
 function loadPokemon() {
-  $('#pokemonCollection').empty()
-    console.log("this")
+    $pokemoncollection.empty();
+
+    $pokemoncollection.isotope( 'remove', 
+      $pokemoncollection.find('.pokemon'))
+      .isotope('layout');
+
     var ref = database.ref().child("Users").child(userId.uid)
 
     ref.on("child_added", function(childSnapshot){
@@ -95,10 +103,13 @@ function loadPokemon() {
         .attr('data-attack', poke.attack)
         .attr('data-hp', poke.hp)
         .attr('data-type', poke.type)
-        .addClass("pokemon").append(image, button);
+        .addClass("pokemon")
+        .append(image, button);
 
-      $pokemoncollection
-        .prepend(div)
-        .isotope('prepended', div)
+        $pokemoncollection
+          .prepend(div)
+          .isotope('prepended', div)
     });
+
+    
 }

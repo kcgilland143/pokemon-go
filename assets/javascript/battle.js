@@ -3,7 +3,7 @@ function battleMode() {
       battleTheme.play();
 
 
-  $('#attackButton').on("click", function() {
+  $('#attackButton').unbind().click(function() {
       pikachu.play();
 
       userHealth = userHealth - 10;
@@ -12,20 +12,29 @@ function battleMode() {
       $('#catch h2').text(catchHealth);
       $('#user h2').text(userHealth);
 
-      if (userHealth <= 0) {
+      if (userHealth < 0) {
         var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
         ref.remove()
+
+        $('#battleMode').css("display", "none");
+      };
+
+      if (catchHealth < 0) {
+        $('#battleMode').css("display", "none");
       };
   });
 
-  $('#catchButton').on("click", function() {
+  $('#catchButton').unbind().click(function() {
     if (catchHealth < 10 && catchHealth > 0) {
       catched.play();
       database.ref().child("Users").child(userId.uid).push({ 
         name: pokeName,
-        health: pokeHealth,
-        image: pokeImage
+        hp: pokeHealth,
+        image: pokeImage,
+        attack: pokeAttack,
+        type: pokeType
       });
+      $('#battleMode').css("display", "none");
     };
   });   
 }

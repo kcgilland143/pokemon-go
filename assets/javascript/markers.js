@@ -2,6 +2,7 @@
 
 function createPokeMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //initial ajax call
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i]); 
     }
@@ -35,7 +36,6 @@ var bindMarkerEvents = function(marker) {
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
         loadPokemon();
-        fetchAjax().done(addPokeToVariables);
         $('#pouch').css("display", "block");
     });    
 };
