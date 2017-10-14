@@ -17,7 +17,7 @@ $('#sumbit').on("click", function() {
    }
    if (select == 1) {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(success){
-        alert("Your Logged In");
+        alert("You're Logged In");
         userId = firebase.auth().currentUser;
       }).catch(function(error) {
         var errorCode = error.code;
