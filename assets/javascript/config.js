@@ -68,7 +68,7 @@ $('#pouchControls .sortby.type').on('click', function () {
 
 //on click open and close pouch
 
-$('#pouchbutton').on("click", function() {
+$('#pouchButton').on("click", function() {
   loadPokemon();
   $('#pouch').css("display", "block");
 });

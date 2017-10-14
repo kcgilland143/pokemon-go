@@ -183,14 +183,9 @@ button {
 /*pouch div*/
 
 #pouch {
-    position:absolute;
-    margin:auto;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    width: 70%;
-    height: 70%;
+    height:400px;
+    width:700px;
+    position:relative;
     display: none;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
@@ -201,6 +196,7 @@ button {
     height: 40px;
     margin-left: 10px;
     color: #fff;
+    background:pink;
 }
 
 #pouchControls button.sortby{
@@ -224,7 +220,6 @@ button {
     position:absolute;
     right:35px;
     top:20px;
-    z-index:10;
 }
 
 .glyphicon-remove{
