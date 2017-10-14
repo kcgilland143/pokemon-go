@@ -38,8 +38,10 @@ var bindMarkerEvents = function(marker) {
         loadPokemon();
         fetchAjax().done(function (response) {
           opponent = getPokeValues(response)
-          battleMode()
+          $('#catch').empty()
+          renderPokeInBattle(opponent, $('#catch'))
         })
+        battleMode()
         //initialize new opponent
         $('#pouch').css("display", "block");
     });    

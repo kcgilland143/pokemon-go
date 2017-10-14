@@ -19,7 +19,7 @@ function getPokeValuesFromDB(snapshot) {
 
 function initPokeBattleValues (pokeObj) {
   pokeObj.health = pokeObj.hp
-  pokeObj.atk = Math.floor(pokeObj.attack / 5)
+  pokeObj.atk = Math.floor(pokeObj.attack / 7)
 }
 
 
@@ -44,6 +44,13 @@ function addPokeToVariables(response) {
 // }
 }
 
+function renderPokeInBattle (pokeObj, targetElem) {
+  var nameEntry = $('<h3>').text(pokeObj.name);
+  var healthEntry = $('<h2>').text(pokeObj.health);
+  var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeObj.image);
+  targetElem.append(imageEntry, healthEntry, nameEntry)
+}
+
 
 
 $('#pokemonCollection').on("click", "button", function() {
@@ -61,11 +68,7 @@ $('#pokemonCollection').on("click", "button", function() {
   ref.once("value").then(function(snapshot) {
     user = getPokeValuesFromDB(snapshot)
 
-    var nameEntry = $('<h3>').text(user.name);
-    var healthEntry = $('<h2>').text(user.health);
-    var imageEntry = $("<img class='pokeBattle'>").attr("src", user.image);
-
-    $('#user').append(imageEntry, healthEntry, nameEntry);
+    renderPokeInBattle(user, $('#user'))
     
   }, function (error) {
      console.log("Error: " + error.code);
@@ -74,13 +77,9 @@ $('#pokemonCollection').on("click", "button", function() {
 //loads specific data into battlemode
 //important
 
-  $('#catch').empty();
-  var nameEntry = $('<h3>').text(opponent.name)
-  var healthEntry = $('<h2>').text(opponent.health)
-  var imageEntry = $("<img class='pokeBattle'>").attr("src", opponent.image)
-  $("#catch").append(imageEntry, healthEntry, nameEntry)
-
   if (opponent) {
+    $('#catch').empty();
+    renderPokeInBattle(opponent, $('#catch'))
     battleMode();
   }
 })
