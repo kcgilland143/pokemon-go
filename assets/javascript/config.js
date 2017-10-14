@@ -81,53 +81,20 @@ $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
 });
 
-//on click open and close help modal
+//on click open and close modals
 
-var infoModal = document.getElementById('infoModal');
-var infoButton = document.getElementById('infoButton');
-var loginFailure = document.getElementById('loginFailure');
-var loginSuccess = document.getElementById('loginSuccess');
-var pokeCollected = document.getElementById('pokeCollected');
-var pokeLost = document.getElementById('pokeLost');
-var pokeMissed = document.getElementById('pokeMissed');
-
-var infoClose = document.getElementById('close');
-var failureClose = document.getElementById('failureClose');
-var successClose = document.getElementById('successClose');
-var collectClose = document.getElementById('collectClose');
-var lostClose = document.getElementById('lostClose');
-var missedClose = document.getElementById('missedClose');
-
-
-$(infoButton).on('click', function(){
+$('#infoButton').on('click', function(){
   infoModal.style.display = 'block';
 });
 
-$(infoClose).on('click', function(){
+$('#modalBox').on("click", "span", function(){
   infoModal.style.display = 'none';
-});
-
-$(failureClose).on('click', function(){
   loginFailure.style.display = 'none';
-});
-
-$(successClose).on('click', function(){
   loginSuccess.style.display = 'none';
-});
-
-$(collectClose).on('click', function(){
   pokeCollected.style.display = 'none';
-});
-
-$(lostClose).on('click', function(){
   pokeLost.style.display = 'none';
-});
-
-$(missedClose).on('click', function(){
   pokeMissed.style.display = 'none';
 });
-
-
 
 window.onclick = function(event){
   if (event.target == infoModal){
