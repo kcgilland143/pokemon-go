@@ -36,6 +36,11 @@ var bindMarkerEvents = function(marker) {
         var marker = markers[markerId];
         removeMarker(marker, markerId); 
         loadPokemon();
+        fetchAjax().done(function (response) {
+          opponent = getPokeValues(response)
+          battleMode()
+        })
+        //initialize new opponent
         $('#pouch').css("display", "block");
     });    
 };

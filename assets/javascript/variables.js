@@ -13,6 +13,9 @@ var referenceId;
 
 //battle variables
 
+var user
+var opponent
+
 var userHealth;
 var catchHealth;
 

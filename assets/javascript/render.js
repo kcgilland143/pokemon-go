@@ -6,8 +6,21 @@ function getPokeValues(response) {
     name: response.name,
     type: response.types[0].type.name
   }
+  initPokeBattleValues(res)
   return res
 } //will decide what data gets saved
+
+function getPokeValuesFromDB(snapshot) {
+  res = snapshot.val()
+  res.key = snapshot.key
+  initPokeBattleValues(res)
+  return res
+}
+
+function initPokeBattleValues (pokeObj) {
+  pokeObj.health = pokeObj.hp
+  pokeObj.atk = Math.floor(pokeObj.attack / 5)
+}
 
 
 function addPokeToVariables(response) {
@@ -35,8 +48,6 @@ function addPokeToVariables(response) {
 
 $('#pokemonCollection').on("click", "button", function() {
   // fetchAjax().done(addPokeToVariables);
-  catchHealth = pokeHealth
-  catchAttack = Math.floor(pokeAttack / 5)
   $('#user').empty();
   $('#pouch').css("display", "none");
 
@@ -48,13 +59,11 @@ $('#pokemonCollection').on("click", "button", function() {
   referenceId = $(this).attr("data-id");
   var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
   ref.once("value").then(function(snapshot) {
-    var poke = snapshot.val();
-    userHealth = poke.hp;
-    userAttack = Math.floor(poke.attack / 5)
+    user = getPokeValuesFromDB(snapshot)
 
-    var nameEntry = $('<h3>').text(poke.name);
-    var healthEntry = $('<h2>').text(userHealth);
-    var imageEntry = $("<img class='pokeBattle'>").attr("src", poke.image);
+    var nameEntry = $('<h3>').text(user.name);
+    var healthEntry = $('<h2>').text(user.health);
+    var imageEntry = $("<img class='pokeBattle'>").attr("src", user.image);
 
     $('#user').append(imageEntry, healthEntry, nameEntry);
     
@@ -66,12 +75,14 @@ $('#pokemonCollection').on("click", "button", function() {
 //important
 
   $('#catch').empty();
-  var nameEntry = $('<h3>').text(pokeName)
-  var healthEntry = $('<h2>').text(catchHealth)
-  var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeImage)
+  var nameEntry = $('<h3>').text(opponent.name)
+  var healthEntry = $('<h2>').text(opponent.health)
+  var imageEntry = $("<img class='pokeBattle'>").attr("src", opponent.image)
   $("#catch").append(imageEntry, healthEntry, nameEntry)
 
-  battleMode();
+  if (opponent) {
+    battleMode();
+  }
 })
 
 function loadPokemon() {
