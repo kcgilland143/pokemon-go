@@ -183,7 +183,7 @@ button {
 /*pouch div*/
 
 #pouch {
-    position: absolute;
+    position:absolute;
     margin:auto;
     left:0;
     right:0;
@@ -195,7 +195,6 @@ button {
     background: rgba(0,0,0,.5);
     border-radius: 20px;
     overflow: auto;
-    z-index:9;
 }
 
 #pouchControls {
@@ -244,10 +243,6 @@ button {
     overflow: hidden;
 }
 
-#collectionspacer {
-    height: 20px;
-}
-
 
 /*pokemon selectors*/
 
@@ -255,7 +250,7 @@ button {
   width: 700px;
 }
 
-.pokeselectorbutton {
+.pokeSelectorButton {
     background: white;
     margin: 10px;
     border-radius: 8px;
