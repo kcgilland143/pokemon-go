@@ -192,7 +192,7 @@ button {
     right:0;
     top:0;
     bottom:0;
-    width: 70%;
+    width: 600px;
     height: 70%;
     display: none;
     background: rgba(0,0,0,.5);
@@ -225,7 +225,7 @@ button {
 
 #closePouch {
   position:relative;
-  float:right;
+  right:;
 }
 
 .glyphicon-remove{
@@ -234,7 +234,7 @@ button {
 }
 
 #div1 {
-    margin-left: 45px;
+    margin-left: 4%;
     padding-top: 20px;
     max-height: 90%;
     overflow: auto;
@@ -248,7 +248,7 @@ button {
 /*pokemon selectors*/
 
 #pokemonCollection {
-  width: 700px;
+  width:500px;
 }
 
 .pokeSelectorButton {
