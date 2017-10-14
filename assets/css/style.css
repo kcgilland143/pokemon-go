@@ -197,12 +197,12 @@ button {
     display: none;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
-    overflow: auto;
+    overflow:hidden;
 }
 
 #pouchControls {
     height: 40px;
-    margin-left: 10px;
+    margin:10px 0 0 10px;
     color: #fff;
 }
 
@@ -224,8 +224,11 @@ button {
 }
 
 #closePouch {
-  position:relative;
-  right:;
+  position:absolute;
+  float:right;
+  right:28px;
+  top:15px;
+  z-index:10;
 }
 
 .glyphicon-remove{
@@ -234,8 +237,8 @@ button {
 }
 
 #div1 {
-    margin-left: 4%;
-    padding-top: 20px;
+    margin:0 4%;
+    /*padding-top: 20px;*/
     max-height: 90%;
     overflow: auto;
 }
@@ -378,21 +381,33 @@ button {
 /*media queries for web responsivity*/
 
 @media only screen and (max-width: 1500px){
-    #bentoBox{
-        width:80%;
-        margin:0 10%;
-    }
-    #mainContainer{
-        width:80%;
-    }
+  #bentoBox{
+      width:80%;
+      margin:0 10%;
+  }
+  #mainContainer{
+      width:80%;
+  }
 }
 
 /*tablets/half-screen browser view*/
 @media only screen and (max-width: 800px) {
-
+  #header{
+    width:60%;
+  }
+  #pouch{
+    width:525px;
+    padding:0;
+    margin:auto;
+  }
+  #div1{
+    margin:auto;
+  }
 }
 
 /*mobile view*/
-@media only screen and (max-width: 375px) {
-
+@media only screen and (max-width: 400px) {
+  #mainContainer{
+    height:50%;
+  }
 }
