@@ -81,7 +81,25 @@ $('#closeBattle').on("click", function() {
   $('#battleMode').css("display", "none");
 });
 
+//on click open and close help modal
 
+var infoModal = document.getElementById('infoModal');
+var infoButton = document.getElementById('infoButton');
+var infoClose = document.getElementById('close');
+
+$(infoButton).on('click', function(){
+  infoModal.style.display = 'block';
+});
+
+$(infoClose).on('click', function(){
+  infoModal.style.display = 'none';
+});
+
+window.onclick = function(event){
+  if (event.target == infoModal){
+    infoModal.style.display = 'none';
+  }
+};
 
 
 
