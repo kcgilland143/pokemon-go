@@ -15,7 +15,7 @@ function addPokeToVariables(response) {
   console.log(poke)
   pokeName = poke.name;
   pokeHealth = poke.hp;
-  catchHealth = poke.hp;
+  // catchHealth = poke.hp;
   pokeImage = poke.image;
   pokeAttack = poke.attack;
   pokeType = poke.type;
@@ -34,7 +34,9 @@ function addPokeToVariables(response) {
 
 
 $('#pokemonCollection').on("click", "button", function() {
-  fetchAjax().done(addPokeToVariables);
+  // fetchAjax().done(addPokeToVariables);
+  catchHealth = pokeHealth
+  catchAttack = Math.floor(pokeAttack / 5)
   $('#user').empty();
   $('#pouch').css("display", "none");
 
@@ -45,16 +47,17 @@ $('#pokemonCollection').on("click", "button", function() {
 
   referenceId = $(this).attr("data-id");
   var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
-  ref.on("value", function(snapshot) {
+  ref.once("value").then(function(snapshot) {
     var poke = snapshot.val();
     userHealth = poke.hp;
+    userAttack = Math.floor(poke.attack / 5)
 
     var nameEntry = $('<h3>').text(poke.name);
     var healthEntry = $('<h2>').text(userHealth);
     var imageEntry = $("<img class='pokeBattle'>").attr("src", poke.image);
 
     $('#user').append(imageEntry, healthEntry, nameEntry);
-
+    
   }, function (error) {
      console.log("Error: " + error.code);
   });

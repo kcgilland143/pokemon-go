@@ -16,6 +16,9 @@ var referenceId;
 var userHealth;
 var catchHealth;
 
+var userAttack;
+var catchAttack;
+
 //battle themes
 
 var pikachu = new Audio("assets/audioClips/pikachu.wav");
