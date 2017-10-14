@@ -140,8 +140,14 @@ button {
     position: absolute;
     z-index: 10;
     background: rgba(0,0,0,.5);
-    height: 400px;
-    width: 700px;
+    position: absolute;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    width: 70%;
+    height: 70%;
     border-radius: 20px;
 }
 
@@ -189,6 +195,7 @@ button {
     background: rgba(0,0,0,.5);
     border-radius: 20px;
     overflow: auto;
+    z-index:9;
 }
 
 #pouchControls {
