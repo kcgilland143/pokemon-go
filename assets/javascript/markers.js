@@ -46,14 +46,14 @@ var getMarkerUniqueId = function(lat, lng) {
 
 var bindMarkerEvents = function(marker) {
 
-  marker.addListener("click", function (point) {
-        var marker = this;
-        removeMarker(marker); 
-        loadPokemon();
-        fetchAjax().done(function (response) {
-          opponent = getPokeValues(response)
-          $('#catch').empty()
-        }
+  // marker.addListener("click", function (point) {
+  //       var marker = this;
+  //       removeMarker(marker); 
+  //       loadPokemon();
+  //       fetchAjax().done(function (response) {
+  //         opponent = getPokeValues(response)
+  //         $('#catch').empty()
+  //       }
   
     fetchAjax(marker.num).done(function (response) {
       this.poke = getPokeValues(response)
