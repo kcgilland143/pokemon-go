@@ -16,10 +16,10 @@ var userId;
 
 //ajax
 
-function fetchAjax() {
-  randomNumber = Math.floor(Math.random() * 100) + 1;
+function fetchAjax(num) {
+  num = num || Math.floor(Math.random() * 150) + 1;
   return $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber + '/',
+      url: "https://pokeapi.co/api/v2/pokemon/" + num + '/',
       dataType: 'json',
       method: 'GET'
   });
