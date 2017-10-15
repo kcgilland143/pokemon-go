@@ -7,7 +7,6 @@ $('#sumbit').on("click", function() {
 
    if (select == 2) {
       firebase.auth().createUserWithEmailAndPassword(email, password).then(function(success){
-        console.log(success)
         alert("New User Created");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
