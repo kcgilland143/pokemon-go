@@ -7,11 +7,12 @@ $('#sumbit').on("click", function() {
 
    if (select == 2) {
       firebase.auth().createUserWithEmailAndPassword(email, password).then(function(success){
-        alert("New User Created");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        loginSuccess.style.display = 'block';
       }).catch(function(error) {
+        loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
         alert("User Does Not Exist: " + errorMessage);
@@ -20,11 +21,12 @@ $('#sumbit').on("click", function() {
    }
    if (select == 1) {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(success){
-        alert("You're Logged In");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        loginSuccess.style.display = 'block';
       }).catch(function(error) {
+        loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
         alert("Invalid Email: " + errorMessage);

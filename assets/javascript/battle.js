@@ -24,11 +24,13 @@ function battleMode() {
         ref.remove()
 
         $('#battleMode').css("display", "none");
+        pokeLost.style.display = 'block';
         opponent = false
       };
 
       if (opponent.health === 0) {
         $('#battleMode').css("display", "none");
+        pokeMissed.style.display = 'block';
         opponent = false
       };
   });
@@ -38,8 +40,9 @@ function battleMode() {
       fetchAjax().done(addPokeToVariables);
       catched.play();
       database.ref().child("Users").child(userId.uid).push(opponent);
-      opponent = false
       $('#battleMode').css("display", "none");
+      pokeCollected.style.display = 'block';
+      opponent = false
     };
   });   
 }
