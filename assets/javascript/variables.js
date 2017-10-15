@@ -10,7 +10,6 @@ var pokeType;
 //very important for firebase
 
 var referenceId;
-var referenceMarkers;
 
 //battle variables
 
