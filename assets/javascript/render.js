@@ -47,9 +47,10 @@ function addPokeToVariables(response) {
 function renderPokeInBattle (pokeObj, $targetElem) {
   $targetElem.empty()
   var nameEntry = $('<h3>').text(pokeObj.name);
-  var healthEntry = $('<h2>').text(pokeObj.health);
+  var healthEntry = $('<h2 class="hp">').text(pokeObj.health);
+  var attackEntry = $('<h2 class="attack">').text(pokeObj.atk)
   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeObj.image);
-  $targetElem.append(imageEntry, healthEntry, nameEntry)
+  $targetElem.append(imageEntry, healthEntry, attackEntry, nameEntry)
 }
 
 function renderPokeInPouch (pokeObj) {
