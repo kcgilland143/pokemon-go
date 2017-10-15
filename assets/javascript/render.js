@@ -61,12 +61,26 @@ function renderPokeInPouch (pokeObj) {
     .append(name, dataObj);
   var div = $("<div class='button__wrap'>")
     .attr('data-name', pokeObj.name)
-    .attr('data-attack', pokeObj.attack)
+    .attr('data-attack', pokeObj.atk)
     .attr('data-hp', pokeObj.hp)
     .attr('data-type', pokeObj.type)
     .addClass("pokemon")
     .append(image, button);
   return div
+}
+
+function decoratePouchHover ($pouchPoke) {
+  var dataShown
+    if (selector == 'health' || 'name') {
+      dataShown = 'HP: ' + $pouchPoke.attr('data-hp')
+    }
+    if (selector == 'attack') {
+      dataShown = 'ATK: ' + $pouchPoke.attr('data-attack')
+    }
+    if (selector == 'type') {
+      dataShown = $pouchPoke.attr('data-type')
+    }
+    $pouchPoke.find('.hoverHealth').text(dataShown)
 }
 
 
@@ -114,24 +128,13 @@ function loadPokemon() {
       var poke = getPokeValuesFromDB(childSnapshot)
       var dataObj;
 
-      var div = renderPokeInPouch(poke)
+      var $div = renderPokeInPouch(poke)
       
-      // future, this can also be a function
-      // i'm thinking, decoratePouchHover
-      var dataObj = $(div).children('.hoverHealth')
-      if (selector == 'health' || 'name') {
-        dataObj.append(poke.hp)
-      }
-      if (selector == 'attack') {
-        dataObj.append(poke.attack)
-      }
-      if (selector == 'type') {
-        dataObj.append(poke.type)
-      }
+      decoratePouchHover($div)
 
         $pokemoncollection
-          .prepend(div)
-          .isotope('prepended', div)
+          .prepend($div)
+          .isotope('prepended', $div)
     });
 
     
