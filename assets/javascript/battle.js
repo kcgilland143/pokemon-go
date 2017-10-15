@@ -16,8 +16,8 @@ function battleMode() {
         user.health = 0
       }
 
-      $('#catch h2').text(opponent.health);
-      $('#user h2').text(user.health);
+      renderPokeInBattle(opponent, $('#catch'))
+      renderPokeInBattle(user, $('#user'))
 
       if (user.health === 0) {
         var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
