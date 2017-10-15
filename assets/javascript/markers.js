@@ -34,19 +34,23 @@ var getMarkerUniqueId = function(lat, lng) {
 var bindMarkerEvents = function(marker) {
     fetchAjax(marker.num).done(function (response) {
       this.poke = getPokeValues(response)
+    
+      this.addListener("click", function (point) {
+        removeMarker(this); //this.setMap(null);?
+        if ($pokemoncollection.children().length > 0) {
+          $('#catch').empty()//questionable if 
+          loadPokemon();//these three
+          battleMode();//go here
+          //initialize new opponent
+          opponent = this.poke
+          renderPokeInBattle(opponent, $('#catch'))
+        } else { 
+          database.ref().child("Users").child(userId.uid).push(this.poke)
+        }
+        $('#pouch').css("display", "block");
+      });    
     }.bind(marker))
-
     // google.maps.event.addListener(marker, 
-    marker.addListener("click", function (point) {
-      removeMarker(this); //this.setMap(null);?
-      $('#catch').empty()//questionable if 
-      loadPokemon();//these three
-      battleMode();//go here
-      //initialize new opponent
-      opponent = this.poke
-      renderPokeInBattle(opponent, $('#catch'))
-      $('#pouch').css("display", "block");
-    });    
 };
 
 var removeMarker = function(marker) {
