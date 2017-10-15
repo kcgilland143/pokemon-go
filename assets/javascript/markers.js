@@ -12,6 +12,30 @@ function createPokeMarkers(results, status) {
 function createMarker(place) {
   var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(40,40));
   var markerId = place.geometry.location;
+
+  var ref = database.ref().child("Users")
+                          .child(userId.uid)
+                          .child("utilities")
+                          .child("markers")
+  
+  
+
+
+  ref.on('value', function(snap) { markers = snap.val(); });
+
+  markers.splice(1, 1);
+  ref.set(markers);
+  
+
+  ref.once("value").then(function(snap) {
+     referenceMarkers = snap.val();
+     console.log(referenceMarkers);
+  }, function (error) {
+     console.log("Error: " + error.code);
+  });
+
+  
+
   if (!markers['marker_' + markerId]) {
     var marker = new google.maps.Marker({
       position: markerId,
@@ -20,6 +44,9 @@ function createMarker(place) {
       id: 'marker_' + markerId,
     });
    markers[marker.get('id')] = marker;
+   
+
+   
    bindMarkerEvents(marker);
   }
 }
