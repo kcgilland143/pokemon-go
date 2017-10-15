@@ -7,13 +7,14 @@ $('#sumbit').on("click", function() {
 
    if (select == 2) {
       firebase.auth().createUserWithEmailAndPassword(email, password).then(function(success){
+        console.log(success)
         alert("New User Created");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
       }).catch(function(error) {
-        alert("User Does Not Exist");
         var errorCode = error.code;
         var errorMessage = error.message;
+        alert("User Does Not Exist: " + errorMessage);
       });
       setTimeout(initialPokemon, 3000);
    }
@@ -23,31 +24,19 @@ $('#sumbit').on("click", function() {
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
       }).catch(function(error) {
-        alert("Invalid Email");
         var errorCode = error.code;
         var errorMessage = error.message;
+        alert("Invalid Email: " + errorMessage);
       });
       fetchAjax().done(addPokeToVariables);
     };
-
-
-
-    function initialPokemon() {
-      
-        var ref = database.ref().child("Users").child(userId.uid);
-        ref.push({
-          name: pokeName,
-          hp: pokeHealth,
-          image: pokeImage,
-          type: pokeType,
-          attack: pokeAttack,
-        });
-        
-    
-        loadPokemon();
-        fetchAjax().done(addPokeToVariables);
-    }
-
-
     
 });
+
+function initialPokemon() {
+    //global variable for user database reference
+    userRef = database.ref().child("Users").child(userId.uid);
+    fetchAjax().done(function (response){
+      userRef.push(getPokeValues(response))
+    })
+}
