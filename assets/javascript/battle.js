@@ -20,16 +20,18 @@ function battleMode() {
       renderPokeInBattle(user, $('#user'))
 
       if (user.health === 0) {
-        var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
+        var ref = database.ref().child("Users").child(userId.uid).child(user.key);
         ref.remove()
 
         $('#battleMode').css("display", "none");
         opponent = false
+        $('#user').empty()
       };
 
       if (opponent.health === 0) {
         $('#battleMode').css("display", "none");
         opponent = false
+        $('#catch').empty()
       };
   });
 
