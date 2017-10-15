@@ -25,13 +25,17 @@ function battleMode() {
 
         $('#battleMode').css("display", "none");
         pokeLost.style.display = 'block';
-        opponent = false
+        $(pokeLost).children('h1')[1]
+          .text("Oh NO!, you've let your " + opponent.name + ' die!');
+        opponent = false;
       };
 
       if (opponent.health === 0) {
         $('#battleMode').css("display", "none");
         pokeMissed.style.display = 'block';
-        opponent = false
+        $(pokeMissed).children('h1')[1]
+          .text("Oh NO!, you've killed the poor " + opponent.name + '!');
+        opponent = false;
       };
   });
 
@@ -42,7 +46,13 @@ function battleMode() {
       database.ref().child("Users").child(userId.uid).push(opponent);
       $('#battleMode').css("display", "none");
       pokeCollected.style.display = 'block';
-      opponent = false
+      $(pokeCollected).children('h1')[1]
+          .text("Congratulations! you've caught a " + opponent.name + "!");
+      opponent = false;
+    } else {
+      pokeCollected.style.display = 'block';
+      $(pokeCollected).children('h1')[1]
+          .text("The " + opponent.name + " Escaped!");
     };
   });   
 }
