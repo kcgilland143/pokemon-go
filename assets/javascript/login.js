@@ -11,6 +11,7 @@ $('#sumbit').on("click", function() {
         alert("New User Created");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
+        userRef = database.ref().child("Users").child(userId.uid);
       }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -23,6 +24,7 @@ $('#sumbit').on("click", function() {
         alert("You're Logged In");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
+        userRef = database.ref().child("Users").child(userId.uid);
       }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -35,7 +37,6 @@ $('#sumbit').on("click", function() {
 
 function initialPokemon() {
     //global variable for user database reference
-    userRef = database.ref().child("Users").child(userId.uid);
     fetchAjax().done(function (response){
       userRef.push(getPokeValues(response))
     })
