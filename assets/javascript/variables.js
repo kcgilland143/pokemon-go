@@ -10,6 +10,7 @@ var pokeType;
 //very important for firebase
 
 var referenceId;
+var userRef;
 
 //battle variables
 
@@ -34,10 +35,19 @@ var map;
 var service;
 var infowindow;
 var gplaces = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
-var markers = {};
+var markers = [];
 
 //isotope
 
 var selector;
+
+//modals
+
+var infoModal = document.getElementById('infoModal');
+var loginFailure = document.getElementById('loginFailure');
+var loginSuccess = document.getElementById('loginSuccess');
+var pokeCollected = document.getElementById('pokeCollected');
+var pokeLost = document.getElementById('pokeLost');
+var pokeMissed = document.getElementById('pokeMissed');
 
 

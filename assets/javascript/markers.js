@@ -13,7 +13,15 @@ function createMarker(place, num) {
   var imgString = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + num + ".png"
   var image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(100,100));
   var markerId = place.geometry.location;
-  if (!markers['marker_' + markerId]) {
+
+  var refMarkers = database.ref().child("Users")
+                        .child(userId.uid)
+                        .child("utilities")
+
+  //references markers from database
+  refMarkers.on('value', function(snap) { markers = snap.val().markers; });
+
+  if (!markers.includes('marker_' + markerId)) {
     var marker = new google.maps.Marker({
       position: markerId,
       icon: image,
@@ -21,7 +29,12 @@ function createMarker(place, num) {
       id: 'marker_' + markerId,
     });
    marker.num = num;
-   markers[marker.get('id')] = marker;
+  //pushes new marker to markers array
+   markers.push(marker.get('id'))
+  //sets markers array to database
+   refMarkers.set({markers: markers});
+
+
    bindMarkerEvents(marker);
   }
 }
@@ -32,6 +45,16 @@ var getMarkerUniqueId = function(lat, lng) {
 }
 
 var bindMarkerEvents = function(marker) {
+
+  marker.addListener("click", function (point) {
+        var marker = this;
+        removeMarker(marker); 
+        loadPokemon();
+        fetchAjax().done(function (response) {
+          opponent = getPokeValues(response)
+          $('#catch').empty()
+        }
+  
     fetchAjax(marker.num).done(function (response) {
       this.poke = getPokeValues(response)
     

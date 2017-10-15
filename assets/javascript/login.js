@@ -7,47 +7,38 @@ $('#sumbit').on("click", function() {
 
    if (select == 2) {
       firebase.auth().createUserWithEmailAndPassword(email, password).then(function(success){
-        alert("New User Created");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
+        userRef = database.ref().child("Users").child(userId.uid);
+        loginSuccess.style.display = 'block';
       }).catch(function(error) {
-        alert("User Does Not Exist");
+        loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
+        alert("User Does Not Exist: " + errorMessage);
       });
       setTimeout(initialPokemon, 3000);
    }
    if (select == 1) {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(success){
-        alert("You're Logged In");
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
+        userRef = database.ref().child("Users").child(userId.uid);
+        loginSuccess.style.display = 'block';
       }).catch(function(error) {
-        alert("Invalid Email");
+        loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
+        alert("Invalid Email: " + errorMessage);
       });
       fetchAjax().done(addPokeToVariables);
     };
-
-
-
-    function initialPokemon() {
-      
-        var ref = database.ref().child("Users").child(userId.uid);
-        ref.push({
-          name: pokeName,
-          hp: pokeHealth,
-          image: pokeImage,
-          type: pokeType,
-          attack: pokeAttack,
-        });
-        
-    
-        loadPokemon();
-        fetchAjax().done(addPokeToVariables);
-    }
-
-
     
 });
+
+function initialPokemon() {
+    //global variable for user database reference
+    fetchAjax().done(function (response){
+      userRef.push(getPokeValues(response))
+    })
+}
