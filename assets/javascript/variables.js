@@ -12,6 +12,7 @@ var pokeType;
 var referenceId;
 var userRef;
 
+
 //battle variables
 
 var user
@@ -36,6 +37,7 @@ var service;
 var infowindow;
 var gplaces = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
 var markers = [];
+var imgString;
 
 //isotope
 
