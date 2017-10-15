@@ -54,7 +54,7 @@ var bindMarkerEvents = function(marker) {
   //         opponent = getPokeValues(response)
   //         $('#catch').empty()
   //       }
-  
+  // test commit
     fetchAjax(marker.num).done(function (response) {
       this.poke = getPokeValues(response)
     
