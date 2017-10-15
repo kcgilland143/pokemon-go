@@ -126,6 +126,9 @@ function loadPokemon() {
 
     ref.on("child_added", function(childSnapshot){
       var poke = getPokeValuesFromDB(childSnapshot)
+      console.log(
+        "Left this here, check out how many times it gets called" + 
+        " when a new pokemon is added.", poke)
       var dataObj;
 
       var $div = renderPokeInPouch(poke)
