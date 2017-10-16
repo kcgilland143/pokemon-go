@@ -25,6 +25,14 @@ function fetchAjax(num) {
   });
 }
 
+function fetchPoke(num, callback) {
+  num = num || Math.floor(Math.random() * 150) + 1;
+  var basePokeRef;
+  // try to get pokemon from database
+  // fall back to fetchAjax.done on error, 
+    // add to database in that case
+}
+
 //isotope
 
 var $pokemoncollection = $('#pokemonCollection');
@@ -45,22 +53,30 @@ $pokemoncollection.isotope({
 
 $('#pouchControls .sortby.attack').on('click', function () {
   selector = 'attack';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover(poke) })
   $pokemoncollection.isotope({sortBy : 'attack', sortAscending: false})
 })
 $('#pouchControls .sortby.name').on('click', function () {
   selector = 'name';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover(poke) })
   $pokemoncollection.isotope({sortBy : 'name', sortAscending: true})
 })
 $('#pouchControls .sortby.hp').on('click', function () {
   selector = 'health';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover(poke) })
   $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
 })
 $('#pouchControls .sortby.type').on('click', function () {
   selector = 'type';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover(poke) })
   $pokemoncollection.isotope({sortBy : 'type', sortAscending: true})
 })
 

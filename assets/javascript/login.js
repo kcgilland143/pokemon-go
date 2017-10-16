@@ -43,9 +43,10 @@ function initialPokemon() {
     })
 }
 
+// initializer for long-standing DB .on functions
+// to stop some of the compounding recursion
 function initPouchHandler() {
-    userRef.on("child_added", function(childSnapshot){
-    console.log('here', childSnapshot.val())
+  userRef.on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
     var dataObj;
@@ -59,4 +60,6 @@ function initPouchHandler() {
       .isotope('prepended', $div)
     console.log($pokemoncollection.length)
   });
+
+  //userRef.on('child_removed')
 }
