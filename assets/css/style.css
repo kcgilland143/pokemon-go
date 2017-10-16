@@ -85,6 +85,15 @@ button {
 
 /*help modal*/
 
+#modalBox {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
+  bottom: 0;
+}
+
 #infoModal{
     display:none;
     position:fixed;
