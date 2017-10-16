@@ -25,9 +25,9 @@ body{
 }
 
 #bentoBox{
-    width:70%;
+    width:80%;
     height:100%;
-    margin:0 15%;
+    margin:0 10%;
 }
 
 
@@ -53,7 +53,7 @@ body{
 #pouchButton{
     position: relative;
     float:left;
-    margin-right:10px;
+    margin:12px 10px 0 0;
 }
 
 #pouchPng{
@@ -64,7 +64,7 @@ body{
 #infoButton{
     position:relative;
     float:left;
-    margin-top:2px;
+    margin-top:14px;
 }
 
 .glyphicon-question-sign{
@@ -159,7 +159,7 @@ button {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 70%;
+  width: 80%;
   height: 70%;
   background-color: black;
   border-radius: 20px;
@@ -167,26 +167,26 @@ button {
 }
 
 #userPortal {
-    position: absolute;
-    z-index: 10;
-    background: rgba(0,0,0,.5);
-    position: absolute;
-    margin:auto;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    width: 70%;
-    height: 70%;
-    border-radius: 20px;
+  position: absolute;
+  z-index: 10;
+  background: rgba(0,0,0,.5);
+  position: absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  width: 70%;
+  height: 70%;
+  border-radius: 20px;
 }
 
 #logInContainer {
-    position: absolute;
-    text-align: center;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
 }
 
 #map {
@@ -261,10 +261,12 @@ button {
 }
 
 #div1 {
+    position:relative;
     margin:0 4%;
-    /*padding-top: 20px;*/
-    max-height: 90%;
-    overflow: auto;
+    width:400px;
+    max-height:400px;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 #div2 {
@@ -275,15 +277,16 @@ button {
 /*pokemon selectors*/
 
 #pokemonCollection {
-  width:500px;
+  width:400px;
+  max-height:400px;
 }
 
 .pokeSelectorButton {
-    background: white;
-    margin: 10px;
-    border-radius: 8px;
-    min-height: 120px;
-    width: 150px;
+  background: white;
+  margin: 10px;
+  border-radius: 8px;
+  min-height: 120px;
+  width: 150px;
 }
 
 .poke {
@@ -320,7 +323,7 @@ button {
   opacity: 1;
   background: rgba(173,0,0,.5);
     transition: box-shadow 0.3s ease-in-out;
-    transition: 1s;
+    transition: 0.3s;
 }
 
 
@@ -428,30 +431,23 @@ h3:last-child{
   color: white;
 }
 
-/*media queries for web responsivity*/
-
-@media only screen and (max-width: 1500px){
-  #bentoBox{
-      width:80%;
-      margin:0 10%;
-  }
-  #mainContainer{
-      width:80%;
-  }
-}
-
 /*tablets/half-screen browser view*/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1000px) {
   #header{
     width:60%;
   }
   #pouch{
-    width:525px;
-    padding:0;
-    margin:auto;
+    width:300px;
   }
   #div1{
     margin:auto;
+    width:280px;
+  }
+  #pokemonCollection{
+    width:280px;
+  }
+  #battleMode{
+    width:300px;
   }
 }
 
