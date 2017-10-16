@@ -28,12 +28,7 @@ function createMarker(place, num) {
   var type = place.types[0];
   resetPlace();
 
-  var refMarkers = database.ref().child("Users")
-                        .child(userId.uid)
-                        .child("utilities")
-
-  //references markers from database
-  refMarkers.on('value', function(snap) { markers = snap.val().markers; });
+  userRef.on('value', function(snap) { markers = snap.val().markers; });
 
   if (!markers.includes('marker_' + markerId)) {
     var marker = new google.maps.Marker({
@@ -47,8 +42,9 @@ function createMarker(place, num) {
   //pushes new marker to markers array
    markers.push(marker.get('id'))
   //sets markers array to database
-   refMarkers.set({markers: markers});
-
+   userRef.set({markers: markers});
+   
+   
    bindMarkerEvents(marker);
 
   }
@@ -63,10 +59,14 @@ var bindMarkerEvents = function(marker) {
         removeMarker(this); //this.setMap(null);?
 
         if (marker.type == 'book_store') {
-          database.ref().child("Users").child(userId.uid).push(this.poke)
+          userRef.child("collected").push(this.poke)
           console.log("addedPoke", this.poke.name);
         } else if (marker.type == 'gym') {
           //give a berry
+          berries++;
+          userRef.set({berries: berries});
+          userRef.on('value', function(snap) { berries = snap.val().berries; });
+          
           alert("berry")
         } else {
           if ($pokemoncollection.children().length > 0) {
@@ -79,10 +79,9 @@ var bindMarkerEvents = function(marker) {
               } else { 
                 alert("you need to find more poke on the map")
               }
-          console.log("battle");  
+          console.log("battle"); 
+          $('#pouch').css("display", "block"); 
         }
-        
-        $('#pouch').css("display", "block");
       });    
     }.bind(marker))
     // google.maps.event.addListener(marker, 

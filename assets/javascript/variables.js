@@ -6,6 +6,7 @@ var pokeHealth;
 var pokeImage;
 var pokeAttack;
 var pokeType;
+var berries = 0;
 
 //very important for firebase
 
@@ -34,10 +35,12 @@ var catched = new Audio("assets/audioClips/catch.wav")
 var map;
 var service;
 var infowindow;
-var types = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
-var gplaces = types[Math.floor(Math.random() * types.length)];
-
-console.log(gplaces)
+var types = ['restaurants', 'book_store', 'fire_station', 'gas_station', 
+						'grocery_or_supermarket', 'gym', 'university', 'train_station', 
+						'shopping_mall', 'post_office', 'museum', 'movie_theater', 
+						'library', 'laundry'];
+var gplaces = 'gym';
+// types[Math.floor(Math.random() * types.length)];
 
 function resetPlace(){
 	gplaces = types[Math.floor(Math.random() * types.length)];

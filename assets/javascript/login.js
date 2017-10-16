@@ -26,6 +26,10 @@ $('#sumbit').on("click", function() {
         userRef = database.ref().child("Users").child(userId.uid);
         initPouchHandler()
         loginSuccess.style.display = 'block';
+
+        userRef.on('value', function(snap) { markers = snap.val().markers; });
+        userRef.on('value', function(snap) { berries = snap.val().berries; });
+
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
