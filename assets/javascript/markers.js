@@ -33,8 +33,9 @@ function createMarker(place, num) {
 
   var image = new google.maps.MarkerImage(imgString , null, null, null, new google.maps.Size(100,100));
   
+  console.log(markerId)
   //references markers from database
-    if (!markers.includes('marker_' + markerId)) {
+    if (markers.includes('marker_' + markerId) === false) {
       var marker = new google.maps.Marker({
         position: markerId,
         icon: image,
