@@ -40,10 +40,11 @@ var types = ['restaurants', 'book_store', 'fire_station', 'gas_station',
 						'shopping_mall', 'post_office', 'museum', 'movie_theater', 
 						'library', 'laundry'];
 var gplaces = types[Math.floor(Math.random() * types.length)];;
-
+console.log(gplaces)
 
 function resetPlace(){
 	gplaces = types[Math.floor(Math.random() * types.length)];
+	console.log(gplaces)
 }
 
 var markers = ["marker_(40.7127753, -74.0059728)",];
