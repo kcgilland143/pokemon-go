@@ -34,7 +34,15 @@ var catched = new Audio("assets/audioClips/catch.wav")
 var map;
 var service;
 var infowindow;
-var gplaces = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
+var types = ['restaurants', 'book_store', 'fire_station', 'gas_station', 'grocery_or_supermarket', 'gym', 'university', 'train_station', 'shopping_mall', 'post_office', 'museum', 'movie_theater', 'library', 'laundry'];
+var gplaces = types[Math.floor(Math.random() * types.length)];
+
+console.log(gplaces)
+
+function resetPlace(){
+	gplaces = types[Math.floor(Math.random() * types.length)];
+}
+
 var markers = [];
 
 //isotope
