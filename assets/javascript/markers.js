@@ -62,14 +62,14 @@ var bindMarkerEvents = function(marker) {
         var pokeId = this.num
 
         $('#catch').empty()
-        loadPokemon();
-        battleMode();
-        
-        refBasePoke.child(pokeId).once('value').then(function(snap) { 
+        refBasePoke.child(pokeId).on('value', function(snap) { 
             opponent = snap.val();
         });
-        console.log("1", opponent) //comes up as undefined
-        renderPokeInBattle(opponent, $('#catch'))
+        setTimeout(function(){
+          renderPokeInBattle(opponent, $('#catch'))
+          loadPokemon();
+          battleMode();
+        }, 1000)
   });
 }
 
