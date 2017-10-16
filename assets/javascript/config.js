@@ -71,28 +71,28 @@ $('#pouchControls .sortby.attack').on('click', function () {
   selector = 'attack';
   $pokemoncollection
     .children()
-    .each(function (i, poke) { decoratePouchHover(poke) })
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'attack', sortAscending: false})
 })
 $('#pouchControls .sortby.name').on('click', function () {
   selector = 'name';
   $pokemoncollection
     .children()
-    .each(function (i, poke) { decoratePouchHover(poke) })
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'name', sortAscending: true})
 })
 $('#pouchControls .sortby.hp').on('click', function () {
   selector = 'health';
   $pokemoncollection
     .children()
-    .each(function (i, poke) { decoratePouchHover(poke) })
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
 })
 $('#pouchControls .sortby.type').on('click', function () {
   selector = 'type';
   $pokemoncollection
     .children()
-    .each(function (i, poke) { decoratePouchHover(poke) })
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'type', sortAscending: true})
 })
 

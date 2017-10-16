@@ -63,8 +63,8 @@ var bindMarkerEvents = function(marker) {
           //give a berry
           berries++;
           userRef.ref("berries/").set({berries: berries});
-          userRef.on('value', function(snap) { berries = snap.val().berries; });
-          
+          // userRef.on('value', function(snap) { berries = snap.val().berries; });
+          // unneeded, set on login
           alert("berry")
         } else {
           if ($pokemoncollection.children().length > 0) {
@@ -75,6 +75,7 @@ var bindMarkerEvents = function(marker) {
                 opponent = this.poke
                 renderPokeInBattle(opponent, $('#catch'))
               } else { 
+                userRef.child('pokemon').push(this.poke)
                 alert("you need to find more poke on the map")
               }
           console.log("battle"); 
