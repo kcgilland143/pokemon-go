@@ -11,19 +11,20 @@ $('#sumbit').on("click", function() {
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
         loginSuccess.style.display = 'block';
+        initialPokemon()
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
         alert("User Does Not Exist: " + errorMessage);
       });
-      setTimeout(initialPokemon, 3000);
    }
    if (select == 1) {
       firebase.auth().signInWithEmailAndPassword(email, password).then(function(success){
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        initPouchHandler()
         loginSuccess.style.display = 'block';
       }).catch(function(error) {
         loginFailure.style.display = 'block';
@@ -31,7 +32,6 @@ $('#sumbit').on("click", function() {
         var errorMessage = error.message;
         alert("Invalid Email: " + errorMessage);
       });
-      fetchAjax().done(addPokeToVariables);
     };
     
 });
@@ -41,4 +41,46 @@ function initialPokemon() {
     fetchAjax().done(function (response){
       userRef.push(getPokeValues(response))
     })
+}
+
+// initializer for long-standing DB .on functions
+// to stop some of the compounding recursion
+function initPouchHandler() {
+  userRef.child('pokemon').on("child_added", function(childSnapshot){
+    var poke = getPokeValuesFromDB(childSnapshot)
+    
+    var dataObj;
+
+    var $div = renderPokeInPouch(poke)
+    
+    console.log(poke)
+
+    decoratePouchHover($div)
+
+    setTimeout(function () {
+      $pokemoncollection
+      .prepend($div)
+      .isotope('prepended', $div)
+    }, 500)
+
+    loadPokemon() //to show pouch
+  });
+  //userRef.on('child_removed') ---TODO
+  userRef.child('pokemon').on('child_removed', function (snapshot) {
+    //remove pokemon from pouch
+    var pokeRemoved = $pokemoncollection.children().filter(function (i, childElem) {
+      console.log(snapshot.key)
+      return $(childElem).attr('data-id') === snapshot.key
+    })
+
+    setTimeout(function () {
+      $pokemoncollection
+        .isotope('remove', pokeRemoved)
+        .isotope('layout')
+    }, 500)
+
+    loadPokemon()
+  })
+  
+  loadPokemon()
 }

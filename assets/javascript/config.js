@@ -16,13 +16,37 @@ var userId;
 
 //ajax
 
-function fetchAjax() {
-  randomNumber = Math.floor(Math.random() * 100) + 1;
+function fetchAjax(num) {
+  num = num || Math.floor(Math.random() * 150) + 1;
   return $.ajax({
-      url: "https://pokeapi.co/api/v2/pokemon/" + randomNumber + '/',
+      url: "https://pokeapi.co/api/v2/pokemon/" + num + '/',
       dataType: 'json',
       method: 'GET'
   });
+}
+
+function fetchPoke(num, callback) {
+  num = num || Math.floor(Math.random() * 150) + 1;
+  var poke
+  var basePokeRef = database.ref().child("Base")
+  basePokeRef.orderByChild("num").equalTo(num).once("value", function(snapshot) {
+    var val = snapshot.val()
+    if (val) {
+      snapshot.forEach(function (childSnapshot) {
+        poke = getPokeValuesFromDB(childSnapshot)
+        callback(poke)
+      })
+    } else { 
+      fetchAjax(num).done( function (response) {
+        poke = getPokeValues(response)
+        basePokeRef.push(poke)
+        callback(poke) 
+      })
+    }
+  })
+  // try to get pokemon from database
+  // fall back to fetchAjax.done on error, 
+    // add to database in that case
 }
 
 //isotope
@@ -45,22 +69,30 @@ $pokemoncollection.isotope({
 
 $('#pouchControls .sortby.attack').on('click', function () {
   selector = 'attack';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'attack', sortAscending: false})
 })
 $('#pouchControls .sortby.name').on('click', function () {
   selector = 'name';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'name', sortAscending: true})
 })
 $('#pouchControls .sortby.hp').on('click', function () {
   selector = 'health';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
 })
 $('#pouchControls .sortby.type').on('click', function () {
   selector = 'type';
-  loadPokemon();
+  $pokemoncollection
+    .children()
+    .each(function (i, poke) { decoratePouchHover($(poke)) })
   $pokemoncollection.isotope({sortBy : 'type', sortAscending: true})
 })
 

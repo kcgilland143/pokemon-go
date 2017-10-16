@@ -4,13 +4,14 @@ function createPokeMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     //initial ajax call
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]); 
+      createMarker(results[i], randomNumber(150, 1)); 
     }
   }
 }
 
-function createMarker(place) {
-  var image = new google.maps.MarkerImage("assets/images/pokeball.png", null, null, null, new google.maps.Size(40,40));
+function createMarker(place, num) {
+  var imgString = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + num + ".png"
+  var image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(100,100));
   var markerId = place.geometry.location;
 
   var refMarkers = database.ref().child("Users")
@@ -27,10 +28,12 @@ function createMarker(place) {
       map: map,
       id: 'marker_' + markerId,
     });
+   marker.num = num;
   //pushes new marker to markers array
    markers.push(marker.get('id'))
   //sets markers array to database
    refMarkers.set({markers: markers});
+
 
    bindMarkerEvents(marker);
   }
@@ -42,19 +45,24 @@ var getMarkerUniqueId = function(lat, lng) {
 }
 
 var bindMarkerEvents = function(marker) {
-    marker.addListener("click", function (point) {
-        var marker = this;
-        removeMarker(marker); 
-        loadPokemon();
-        fetchAjax().done(function (response) {
-          opponent = getPokeValues(response)
-          $('#catch').empty()
+    fetchPoke(marker.num, function (poke) { //replacing with fallback
+      this.poke = poke
+      this.addListener("click", function (point) {
+        removeMarker(this); //this.setMap(null);?
+        if ($pokemoncollection.children().length > 0) {
+          $('#catch').empty() //questionable if 
+          loadPokemon();
+          battleMode(); //go here
+          //initialize new opponent
+          opponent = this.poke
           renderPokeInBattle(opponent, $('#catch'))
-        })
-        battleMode()
-        //initialize new opponent
+        } else { 
+          userRef.child('pokemon').push(this.poke)
+        }
         $('#pouch').css("display", "block");
-    });    
+      });    
+    }.bind(marker))
+    // google.maps.event.addListener(marker, 
 };
 
 var removeMarker = function(marker) {

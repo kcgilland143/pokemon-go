@@ -4,7 +4,8 @@ function getPokeValues(response) {
     hp: response.stats[5].base_stat,
     image: response.sprites.front_default,
     name: response.name,
-    type: response.types[0].type.name
+    type: response.types[0].type.name,
+    num: response.id
   }
   initPokeBattleValues(res)
   return res
@@ -64,13 +65,14 @@ function renderPokeInPouch (pokeObj) {
     .attr('data-attack', pokeObj.atk)
     .attr('data-hp', pokeObj.hp)
     .attr('data-type', pokeObj.type)
+    .attr('data-id', pokeObj.key)
     .addClass("pokemon")
     .append(image, button);
   return div
 }
 
 function decoratePouchHover ($pouchPoke) {
-  var dataShown
+  var dataShown;
     if (selector == 'health' || 'name') {
       dataShown = 'HP: ' + $pouchPoke.attr('data-hp')
     }
@@ -95,7 +97,7 @@ $('#pokemonCollection').on("click", "button", function() {
 
 
   referenceId = $(this).attr("data-id");
-  var ref = database.ref().child("Users").child(userId.uid).child(referenceId);
+  var ref = userRef.child('pokemon').child(referenceId);
   ref.once("value").then(function(snapshot) {
     user = getPokeValuesFromDB(snapshot)
 
@@ -116,29 +118,6 @@ $('#pokemonCollection').on("click", "button", function() {
 })
 
 function loadPokemon() {
-    $pokemoncollection.empty();
-
-    $pokemoncollection.isotope( 'remove', 
-      $pokemoncollection.find('.pokemon'))
-      .isotope('layout');
-
-    var ref = database.ref().child("Users").child(userId.uid)
-
-    ref.on("child_added", function(childSnapshot){
-      var poke = getPokeValuesFromDB(childSnapshot)
-      console.log(
-        "Left this here, check out how many times it gets called" + 
-        " when a new pokemon is added.", poke)
-      var dataObj;
-
-      var $div = renderPokeInPouch(poke)
-      
-      decoratePouchHover($div)
-
-        $pokemoncollection
-          .prepend($div)
-          .isotope('prepended', $div)
-    });
-
-    
+    $pokemoncollection.isotope('layout')
+    $('#pouch').css("display", "block");
 }
