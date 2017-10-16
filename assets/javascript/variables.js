@@ -7,13 +7,21 @@ var pokeImage;
 var pokeAttack;
 var pokeType;
 
+
+// stores randome poke number
+
+var number = [];
+
+// randomizes number
+
+var computerNumber
+
 //very important for firebase
 
 var referenceId;
 var userRef;
 
 //battle variables
-var pokey;
 var user;
 var opponent;
 

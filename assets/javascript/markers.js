@@ -6,20 +6,21 @@ function createPokeMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     //initial ajax call
 
-
-    var i = 0, max = results.length, delay = 2000, run;
+    var i = 0, max = 1, delay = 3000, run;
     run = function(){
-       var num = randomNumber(150, 1);
-       createMarker(results[i], num)
+       var x = randomNumber(6, 1);
+       console.log("1", x)
+       createMarker(results[i], x);
        if(i++ < max){
           setTimeout(run, delay);
        }
     }
-    run();
+    run()
   }
 }
 
 function createMarker(place, num) {
+  console.log("2", num)
   var markerId = place.geometry.location;  
   var refMarkers = database.ref().child("Users")
                                .child(userId.uid)
@@ -39,13 +40,15 @@ function createMarker(place, num) {
         id: 'marker_' + markerId,
       });
     }
-   marker.num = num
+   marker.index = num
+   console.log("3", num)
+   bindMarkerEvents(marker);
    markers.push(marker.get('id'))
   //sets markers array to database
    refMarkers.set({markers: markers});
 
 
-   bindMarkerEvents(marker);
+   
   }
 
 //http://jsfiddle.net/fatihacet/CKegk/
@@ -58,14 +61,15 @@ var bindMarkerEvents = function(marker) {
 
   marker.addListener("click", function (point) {
         var marker = this;
+        console.log("4", this.index)
         removeMarker(marker); 
-        var pokeId = this.num
 
-        $('#catch').empty()
-        refBasePoke.child(pokeId).on('value', function(snap) { 
+        
+        refBasePoke.child(this.index).once('value', function(snap) { 
             opponent = snap.val();
         });
         setTimeout(function(){
+          $('#catch').empty()
           renderPokeInBattle(opponent, $('#catch'))
           loadPokemon();
           battleMode();
