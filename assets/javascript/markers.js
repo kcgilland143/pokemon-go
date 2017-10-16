@@ -8,7 +8,7 @@ function createPokeMarkers(results, status) {
 
     var i = 0, max = 1, delay = 3000, run;
     run = function(){
-       var x = randomNumber(6, 1);
+       var x = randomNumber(150, 1);
        console.log("1", x)
        createMarker(results[i], x);
        if(i++ < max){
@@ -26,30 +26,28 @@ function createMarker(place, num) {
                                .child(userId.uid)
                                .child("utilities")
 
-  refMarkers.on('value', function(snap) { markers = snap.val().markers; });
-  refBasePoke.child(num).once("value").then(function(snap) {
-    imgString = snap.val().image;
-  })
-  var image = new google.maps.MarkerImage(imgString , null, null, null, new google.maps.Size(100,100));
-  //references markers from database
-    if (markers.includes('marker_' + markerId) === false) {
+  if (markers.includes('marker_' + markerId) === false) { 
+    refMarkers.on('value', function(snap) { markers = snap.val().markers; console.log(markers)});
+    refBasePoke.child(num).once("value").then(function(snap) {
+      var poke = snap.val();
+      var image = new google.maps.MarkerImage(poke.image, null, null, null, new google.maps.Size(100,100));
       var marker = new google.maps.Marker({
         position: markerId,
         icon: image,
         map: map,
         id: 'marker_' + markerId,
       });
-    }
-   marker.index = num
-   console.log("3", num)
-   bindMarkerEvents(marker);
-   markers.push(marker.get('id'))
-  //sets markers array to database
-   refMarkers.set({markers: markers});
-
-
-   
+      //references markers from database
+      marker.index = num
+      marker.poke = poke
+      console.log("3", num)
+      bindMarkerEvents(marker);
+      markers.push(marker.get('id'))
+    //sets markers array to database
+    })
+    refMarkers.set({markers: markers});
   }
+}
 
 //http://jsfiddle.net/fatihacet/CKegk/
 
@@ -61,19 +59,17 @@ var bindMarkerEvents = function(marker) {
 
   marker.addListener("click", function (point) {
         var marker = this;
-        console.log("4", this.index)
+        console.log("4", this.index, this.poke)
         removeMarker(marker); 
 
         
-        refBasePoke.child(this.index).once('value', function(snap) { 
-            opponent = snap.val();
-        });
-        setTimeout(function(){
-          $('#catch').empty()
-          renderPokeInBattle(opponent, $('#catch'))
-          loadPokemon();
-          battleMode();
-        }, 1000)
+        // refBasePoke.child(this.index).once('value', function(snap) { 
+        opponent = marker.poke;
+        $('#catch').empty()
+        renderPokeInBattle(opponent, $('#catch'))
+        loadPokemon();
+        battleMode();
+        // });
   });
 }
 
