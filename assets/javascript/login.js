@@ -46,19 +46,41 @@ function initialPokemon() {
 // initializer for long-standing DB .on functions
 // to stop some of the compounding recursion
 function initPouchHandler() {
-  userRef.on("child_added", function(childSnapshot){
+  userRef.child('pokemon').on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
     var dataObj;
 
     var $div = renderPokeInPouch(poke)
     
+    console.log(poke)
+
     decoratePouchHover($div)
 
-    $pokemoncollection
+    setTimeout(function () {
+      $pokemoncollection
       .prepend($div)
       .isotope('prepended', $div)
-  });
+    }, 500)
 
+    loadPokemon() //to show pouch
+  });
   //userRef.on('child_removed') ---TODO
+  userRef.child('pokemon').on('child_removed', function (snapshot) {
+    //remove pokemon from pouch
+    var pokeRemoved = $pokemoncollection.children().filter(function (i, childElem) {
+      console.log(snapshot.key)
+      return $(childElem).attr('data-id') === snapshot.key
+    })
+
+    setTimeout(function () {
+      $pokemoncollection
+        .isotope('remove', pokeRemoved)
+        .isotope('layout')
+    }, 500)
+
+    loadPokemon()
+  })
+  
+  loadPokemon()
 }

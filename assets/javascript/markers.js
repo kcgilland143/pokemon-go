@@ -47,7 +47,6 @@ var getMarkerUniqueId = function(lat, lng) {
 var bindMarkerEvents = function(marker) {
     fetchPoke(marker.num, function (poke) { //replacing with fallback
       this.poke = poke
-    
       this.addListener("click", function (point) {
         removeMarker(this); //this.setMap(null);?
         if ($pokemoncollection.children().length > 0) {
@@ -58,7 +57,7 @@ var bindMarkerEvents = function(marker) {
           opponent = this.poke
           renderPokeInBattle(opponent, $('#catch'))
         } else { 
-          database.ref().child("Users").child(userId.uid).push(this.poke)
+          userRef.child('pokemon').push(this.poke)
         }
         $('#pouch').css("display", "block");
       });    
