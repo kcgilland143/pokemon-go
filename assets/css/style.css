@@ -73,7 +73,7 @@ body{
 }
 
 
-/*clears default styling for buttons*/
+/*all buttons, gets rid of default styling*/
 
 button {
     outline: none;
@@ -83,8 +83,7 @@ button {
 }
 
 
-/*help modal*/
-
+/*information modal*/
 #modalBox {
   position: absolute;
   margin: auto;
@@ -116,17 +115,37 @@ button {
     width:40%;
 }
 
-#close{
+.closer{
     color:#aaa;
     float:right;
     font-size:28px;
     font-weight:bold;
 }
 
-#close:hover, #close:focus{
+.closer:hover, .closer:focus{
     color:black;
     text-decoration:none;
     cursor:pointer;
+}
+
+
+/*All other modals*/
+
+.modal2 {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  z-index: 15;
+  background: white;
+  width: 430px;
+  height: 120px;
+  color: black;
+  border-radius: 20px;
+  text-align: center;
 }
 
 
@@ -142,6 +161,7 @@ button {
   bottom: 0;
   width: 70%;
   height: 70%;
+  background-color: black;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -191,7 +211,7 @@ button {
 }
 
 
-/*pouch*/
+/*pouch div*/
 
 #pouch {
     position:relative;
@@ -252,6 +272,58 @@ button {
 }
 
 
+/*pokemon selectors*/
+
+#pokemonCollection {
+  width:500px;
+}
+
+.pokeSelectorButton {
+    background: white;
+    margin: 10px;
+    border-radius: 8px;
+    min-height: 120px;
+    width: 150px;
+}
+
+.poke {
+    height: 100px;
+    width: 100px;
+}
+
+.button__wrap {
+  position: relative;
+  background: white;
+  float: left;
+  border: none;
+  border-radius: 8px;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.button__description {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+  visibility: hidden;
+}
+
+.button__wrap:hover .button__description {
+  visibility: visible;
+  opacity: 1;
+  background: rgba(173,0,0,.5);
+    transition: box-shadow 0.3s ease-in-out;
+    transition: 1s;
+}
+
+
 /*battle mode*/
 
 #battleMode {
@@ -307,7 +379,6 @@ button {
     color: white;
 }
 
-
 #catch {
   position: relative;
   float:left;
@@ -348,57 +419,6 @@ h2:nth-child(3){
 
 h3:last-child{
   position:relative;
-}
-
-/*pokemon selectors*/
-
-#pokemonCollection {
-  width:90%;
-}
-
-.pokeSelectorButton {
-    background: white;
-    margin: 10px;
-    border-radius: 8px;
-    min-height: 120px;
-    width: 150px;
-}
-
-.poke {
-    height: 100px;
-    width: 100px;
-}
-
-.button__wrap {
-  position: relative;
-  background: white;
-  float: left;
-  border: none;
-  border-radius: 8px;
-  margin: 10px;
-  width: 100px;
-  height: 100px;
-}
-
-.button__description {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  color: #fff;
-  visibility: hidden;
-}
-
-.button__wrap:hover .button__description {
-  visibility: visible;
-  opacity: 1;
-  background: rgba(173,0,0,.5);
-  transition: box-shadow 0.3s ease-in-out;
-  transition: 1s;
 }
 
 /*isotope*/
