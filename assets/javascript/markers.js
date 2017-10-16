@@ -64,7 +64,7 @@ var bindMarkerEvents = function(marker) {
         } else if (marker.type == 'gym') {
           //give a berry
           berries++;
-          userRef.ref("berries/").set({berries: berries});
+          userRef.child("berries").set(berries);
           userRef.on('value', function(snap) { berries = snap.val().berries; });
           
           alert("berry")
