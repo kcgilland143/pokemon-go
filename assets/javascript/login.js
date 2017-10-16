@@ -46,16 +46,16 @@ $('#sumbit').on("click", function() {
 
 function initialPokemon() {
     //global variable for user database reference
-    fetchAjax().done(function (response){
-      userRef.child("pokemon").push(getPokeValues(response))
-    })
+    fetchPoke(null, function(pokeObj) {
+        userRef.child("pokemon").push(pokeObj)
+    });
 }
+      
 
 // initializer for long-standing DB .on functions
 // to stop some of the compounding recursion
 function initPouchHandler() {
-
-  userRef.child('pokemon').on("child_added", function(childSnapshot){
+  userRef.child("pokemon").on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
     var dataObj;
