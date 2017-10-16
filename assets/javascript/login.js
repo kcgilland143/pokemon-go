@@ -13,9 +13,10 @@ $('#sumbit').on("click", function() {
         loginSuccess.style.display = 'block';
         
         userRef.child("markers").set(markers);
-        userRef.child("berries").set(0);
+        userRef.child("berries").set(berries);
 
         initialPokemon();
+        initPouchHandler();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;

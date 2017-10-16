@@ -11,22 +11,24 @@ function createPokeMarkers(results, status) {
 
 function createMarker(place, num) {
 
+  var type = place.types[0];
+  resetPlace();
 
   var imgString; 
+  var image;
 
   if (place.types[0] == 'book_store') {
     imgString = "assets/images/pokeball.png"
+    image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(60,60));
   } else if (place.types[0] == 'gym') {
     imgString = "assets/images/berry.png"
+    image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(60,60));
   } else {
     imgString = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + num + ".png"
+    image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(100,100));
   }
 
-  var image = new google.maps.MarkerImage(imgString, null, null, null, new google.maps.Size(100,100));
   var markerId = place.geometry.location;
-
-  var type = place.types[0];
-  resetPlace();
 
   userRef.on('value', function(snap) { markers = snap.val().markers;});
   console.log(markers)
@@ -59,7 +61,7 @@ var bindMarkerEvents = function(marker) {
         removeMarker(this); //this.setMap(null);?
 
         if (marker.type == 'book_store') {
-          userRef.ref("pokemon/").push(this.poke)
+          userRef.child("pokemon").push(this.poke)
           console.log("addedPoke", this.poke.name);
         } else if (marker.type == 'gym') {
           //give a berry
