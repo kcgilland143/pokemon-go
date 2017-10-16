@@ -44,13 +44,44 @@ function addPokeToVariables(response) {
 // }
 }
 
-function renderPokeInBattle (pokeObj, targetElem) {
+function renderPokeInBattle (pokeObj, $targetElem) {
+  $targetElem.empty()
   var nameEntry = $('<h3>').text(pokeObj.name);
-  var healthEntry = $('<h2>').text(pokeObj.health);
+  var healthEntry = $('<h2 class="hp">').text(pokeObj.health);
+  var attackEntry = $('<h2 class="attack">').text(pokeObj.atk)
   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeObj.image);
-  targetElem.append(imageEntry, healthEntry, nameEntry)
+  $targetElem.append(imageEntry, healthEntry, attackEntry, nameEntry)
 }
 
+function renderPokeInPouch (pokeObj) {
+  var image = $("<img class='poke'>").attr("src", pokeObj.image);
+  var name = $("<h4 class='hoverName'>").append(pokeObj.name);
+  var dataObj= $("<h4 class='hoverHealth'>").append(pokeObj.hp)
+  var button = $("<button class='button__description' data-id='" + pokeObj.key + "'>")
+    .append(name, dataObj);
+  var div = $("<div class='button__wrap'>")
+    .attr('data-name', pokeObj.name)
+    .attr('data-attack', pokeObj.atk)
+    .attr('data-hp', pokeObj.hp)
+    .attr('data-type', pokeObj.type)
+    .addClass("pokemon")
+    .append(image, button);
+  return div
+}
+
+function decoratePouchHover ($pouchPoke) {
+  var dataShown;
+    if (selector == 'health' || 'name') {
+      dataShown = 'HP: ' + $pouchPoke.attr('data-hp')
+    }
+    if (selector == 'attack') {
+      dataShown = 'ATK: ' + $pouchPoke.attr('data-attack')
+    }
+    if (selector == 'type') {
+      dataShown = $pouchPoke.attr('data-type')
+    }
+    $pouchPoke.find('.hoverHealth').text(dataShown)
+}
 
 
 $('#pokemonCollection').on("click", "button", function() {
@@ -85,47 +116,5 @@ $('#pokemonCollection').on("click", "button", function() {
 })
 
 function loadPokemon() {
-    $pokemoncollection.empty();
-
-    $pokemoncollection.isotope( 'remove', 
-      $pokemoncollection.find('.pokemon'))
-      .isotope('layout');
-
-    var ref = database.ref().child("Users").child(userId.uid)
-
-    ref.on("child_added", function(childSnapshot){
-      var poke = childSnapshot.val()
-      console.log(
-        "Left this here, check out how many times it gets called" + 
-        " when a new pokemon is added.", poke)
-      var dataObj;
-
-      if (selector == 'health' || 'name') {
-        dataObj= $("<h4 class='hoverHealth'>").append(poke.hp)
-      }
-      if (selector == 'attack') {
-        dataObj= $("<h4 class='hoverHealth'>").append(poke.attack)
-      }
-      if (selector == 'type') {
-        dataObj= $("<h4 class='hoverHealth'>").append(poke.type)
-      }
-
-      var image = $("<img class='poke'>").attr("src", poke.image);
-      var name = $("<h4 class='hoverName'>").append(poke.name);
-      var button = $("<button class='button__description' data-id='" + 
-        childSnapshot.key + "'>").append(name, dataObj);
-      var div = $("<div class='button__wrap'>")
-        .attr('data-name', poke.name)
-        .attr('data-attack', poke.attack)
-        .attr('data-hp', poke.hp)
-        .attr('data-type', poke.type)
-        .addClass("pokemon")
-        .append(image, button);
-
-        $pokemoncollection
-          .prepend(div)
-          .isotope('prepended', div)
-    });
-
-    
+    $pokemoncollection.isotope()
 }

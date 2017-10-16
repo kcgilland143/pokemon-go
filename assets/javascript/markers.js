@@ -45,25 +45,15 @@ var getMarkerUniqueId = function(lat, lng) {
 }
 
 var bindMarkerEvents = function(marker) {
-
-  marker.addListener("click", function (point) {
-        var marker = this;
-        removeMarker(marker); 
-        loadPokemon();
-        fetchAjax().done(function (response) {
-          opponent = getPokeValues(response)
-          $('#catch').empty()
-        }
-  
     fetchAjax(marker.num).done(function (response) {
       this.poke = getPokeValues(response)
     
       this.addListener("click", function (point) {
         removeMarker(this); //this.setMap(null);?
         if ($pokemoncollection.children().length > 0) {
-          $('#catch').empty()//questionable if 
-          loadPokemon();//these three
-          battleMode();//go here
+          $('#catch').empty() //questionable if 
+          loadPokemon();
+          battleMode(); //go here
           //initialize new opponent
           opponent = this.poke
           renderPokeInBattle(opponent, $('#catch'))
