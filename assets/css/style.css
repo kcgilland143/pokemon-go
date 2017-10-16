@@ -82,8 +82,8 @@ button {
     background: none;
 }
 
-/*help modal*/
 
+/*information modal*/
 #modalBox {
   position: absolute;
   margin: auto;
@@ -149,7 +149,7 @@ button {
 }
 
 
-/*map and main container*/
+/*centers map and main container*/
 
 #mainContainer {
   position: absolute;
