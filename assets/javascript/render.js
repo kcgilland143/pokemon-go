@@ -4,7 +4,8 @@ function getPokeValues(response) {
     hp: response.stats[5].base_stat,
     image: response.sprites.front_default,
     name: response.name,
-    type: response.types[0].type.name
+    type: response.types[0].type.name,
+    num: response.id
   }
   initPokeBattleValues(res)
   return res

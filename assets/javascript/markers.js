@@ -45,8 +45,8 @@ var getMarkerUniqueId = function(lat, lng) {
 }
 
 var bindMarkerEvents = function(marker) {
-    fetchAjax(marker.num).done(function (response) {
-      this.poke = getPokeValues(response)
+    fetchPoke(marker.num, function (poke) { //replacing with fallback
+      this.poke = poke
     
       this.addListener("click", function (point) {
         removeMarker(this); //this.setMap(null);?

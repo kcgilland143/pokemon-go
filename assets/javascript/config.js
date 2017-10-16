@@ -27,7 +27,23 @@ function fetchAjax(num) {
 
 function fetchPoke(num, callback) {
   num = num || Math.floor(Math.random() * 150) + 1;
-  var basePokeRef;
+  var poke
+  var basePokeRef = database.ref().child("Base")
+  basePokeRef.orderByChild("num").equalTo(num).once("value", function(snapshot) {
+    var val = snapshot.val()
+    if (val) {
+      snapshot.forEach(function (childSnapshot) {
+        poke = getPokeValuesFromDB(childSnapshot)
+        callback(poke)
+      })
+    } else { 
+      fetchAjax(num).done( function (response) {
+        poke = getPokeValues(response)
+        basePokeRef.push(poke)
+        callback(poke) 
+      })
+    }
+  })
   // try to get pokemon from database
   // fall back to fetchAjax.done on error, 
     // add to database in that case
