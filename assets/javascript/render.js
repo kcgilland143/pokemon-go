@@ -97,7 +97,7 @@ $('#pokemonCollection').on("click", "button", function() {
 
 
   referenceId = $(this).attr("data-id");
-  var ref = userRef.child('pokemon').child(referenceId);
+  var ref = userRef.child("pokemon").child(referenceId);
   ref.once("value").then(function(snapshot) {
     user = getPokeValuesFromDB(snapshot)
 
