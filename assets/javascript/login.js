@@ -58,8 +58,7 @@ function initPouchHandler() {
     $pokemoncollection
       .prepend($div)
       .isotope('prepended', $div)
-    console.log($pokemoncollection.length)
   });
 
-  //userRef.on('child_removed')
+  //userRef.on('child_removed') ---TODO
 }

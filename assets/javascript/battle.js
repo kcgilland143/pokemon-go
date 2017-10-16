@@ -39,7 +39,6 @@ function battleMode() {
 
   $('#catchButton').unbind().click(function() {
     if (opponent.health < 10 && opponent.health > 0) {
-      fetchAjax().done(addPokeToVariables);
       catched.play();
       database.ref().child("Users").child(userId.uid).push(opponent);
       $('#battleMode').css("display", "none");
