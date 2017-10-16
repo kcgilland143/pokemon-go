@@ -95,9 +95,9 @@ function loadPokemon() {
 
     ref.on("child_added", function(childSnapshot){
       var poke = childSnapshot.val()
-      console.log(
-        "Left this here, check out how many times it gets called" + 
-        " when a new pokemon is added.", poke)
+      // console.log(
+      //   "Left this here, check out how many times it gets called" + 
+      //   " when a new pokemon is added.", poke)
       var dataObj;
 
       if (selector == 'health' || 'name') {

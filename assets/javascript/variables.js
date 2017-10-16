@@ -12,11 +12,10 @@ var pokeType;
 var referenceId;
 var userRef;
 
-
 //battle variables
-
-var user
-var opponent
+var pokey;
+var user;
+var opponent;
 
 var userHealth;
 var catchHealth;
