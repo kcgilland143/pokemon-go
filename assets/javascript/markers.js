@@ -6,14 +6,14 @@ function createPokeMarkers(results, status) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i], randomNumber(150, 1)); 
     }
+  } else {
+    console.log("error")
   }
 }
 
 function createMarker(place, num) {
-
+  
   var type = place.types[0];
-  resetPlace();
-
   var imgString; 
   var image;
 
@@ -47,7 +47,7 @@ function createMarker(place, num) {
   //sets markers array to database
    userRef.child("markers").set(markers);
    bindMarkerEvents(marker);
-
+   resetPlace();
   }
 }
 //http://jsfiddle.net/fatihacet/CKegk/
