@@ -28,7 +28,8 @@ function createMarker(place, num) {
   var type = place.types[0];
   resetPlace();
 
-  userRef.on('value', function(snap) { markers = snap.val().markers; });
+  userRef.on('value', function(snap) { markers = snap.val().markers;});
+  userRef.ref("markers/").set(markers);
 
   if (!markers.includes('marker_' + markerId)) {
     var marker = new google.maps.Marker({
@@ -42,9 +43,6 @@ function createMarker(place, num) {
   //pushes new marker to markers array
    markers.push(marker.get('id'))
   //sets markers array to database
-   userRef.set({markers: markers});
-   
-   
    bindMarkerEvents(marker);
 
   }
@@ -64,7 +62,7 @@ var bindMarkerEvents = function(marker) {
         } else if (marker.type == 'gym') {
           //give a berry
           berries++;
-          userRef.set({berries: berries});
+          userRef.ref("berries/").set({berries: berries});
           userRef.on('value', function(snap) { berries = snap.val().berries; });
           
           alert("berry")

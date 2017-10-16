@@ -20,7 +20,7 @@ function battleMode() {
       renderPokeInBattle(user, $('#user'))
 
       if (user.health === 0) {
-        userRef.child("pokemon").child(user.key).remove();
+        userRef.ref("pokemon/").child(user.key).remove();
 
         $('#battleMode').css("display", "none");
         pokeLost.style.display = 'block';
@@ -39,7 +39,7 @@ function battleMode() {
   $('#catchButton').unbind().click(function() {
     if (opponent.health < 10 && opponent.health > 0) {
       catched.play();
-      userRef.child("pokemon").push(opponent);
+      userRef.ref("pokemon/").push(opponent);
       $('#battleMode').css("display", "none");
       pokeCollected.style.display = 'block';
       opponent = false

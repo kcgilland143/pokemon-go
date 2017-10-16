@@ -11,7 +11,11 @@ $('#sumbit').on("click", function() {
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
         loginSuccess.style.display = 'block';
-        initialPokemon()
+        
+        userRef.child("markers").set(markers);
+        userRef.child("berries").set(0);
+
+        initialPokemon();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
@@ -27,8 +31,8 @@ $('#sumbit').on("click", function() {
         initPouchHandler()
         loginSuccess.style.display = 'block';
 
-        userRef.on('value', function(snap) { markers = snap.val().markers; });
-        userRef.on('value', function(snap) { berries = snap.val().berries; });
+        userRef.ref("markers/").on('value', function(snap) { markers = snap.val().markers; });
+        userRef.ref("berries/").on('value', function(snap) { berries = snap.val().berries; });
 
       }).catch(function(error) {
         loginFailure.style.display = 'block';
@@ -43,14 +47,14 @@ $('#sumbit').on("click", function() {
 function initialPokemon() {
     //global variable for user database reference
     fetchAjax().done(function (response){
-      userRef.push(getPokeValues(response))
+      userRef.child("pokemon").push(getPokeValues(response))
     })
 }
 
 // initializer for long-standing DB .on functions
 // to stop some of the compounding recursion
 function initPouchHandler() {
-  userRef.on("child_added", function(childSnapshot){
+  userRef.ref("pokemon/").on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
     var dataObj;
@@ -66,3 +70,8 @@ function initPouchHandler() {
 
   //userRef.on('child_removed') ---TODO
 }
+
+
+function createChildren() {
+          
+        }
