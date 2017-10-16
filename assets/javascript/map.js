@@ -27,7 +27,7 @@ function initMap() {
   map.addListener('tilesloaded', function (event) {
     service.nearbySearch({
         location: map.getCenter(),
-        radius: 20,
+        radius: 70,
         type: gplaces
       }, createPokeMarkers);
   });
