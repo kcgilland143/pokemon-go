@@ -55,7 +55,6 @@ function createMarker(place, num) {
 var bindMarkerEvents = function(marker) {
     fetchPoke(marker.num, function (poke) { //replacing with fallback
       this.poke = poke
-
       
       this.addListener("click", function (point) {
         removeMarker(this); //this.setMap(null);?
@@ -66,6 +65,7 @@ var bindMarkerEvents = function(marker) {
         } else if (marker.type == 'gym') {
           //give a berry
           berries++;
+
           if (berries > 0) {
              $('#berriesButton').show()
           }
@@ -80,6 +80,8 @@ var bindMarkerEvents = function(marker) {
                 opponent = this.poke
                 renderPokeInBattle(opponent, $('#catch'))
               } else { 
+                userRef.child('pokemon').push(this.poke)
+
                 alert("you need to find more poke on the map")
               }
           console.log("battle"); 
