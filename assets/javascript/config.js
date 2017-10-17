@@ -134,5 +134,10 @@ window.onclick = function(event){
   }
 };
 
+//berries
+
+
+
+
 
 

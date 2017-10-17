@@ -14,6 +14,9 @@ $('#sumbit').on("click", function() {
         
         userRef.child("markers").set(markers);
         userRef.child("berries").set(berries);
+      
+        $('#berriesButton').hide();
+        
 
         initialPokemon();
         initPouchHandler();
@@ -32,8 +35,17 @@ $('#sumbit').on("click", function() {
         initPouchHandler()
         loginSuccess.style.display = 'block';
 
-        userRef.ref("markers/").on('value', function(snap) { markers = snap.val().markers; });
-        userRef.ref("berries/").on('value', function(snap) { berries = snap.val().berries; });
+        userRef.child("markers").on('value', function(snap) { markers = snap.val().markers; });
+        userRef.child("berries").on('value', function(snap) { berries = snap.val(); 
+          if (berries == 0) {
+            $('#berriesButton').hide();
+          } else {
+            $('#berriesButton').show();
+          }
+
+        });
+
+
 
       }).catch(function(error) {
         loginFailure.style.display = 'block';
@@ -98,7 +110,6 @@ function initPouchHandler() {
   loadPokemon()
 }
 
-}
 
 
 

@@ -375,6 +375,22 @@ button {
     color: white;
 }
 
+#berriesButton {
+   display: inline-block;
+   position: absolute;
+   bottom: 130px;
+   height: 100px;
+   width: 100px;
+   left: 225px;
+   color: white;
+}
+
+#berry {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
 
 #catch {
     border: 5px solid red;

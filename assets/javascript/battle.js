@@ -44,5 +44,18 @@ function battleMode() {
       pokeCollected.style.display = 'block';
       opponent = false
     };
-  });   
+  });
+
+  $('#berriesButton').unbind().click(function() {
+    console.log(berries)
+    if (berries > 0) {
+      console.log(berries)
+      berries--;
+      userRef.child("berries").set(berries);
+      user.health = user.health + 5;
+      renderPokeInBattle(user, $('#user'))
+    } else {
+      $('#berriesButton').hide()
+    }
+  }) 
 }

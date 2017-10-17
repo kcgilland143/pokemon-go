@@ -7,7 +7,7 @@ function createPokeMarkers(results, status) {
       createMarker(results[i], randomNumber(150, 1)); 
     }
   } else {
-    console.log("error")
+    resetPlace();
   }
 }
 
@@ -66,10 +66,11 @@ var bindMarkerEvents = function(marker) {
         } else if (marker.type == 'gym') {
           //give a berry
           berries++;
+          if (berries > 0) {
+             $('#berriesButton').show()
+          }
           userRef.child("berries").set(berries);
-          userRef.on('value', function(snap) { berries = snap.val().berries; });
-          
-          alert("berry")
+    
         } else {
           if ($pokemoncollection.children().length > 0) {
                 $('#catch').empty() //questionable if 
