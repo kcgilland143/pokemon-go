@@ -18,6 +18,16 @@ $('#sumbit').on("click", function() {
         userRef.child("markers").set(markers);
         userRef.child("berries").set(berries);
 
+        userRef.child("markers").on('value', function(snap) { markers = snap.val(); });
+        userRef.child("berries").on('value', function(snap) { berries = snap.val(); 
+          if (berries == 0) {
+            $('#berriesButton').hide();
+          } else {
+            $('#berriesButton').show();
+          }
+          $('#berryAmount').text(berries)
+        });
+
         $('#berriesButton').hide();
 
         initialPokemon();
@@ -53,7 +63,7 @@ $('#sumbit').on("click", function() {
           } else {
             $('#berriesButton').show();
           }
-
+          $('#berryAmount').text(berries)
         });
 
       }).catch(function(error) {
