@@ -72,7 +72,7 @@ function initPouchHandler() {
   userRef.child("pokemon").on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
-    var dataObj;
+    userPokes[poke.key] = poke
 
     var $div = renderPokeInPouch(poke)
     
@@ -97,6 +97,8 @@ function initPouchHandler() {
       return $(childElem).attr('data-id') === snapshot.key
     })
 
+    delete userPokes[snapshot.key]
+
     setTimeout(function () {
       $pokemoncollection
         .isotope('remove', pokeRemoved)
@@ -104,6 +106,20 @@ function initPouchHandler() {
     }, 500)
 
     loadPokemon()
+  })
+
+  userRef.child('pokemon').on('child_changed', function (snapshot) {
+    var changed = snapshot.val() 
+    // find pouch pokemon by filtering through children
+    var $pouchPoke = $pokemoncollection.children().filter(function (i, poke) {
+      return ($(poke).attr('data-id') === snapshot.key)
+    })
+    // update element with new values 
+    storePokeDataInElement($pouchPoke, changed)
+    decoratePouchHover($pouchPoke)
+
+    $pokemoncollection.isotope('updateSortData')
+  //update pokemon in pouch
   })
   
   loadPokemon()

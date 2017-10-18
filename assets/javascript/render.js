@@ -14,7 +14,6 @@ function getPokeValues(response) {
 function getPokeValuesFromDB(snapshot) {
   res = snapshot.val()
   res.key = snapshot.key
-  initPokeBattleValues(res)
   return res
 }
 
@@ -63,12 +62,21 @@ function renderPokeInPouch (pokeObj) {
   var div = $("<div class='button__wrap'>")
     .attr('data-name', pokeObj.name)
     .attr('data-attack', pokeObj.atk)
-    .attr('data-hp', pokeObj.hp)
+    .attr('data-hp', pokeObj.health)
     .attr('data-type', pokeObj.type)
     .attr('data-id', pokeObj.key)
     .addClass("pokemon")
     .append(image, button);
   return div
+}
+
+function storePokeDataInElement($element, pokeObj) {
+  $element
+    .attr('data-name', pokeObj.name)
+    .attr('data-attack', pokeObj.atk)
+    .attr('data-hp', pokeObj.health)
+    .attr('data-type', pokeObj.type)
+    .attr('data-id', pokeObj.key)
 }
 
 function decoratePouchHover ($pouchPoke) {
