@@ -19,7 +19,7 @@ function getPokeValuesFromDB(snapshot) {
 
 function initPokeBattleValues (pokeObj) {
   pokeObj.health = pokeObj.hp
-  pokeObj.atk = Math.floor(pokeObj.attack / 7)
+  pokeObj.atk = Math.floor(pokeObj.attack / 7) + 1
 }
 
 
@@ -47,8 +47,10 @@ function addPokeToVariables(response) {
 function renderPokeInBattle (pokeObj, $targetElem) {
   $targetElem.empty()
   var nameEntry = $('<h3>').text(pokeObj.name);
-  var healthEntry = $('<h2 class="hp">').text(pokeObj.health);
-  var attackEntry = $('<h2 class="attack">').text(pokeObj.atk)
+  var healthEntry = $('<h2 class="hp">')
+    .text('HP: ' + pokeObj.health)
+    .prepend($('<img class="hp" src="assets/images/hp.png">'))
+  var attackEntry = $('<h2 class="attack">').text('Attack: ' + pokeObj.atk)
   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeObj.image);
   $targetElem.append(imageEntry, healthEntry, attackEntry, nameEntry)
 }
