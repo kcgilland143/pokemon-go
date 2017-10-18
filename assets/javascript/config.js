@@ -133,10 +133,21 @@ $('#modalBox').on("click", "span", function(){
 });
 
 window.onclick = function(event){
-  if (event.target == infoModal){
+  if (event.target == infoModal)  {
     infoModal.style.display = 'none';
+  } else {
+    loginFailure.style.display = 'none';
+    loginSuccess.style.display = 'none';
+    pokeCollected.style.display = 'none';
+    pokeLost.style.display = 'none';
+    pokeMissed.style.display = 'none';
   }
 };
+
+//berries
+
+
+
 
 
 
