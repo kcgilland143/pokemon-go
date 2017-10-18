@@ -283,7 +283,7 @@ button {
     position:relative;
     margin:4%;
     width:500px;
-    height:425px;
+    height:500px;
     overflow-y:scroll;
     overflow-x:hidden;
 }
@@ -444,6 +444,7 @@ button {
   left:0;
   right:0;
   margin:auto;
+  z-index:5;
 }
 
 img.hp{
@@ -453,12 +454,19 @@ img.hp{
 
 h2:nth-child(3){
   position:relative;
-  clear:left;
+  float:left;
 }
 
 h3:last-child{
   position:relative;
-  clear:left;
+  float:left;
+}
+
+.battlePlat{
+  position:absolute;
+  bottom:35px;
+  left:25px;
+  z-index:3;
 }
 
 /*isotope*/
@@ -468,7 +476,8 @@ h3:last-child{
   color: white;
 }
 
-/*tablets/half-screen browser view*/
+
+/*media queries for responsivity*/
 @media only screen and (max-width: 1800px) {
   #bentoBox{
     width:90%;
@@ -489,13 +498,44 @@ h3:last-child{
   }
   #battleMode{
     width:550px;
-    margin:5% 0 5% 8%;
+    margin:5% 0 5% 5%;
   }
 }
 
-/*mobile view*/
-@media only screen and (max-width: 400px) {
-  #mainContainer{
-    height:50%;
+@media only screen and (max-width: 1400px) {
+  #bentoBox{
+    width:90%;
+    margin:0 5%;
   }
+  #mainContainer{
+    width:90%;
+  }
+  #header{
+    width:60%;
+  }
+  #pouch{
+    width:300px;
+    height:85%;
+    margin:5% 0 5% 5%;
+  }
+  #div1{
+    width:270px;
+    height:500px;
+    margin:2%;
+  }
+  #pokemonCollection{
+    width:350px;
+  }
+  #battleMode{
+    width:440px;
+    height:85%;
+    margin:5% 0 5% 5%;
+  }
+  #user{
+    margin-left:15%;
+  }
+}
+
+@media only screen and (max-width: 900px){
+
 }
