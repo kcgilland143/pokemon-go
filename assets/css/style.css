@@ -493,9 +493,18 @@ h3:last-child{
   }
 }
 
+@media only screen and (max-width: 1400px) {
+  #battleMode{
+    position: absolute;
+    top: 0;
+    right: 5%;
+  }
+}
+
 /*mobile view*/
 @media only screen and (max-width: 400px) {
   #mainContainer{
     height:50%;
   }
+
 }
