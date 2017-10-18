@@ -26,13 +26,13 @@
       <button id='pouchButton'><img id='pouchPng' src='assets/images/bag-icon.png'></button>
 
       <button id="infoButton"><span class='glyphicon glyphicon-question-sign'></span></button>
-
     </div>
+
     <div id='modalBox'>
       <div id='infoModal' class='modal'>
         <div id='modalContent'>
         <span class='closer'>&times;</span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit an im id est laborum.</p>
+        <p>Welcome to Pokemon Stay! Use the arrow keys or your mouse to navigate the map. When you see a wild Pokemon, click on it to catch it! This will take you to battle mode. Click on the pouch (the backpack icon at the top) and choose a Pokemon. In the battle mode, choose whether to attack or try to catch the Pokemon. Hint: it is easiest to catch a wild Pokemon when its HP (health points) score is lower, but be careful not to kill it or your own Pokemon! Good Luck!</p>
         </div>
       </div>
 
@@ -87,6 +87,16 @@
 
       <div id="map"></div>
 
+      <div id='battleMode'>
+        <button id='closeBattle'>&times;</button>
+        <div id='mainFrame'>
+          <div id='catch'></div>
+          <div id='user'></div>
+          <button id='attackButton'>Attack</button>
+          <button id='catchButton'>Catch</button>
+        </div>
+      </div>
+
       <div id='pouch'>
 
         <button id='closePouch'>
@@ -105,16 +115,6 @@
           <div id="pokemonCollection"></div> 
         </div>
 
-      </div>
-
-      <div id='battleMode'>
-        <button id='closeBattle'>&times;</button>
-        <div id='mainFrame'>
-          <div id='catch'></div>
-          <div id='user'></div>
-          <button id='attackButton'>Attack</button>
-          <button id='catchButton'>Catch</button>
-        </div>
       </div>
     </div>
   </div>
