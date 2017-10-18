@@ -405,11 +405,8 @@ button {
 
 #berriesButton {
    display: inline-block;
-   position: absolute;
-   bottom: 130px;
    height: 100px;
    width: 100px;
-   left: 225px;
    color: white;
 }
 
