@@ -543,7 +543,7 @@ h3:last-child{
     height:auto;
   }
   #battleMode{
-    width:600px;
+    width:500px;
     height:80%
     margin:5% 5% 0 5%;
   }
@@ -557,10 +557,10 @@ h3:last-child{
     margin:5% 0 0 5%;
   }
   #attackButton{
-    margin:2% 10% 2% 2%;
+    margin:40% 0 2% 30%;
   }
   #catchButton{
-    margin:2%;
+    margin:40% 2% 2% 2%;
   }
 }
 
