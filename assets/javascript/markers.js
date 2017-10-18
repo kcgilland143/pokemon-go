@@ -3,14 +3,12 @@
 function createPokeMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     
-    if (results.length >= 5) {
-      var f = randomNumber(results.length - 3)
-      var g = randomNumber(2,1)
-      results = results.slice(f, f + g)
+    if (results.length >= 3) {
+      var results = randomizedArray(results)
+      results = results.slice(0, randomNumber(2,1))
     }
     //initial ajax call
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i].types)
       createMarker(results[i], randomNumber(150, 1)); 
     }
   } else {
@@ -73,7 +71,6 @@ var bindMarkerEvents = function(marker) {
 
         if (marker.type == 'pokeball') {
           userRef.child("pokemon").push(this.poke)
-          console.log("addedPoke", this.poke.name);
         } else if (marker.type == 'berry') {
           //give a berry
           berries++;
@@ -96,7 +93,6 @@ var bindMarkerEvents = function(marker) {
 
                 alert("you need to find more poke on the map")
               }
-          console.log("battle"); 
           $('#pouch').css("display", "block"); 
         }
       });    

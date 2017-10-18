@@ -10,19 +10,24 @@ $('#sumbit').on("click", function() {
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        
         loginSuccess.style.display = 'block';
+        $(loginSuccess).children('h1')
+          .text(success.message);
         
         userRef.child("markers").set(markers);
         userRef.child("berries").set(berries);
 
-      
         $('#berriesButton').hide();
 
-
         initialPokemon();
+        initMapHandler();
         initPouchHandler();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
+        $(loginFailure).children('h1')
+          .text(error.message);
+
         var errorCode = error.code;
         var errorMessage = error.message;
         alert("User Does Not Exist: " + errorMessage);
@@ -33,8 +38,13 @@ $('#sumbit').on("click", function() {
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        
         initPouchHandler()
+        initMapHandler()
+
         loginSuccess.style.display = 'block';
+        $(loginSuccess).children('h1')
+          .text('Welcome back, ' + success.email + '!');
 
         userRef.child("markers").on('value', function(snap) { markers = snap.val(); });
         userRef.child("berries").on('value', function(snap) { berries = snap.val(); 
@@ -50,7 +60,8 @@ $('#sumbit').on("click", function() {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
-        alert("Invalid Email: " + errorMessage);
+        $(loginFailure).children('h1')
+          .text(error.message);
       });
     };
     
@@ -75,8 +86,6 @@ function initPouchHandler() {
     userPokes[poke.key] = poke
 
     var $div = renderPokeInPouch(poke)
-    
-    console.log(poke)
 
     decoratePouchHover($div)
 
@@ -93,7 +102,6 @@ function initPouchHandler() {
   userRef.child('pokemon').on('child_removed', function (snapshot) {
     //remove pokemon from pouch
     var pokeRemoved = $pokemoncollection.children().filter(function (i, childElem) {
-      console.log(snapshot.key)
       return $(childElem).attr('data-id') === snapshot.key
     })
 
