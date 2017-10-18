@@ -360,17 +360,17 @@ button {
     overflow:hidden;
 }
 
-#battleMode h2.attack {
+/*#battleMode h2.attack {
     position: absolute;
     bottom: 0;
     right: 0;
-}
+}*/
 
-#battleMode h3 {
+/*#battleMode h3 {
   position: absolute;
   bottom: 0;
   left: 0;
-}
+}*/
 
 #closeBattle {
     position: absolute;
