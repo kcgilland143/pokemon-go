@@ -57,10 +57,14 @@ $pokemoncollection.isotope({
   itemselector: '.pokemon',
   layoutMode: 'fitRows',
   getSortData: {
-    attack: '[data-attack]',
     name: '[data-name]',
-    hp: '[data-hp]',
-    type: '[data-type]'
+    type: '[data-type]',
+    hp: function ( elem ) {
+        return parseInt($(elem).attr('data-hp'))
+      },
+    attack: function ( elem ) {
+        return parseInt($(elem).attr('data-attack'))
+      },
   },
   sortBy: 'hp'
 });

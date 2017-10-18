@@ -25,9 +25,9 @@ body{
 }
 
 #bentoBox{
-    width:70%;
+    width:80%;
     height:100%;
-    margin:0 15%;
+    margin:0 10%;
 }
 
 
@@ -53,7 +53,7 @@ body{
 #pouchButton{
     position: relative;
     float:left;
-    margin-right:10px;
+    margin:12px 10px 0 0;
 }
 
 #pouchPng{
@@ -64,7 +64,7 @@ body{
 #infoButton{
     position:relative;
     float:left;
-    margin-top:2px;
+    margin-top:14px;
 }
 
 .glyphicon-question-sign{
@@ -159,7 +159,7 @@ button {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 70%;
+  width: 80%;
   height: 70%;
   background-color: black;
   border-radius: 20px;
@@ -167,26 +167,26 @@ button {
 }
 
 #userPortal {
-    position: absolute;
-    z-index: 10;
-    background: rgba(0,0,0,.5);
-    position: absolute;
-    margin:auto;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    width: 70%;
-    height: 70%;
-    border-radius: 20px;
+  position: absolute;
+  z-index: 10;
+  background: rgba(0,0,0,.5);
+  position: absolute;
+  margin:auto;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  width: 70%;
+  height: 70%;
+  border-radius: 20px;
 }
 
 #logInContainer {
-    position: absolute;
-    text-align: center;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
 }
 
 #map {
@@ -214,14 +214,11 @@ button {
 /*pouch div*/
 
 #pouch {
-    position:absolute;
-    margin:auto;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    width: 600px;
-    height: 70%;
+    position:relative;
+    float:left;
+    margin:5% 0 5% 5%;
+    width: 450px;
+    height: 80%;
     display: none;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
@@ -256,7 +253,6 @@ button {
   float:right;
   right:28px;
   top:15px;
-  z-index:10;
 }
 
 .glyphicon-remove{
@@ -265,10 +261,12 @@ button {
 }
 
 #div1 {
+    position:relative;
     margin:0 4%;
-    /*padding-top: 20px;*/
-    max-height: 90%;
-    overflow: auto;
+    width:400px;
+    max-height:400px;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 #div2 {
@@ -279,15 +277,16 @@ button {
 /*pokemon selectors*/
 
 #pokemonCollection {
-  width:500px;
+  width:400px;
+  max-height:400px;
 }
 
 .pokeSelectorButton {
-    background: white;
-    margin: 10px;
-    border-radius: 8px;
-    min-height: 120px;
-    width: 150px;
+  background: white;
+  margin: 10px;
+  border-radius: 8px;
+  min-height: 120px;
+  width: 150px;
 }
 
 .poke {
@@ -324,7 +323,7 @@ button {
   opacity: 1;
   background: rgba(173,0,0,.5);
     transition: box-shadow 0.3s ease-in-out;
-    transition: 1s;
+    transition: 0.3s;
 }
 
 
@@ -332,10 +331,14 @@ button {
 
 #battleMode {
     position: relative;
-    height: 400px;
-    width: 700px;
+    float:left;
+    margin:5%;
+    height: 80%;
+    width: 550px;
     background: rgba(0,0,0,.8);
     display: none;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 #closeBattle {
@@ -348,32 +351,37 @@ button {
 
 #mainFrame {
     position: absolute;
-    top: 25px;
-    left: 50px;
-    background: white;
-    height: 350px;
-    width: 600px;
+    margin:auto;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background: url('../images/pokebackground.jpg') no-repeat center;
+    height: 100%;
+    width: 100%;
+    content:'';
+    display:table;
+    clear:both;
 }
 
 #attackButton {
-    position: absolute;
-    bottom: 70px;
-    background: black;
+    position: relative;
+    background: red;
     height: 50px;
     width: 100px;
-    left: 225px;
+    margin:2% 2% 2% 2%;
     color: white;
 }
 
 #catchButton {
-    position: absolute;
-    bottom: 10px;
-    background: black;
+    position: relative;
+    background: blue;
     height: 50px;
     width: 100px;
-    left: 225px;
+    margin:2% 2% 2% 0;
     color: white;
 }
+
 
 #berriesButton {
    display: inline-block;
@@ -391,28 +399,46 @@ button {
   height: 100%;
 }
 
-
 #catch {
-    border: 5px solid red;
-    position: absolute;
-    left: 25px;
-    top: 25px;
-    width: 200px;
-    height: 200px;
+  position: relative;
+  float:left;
+  width: 200px;
+  height: 200px;
+  margin:;
+  border-radius:20px;
 }
 
 #user {
-    border: 5px solid red;
-    position: absolute;
-    right: 25px;
-    top: 25px;
-    width: 200px;
-    height: 200px;
+  position: relative;
+  float:left;
+  width: 200px;
+  height: 200px;
+  margin:;
+  border-radius:20px;
 }
 
 .pokeBattle {
-    height: 150px;
-    width: 150px;
+  height: 150px;
+  width: 150px;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+}
+
+.hp{
+  width:25px;
+  margin:0 3% 3% 0;
+}
+
+h2:nth-child(3){
+  position:relative;
+}
+
+h3:last-child{
+  position:relative;
 }
 
 /*isotope*/
@@ -422,30 +448,23 @@ button {
   color: white;
 }
 
-/*media queries for web responsivity*/
-
-@media only screen and (max-width: 1500px){
-  #bentoBox{
-      width:80%;
-      margin:0 10%;
-  }
-  #mainContainer{
-      width:80%;
-  }
-}
-
 /*tablets/half-screen browser view*/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1000px) {
   #header{
     width:60%;
   }
   #pouch{
-    width:525px;
-    padding:0;
-    margin:auto;
+    width:300px;
   }
   #div1{
     margin:auto;
+    width:280px;
+  }
+  #pokemonCollection{
+    width:280px;
+  }
+  #battleMode{
+    width:300px;
   }
 }
 
