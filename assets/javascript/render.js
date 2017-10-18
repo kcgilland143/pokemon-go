@@ -14,7 +14,6 @@ function getPokeValues(response) {
 function getPokeValuesFromDB(snapshot) {
   res = snapshot.val()
   res.key = snapshot.key
-  initPokeBattleValues(res)
   return res
 }
 
