@@ -76,32 +76,36 @@ $pokemoncollection.isotope({
 //isotope controls
 
 $('#pouchControls .sortby.attack').on('click', function () {
+  var ascending = $(this).toggleClass('ascending').hasClass('ascending')
   selector = 'attack';
   $pokemoncollection
     .children()
     .each(function (i, poke) { decoratePouchHover($(poke)) })
-  $pokemoncollection.isotope({sortBy : 'attack', sortAscending: false})
+  $pokemoncollection.isotope({sortBy : 'attack', sortAscending: ascending})
 })
 $('#pouchControls .sortby.name').on('click', function () {
+  var ascending = $(this).toggleClass('ascending').hasClass('ascending')
   selector = 'name';
   $pokemoncollection
     .children()
     .each(function (i, poke) { decoratePouchHover($(poke)) })
-  $pokemoncollection.isotope({sortBy : 'name', sortAscending: true})
+  $pokemoncollection.isotope({sortBy : 'name', sortAscending: ascending})
 })
 $('#pouchControls .sortby.hp').on('click', function () {
+  var ascending = $(this).toggleClass('ascending').hasClass('ascending')
   selector = 'health';
   $pokemoncollection
     .children()
     .each(function (i, poke) { decoratePouchHover($(poke)) })
-  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: false})
+  $pokemoncollection.isotope({sortBy : 'hp', sortAscending: ascending})
 })
 $('#pouchControls .sortby.type').on('click', function () {
+  var ascending = $(this).toggleClass('ascending').hasClass('ascending')
   selector = 'type';
   $pokemoncollection
     .children()
     .each(function (i, poke) { decoratePouchHover($(poke)) })
-  $pokemoncollection.isotope({sortBy : 'type', sortAscending: true})
+  $pokemoncollection.isotope({sortBy : 'type', sortAscending: ascending})
 })
 
 
