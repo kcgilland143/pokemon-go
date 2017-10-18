@@ -19,7 +19,7 @@ function getPokeValuesFromDB(snapshot) {
 
 function initPokeBattleValues (pokeObj) {
   pokeObj.health = pokeObj.hp
-  pokeObj.atk = Math.floor(pokeObj.attack / 7)
+  pokeObj.atk = Math.floor(pokeObj.attack / 7) + 1
 }
 
 
