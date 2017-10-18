@@ -14,6 +14,10 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var userId;
 
+$(document).ready(function () {
+  initMap()
+})
+
 //ajax
 
 function fetchAjax(num) {
