@@ -83,6 +83,13 @@ function initPouchHandler() {
 
     loadPokemon()
   })
+
+  userRef.child('pokemon').on('child_changed', function (snapshot) {
+    var changed = snapshot.val() 
+    console.log(changed)
+    console.log(changed, userPokes[snapshot.key])
+  //update pokemon in pouch
+  })
   
   loadPokemon()
 }

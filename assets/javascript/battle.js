@@ -6,6 +6,8 @@ function battleMode() {
   $('#attackButton').unbind().click(function() {
       pikachu.play();
 
+      var ref = userRef.child('pokemon').child(user.key);
+      
       user.health = user.health - opponent.atk;
       opponent.health = opponent.health - user.atk;
 
@@ -16,11 +18,12 @@ function battleMode() {
         user.health = 0
       }
 
+      ref.update(user)
+
       renderPokeInBattle(opponent, $('#catch'))
       renderPokeInBattle(user, $('#user'))
 
       if (user.health === 0) {
-        var ref = userRef.child('pokemon').child(user.key);
         ref.remove()
 
         $('#battleMode').css("display", "none");
