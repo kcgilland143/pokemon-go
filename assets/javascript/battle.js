@@ -26,13 +26,13 @@ function battleMode() {
       if (user.health === 0) {
 
         ref.remove()
-        user = false
         loadPokemon()
         
         pokeLost.style.display = 'block';
         $(pokeLost).children('h1')
           .text("Oh NO! " + opponent.name + " has killed your " + user.name + '!');
 
+        user = false
         $('#user').empty()
 
       };
