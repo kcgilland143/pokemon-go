@@ -57,10 +57,14 @@ $pokemoncollection.isotope({
   itemselector: '.pokemon',
   layoutMode: 'fitRows',
   getSortData: {
-    attack: '[data-attack]',
     name: '[data-name]',
-    hp: '[data-hp]',
-    type: '[data-type]'
+    type: '[data-type]',
+    hp: function ( elem ) {
+        return parseInt($(elem).attr('data-hp'))
+      },
+    attack: function ( elem ) {
+        return parseInt($(elem).attr('data-attack'))
+      },
   },
   sortBy: 'hp'
 });
@@ -129,10 +133,21 @@ $('#modalBox').on("click", "span", function(){
 });
 
 window.onclick = function(event){
-  if (event.target == infoModal){
+  if (event.target == infoModal)  {
     infoModal.style.display = 'none';
+  } else {
+    loginFailure.style.display = 'none';
+    loginSuccess.style.display = 'none';
+    pokeCollected.style.display = 'none';
+    pokeLost.style.display = 'none';
+    pokeMissed.style.display = 'none';
   }
 };
+
+//berries
+
+
+
 
 
 
