@@ -360,17 +360,17 @@ button {
     overflow:hidden;
 }
 
-#battleMode h2.attack {
+/*#battleMode h2.attack {
     position: absolute;
     bottom: 0;
     right: 0;
-}
+}*/
 
-#battleMode h3 {
+/*#battleMode h3 {
   position: absolute;
   bottom: 0;
   left: 0;
-}
+}*/
 
 #closeBattle {
     position: absolute;
@@ -382,7 +382,7 @@ button {
 
 #mainFrame {
     position: absolute;
-    padding-top:15%;
+    padding-top:8%;
     top: 0;
     left: 0;
     right:0;
@@ -401,7 +401,7 @@ button {
     background: red;
     height: 50px;
     width: 100px;
-    margin:2% 2% 2% 20%;
+    margin:25% 2% 0 30%;
     color: white;
 }
 
@@ -410,10 +410,9 @@ button {
     background: blue;
     height: 50px;
     width: 100px;
-    margin:2% 2% 2% 0;
+    margin:25% 2% 0 0;
     color: white;
 }
-
 
 #berriesButton {
    display: inline-block;
@@ -461,14 +460,21 @@ img.hp{
   margin:0 3% 3% 0;
 }
 
-h2:nth-child(3){
+.hp{
   position:relative;
   float:left;
+  margin-top:200px;
+}
+
+.attack{
+  position:relative;
+  float:left;
+  margin-top:0;
 }
 
 h3:last-child{
   position:relative;
-  float:left;
+  clear:left;
 }
 
 .battlePlat{
@@ -523,28 +529,59 @@ h3:last-child{
     width:60%;
   }
   #pouch{
-    width:300px;
-    height:85%;
+    width:600px;
+    height:40%;
     margin:5% 0 5% 5%;
   }
   #div1{
-    width:270px;
-    height:500px;
+    width:550px;
+    height:180px;
     margin:2%;
   }
   #pokemonCollection{
-    width:350px;
+    width:550px;
+    height:auto;
   }
   #battleMode{
-    width:440px;
-    height:85%;
-    margin:5% 0 5% 5%;
+    width:600px;
+    height:40%;
+    margin:5% 5% 0 5%;
+  }
+  #mainFrame{
+    padding-top:0;
   }
   #user{
-    margin-left:15%;
+    margin:5% 0 0 5%;
+  }
+  #catch{
+    margin:5% 0 0 5%;
+  }
+  #attackButton{
+    margin:2% 10% 2% 2%;
+  }
+  #catchButton{
+    margin:2%;
   }
 }
 
 @media only screen and (max-width: 900px){
+  #pouch{
+    width:450px;
+    height:30%;
+  }
+  #div1{
+    width:420px;
+  }
+  #pokemonCollection{
+    width:420px;
+  }
+  #battleMode{
+    width:450px;
+  }
+  .hp, .attack, h3:last-child{
+    font-size:18px;
+  }
+  #attackButton, #catchButton{
 
+  }
 }
