@@ -11,7 +11,16 @@ $('#sumbit').on("click", function() {
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
         loginSuccess.style.display = 'block';
-        initialPokemon()
+        
+        userRef.child("markers").set(markers);
+        userRef.child("berries").set(berries);
+
+      
+        $('#berriesButton').hide();
+
+
+        initialPokemon();
+        initPouchHandler();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
@@ -26,6 +35,17 @@ $('#sumbit').on("click", function() {
         userRef = database.ref().child("Users").child(userId.uid);
         initPouchHandler()
         loginSuccess.style.display = 'block';
+
+        userRef.child("markers").on('value', function(snap) { markers = snap.val(); });
+        userRef.child("berries").on('value', function(snap) { berries = snap.val(); 
+          if (berries == 0) {
+            $('#berriesButton').hide();
+          } else {
+            $('#berriesButton').show();
+          }
+
+        });
+
       }).catch(function(error) {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
@@ -38,18 +58,21 @@ $('#sumbit').on("click", function() {
 
 function initialPokemon() {
     //global variable for user database reference
-    fetchAjax().done(function (response){
-      userRef.push(getPokeValues(response))
-    })
+    fetchPoke(null, function(pokeObj) {
+        userRef.child("pokemon").push(pokeObj)
+    });
 }
+      
 
 // initializer for long-standing DB .on functions
 // to stop some of the compounding recursion
 function initPouchHandler() {
-  userRef.child('pokemon').on("child_added", function(childSnapshot){
+
+
+  userRef.child("pokemon").on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
-    var dataObj;
+    userPokes[poke.key] = poke
 
     var $div = renderPokeInPouch(poke)
     
@@ -66,12 +89,15 @@ function initPouchHandler() {
     loadPokemon() //to show pouch
   });
   //userRef.on('child_removed') ---TODO
+
   userRef.child('pokemon').on('child_removed', function (snapshot) {
     //remove pokemon from pouch
     var pokeRemoved = $pokemoncollection.children().filter(function (i, childElem) {
       console.log(snapshot.key)
       return $(childElem).attr('data-id') === snapshot.key
     })
+
+    delete userPokes[snapshot.key]
 
     setTimeout(function () {
       $pokemoncollection
@@ -81,6 +107,21 @@ function initPouchHandler() {
 
     loadPokemon()
   })
+
+  userRef.child('pokemon').on('child_changed', function (snapshot) {
+    var changed = snapshot.val() 
+    // find pouch pokemon by filtering through children
+    var $pouchPoke = $pokemoncollection.children().filter(function (i, poke) {
+      return ($(poke).attr('data-id') === snapshot.key)
+    })
+    // update element with new values 
+    storePokeDataInElement($pouchPoke, changed)
+    decoratePouchHover($pouchPoke)
+
+    $pokemoncollection.isotope('updateSortData')
+  //update pokemon in pouch
+  })
   
   loadPokemon()
 }
+

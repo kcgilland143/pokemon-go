@@ -6,6 +6,8 @@ function battleMode() {
   $('#attackButton').unbind().click(function() {
       pikachu.play();
 
+      var ref = userRef.child('pokemon').child(user.key);
+      
       user.health = user.health - opponent.atk;
       opponent.health = opponent.health - user.atk;
 
@@ -16,16 +18,17 @@ function battleMode() {
         user.health = 0
       }
 
+      ref.update(user)
+
       renderPokeInBattle(opponent, $('#catch'))
       renderPokeInBattle(user, $('#user'))
 
       if (user.health === 0) {
-        var ref = userRef.child('pokemon').child(user.key);
+
         ref.remove()
 
-        $('#battleMode').css("display", "none");
+        loadPokemon()
         pokeLost.style.display = 'block';
-        opponent = false
         $('#user').empty()
       };
 
@@ -40,10 +43,24 @@ function battleMode() {
   $('#catchButton').unbind().click(function() {
     if (opponent.health < 10 && opponent.health > 0) {
       catched.play();
+      initPokeBattleValues(opponent)
       userRef.child('pokemon').push(opponent);
       $('#battleMode').css("display", "none");
       pokeCollected.style.display = 'block';
       opponent = false
     };
-  });   
+  });
+
+  $('#berriesButton').unbind().click(function() {
+    console.log(berries)
+    if (berries > 0) {
+      console.log(berries)
+      berries--;
+      userRef.child("berries").set(berries);
+      user.health = user.health + 5;
+      renderPokeInBattle(user, $('#user'))
+    } else {
+      $('#berriesButton').hide()
+    }
+  }) 
 }
