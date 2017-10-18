@@ -360,6 +360,18 @@ button {
     overflow:hidden;
 }
 
+/*#battleMode h2.attack {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}*/
+
+/*#battleMode h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}*/
+
 #closeBattle {
     position: absolute;
     top: 0px;
@@ -404,11 +416,8 @@ button {
 
 #berriesButton {
    display: inline-block;
-   position: absolute;
-   bottom: 130px;
    height: 100px;
    width: 100px;
-   left: 225px;
    color: white;
 }
 
