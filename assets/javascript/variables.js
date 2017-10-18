@@ -13,6 +13,7 @@ var referenceId;
 var userRef;
 
 //battle variables
+var userPokes = {};
 
 var user
 var opponent

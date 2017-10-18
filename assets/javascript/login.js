@@ -49,7 +49,7 @@ function initPouchHandler() {
   userRef.child('pokemon').on("child_added", function(childSnapshot){
     var poke = getPokeValuesFromDB(childSnapshot)
     
-    var dataObj;
+    userPokes[poke.key] = poke
 
     var $div = renderPokeInPouch(poke)
     
@@ -72,6 +72,8 @@ function initPouchHandler() {
       console.log(snapshot.key)
       return $(childElem).attr('data-id') === snapshot.key
     })
+
+    delete userPokes[snapshot.key]
 
     setTimeout(function () {
       $pokemoncollection
