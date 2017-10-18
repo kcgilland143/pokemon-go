@@ -75,8 +75,6 @@ function initPouchHandler() {
     userPokes[poke.key] = poke
 
     var $div = renderPokeInPouch(poke)
-    
-    console.log(poke)
 
     decoratePouchHover($div)
 
@@ -93,7 +91,6 @@ function initPouchHandler() {
   userRef.child('pokemon').on('child_removed', function (snapshot) {
     //remove pokemon from pouch
     var pokeRemoved = $pokemoncollection.children().filter(function (i, childElem) {
-      console.log(snapshot.key)
       return $(childElem).attr('data-id') === snapshot.key
     })
 

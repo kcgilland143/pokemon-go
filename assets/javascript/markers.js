@@ -73,7 +73,6 @@ var bindMarkerEvents = function(marker) {
 
         if (marker.type == 'pokeball') {
           userRef.child("pokemon").push(this.poke)
-          console.log("addedPoke", this.poke.name);
         } else if (marker.type == 'berry') {
           //give a berry
           berries++;
@@ -96,7 +95,6 @@ var bindMarkerEvents = function(marker) {
 
                 alert("you need to find more poke on the map")
               }
-          console.log("battle"); 
           $('#pouch').css("display", "block"); 
         }
       });    
