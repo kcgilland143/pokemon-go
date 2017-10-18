@@ -51,7 +51,8 @@ function renderPokeInBattle (pokeObj, $targetElem) {
   var healthEntry = $('<h2 class="hp">').text('HP: ' + pokeObj.health);
   var attackEntry = $('<h2 class="attack">').text('Attack: ' + pokeObj.atk)
   var imageEntry = $("<img class='pokeBattle'>").attr("src", pokeObj.image);
-  $targetElem.append(imageEntry, healthEntry, attackEntry, nameEntry)
+  var battlePlatform = $("<img class='battlePlat'>").attr('src', 'assets/images/battle-platform.png');
+  $targetElem.append(imageEntry, battlePlatform, healthEntry, attackEntry, nameEntry)
 }
 
 function renderPokeInPouch (pokeObj) {
