@@ -28,10 +28,10 @@ function initMap() {
 
 function initMapHandler() {
   map.addListener('tilesloaded', function (event) {
-  service.nearbySearch({
+    service.nearbySearch({
       location: map.getCenter(),
       radius: 70,
       type: types
     }, createPokeMarkers);
-});
+  });
 }
