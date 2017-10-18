@@ -28,7 +28,7 @@ function initMap() {
     service.nearbySearch({
         location: map.getCenter(),
         radius: 70,
-        type: gplaces
+        type: types
       }, createPokeMarkers);
   });
 }
