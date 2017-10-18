@@ -10,7 +10,6 @@ function createPokeMarkers(results, status) {
     }
     //initial ajax call
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i].types)
       createMarker(results[i], randomNumber(150, 1)); 
     }
   } else {
