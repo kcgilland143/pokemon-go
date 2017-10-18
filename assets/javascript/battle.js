@@ -26,7 +26,7 @@ function battleMode() {
       if (user.health === 0) {
 
         ref.remove()
-
+        user = false
         loadPokemon()
         pokeLost.style.display = 'block';
         $('#user').empty()
