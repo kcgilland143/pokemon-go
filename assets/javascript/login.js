@@ -86,8 +86,15 @@ function initPouchHandler() {
 
   userRef.child('pokemon').on('child_changed', function (snapshot) {
     var changed = snapshot.val() 
-    console.log(changed)
-    console.log(changed, userPokes[snapshot.key])
+    // find pouch pokemon by filtering through children
+    var $pouchPoke = $pokemoncollection.children().filter(function (i, poke) {
+      return ($(poke).attr('data-id') === snapshot.key)
+    })
+    // update element with new values 
+    storePokeDataInElement($pouchPoke, changed)
+    decoratePouchHover($pouchPoke)
+
+    $pokemoncollection.isotope('updateSortData')
   //update pokemon in pouch
   })
   
