@@ -39,7 +39,7 @@ $('#sumbit').on("click", function() {
         userRef = database.ref().child("Users").child(userId.uid);
 
         initPouchHandler()
-        console.log(success)
+        
         loginSuccess.style.display = 'block';
         $(loginSuccess).children('h1')
           .text('Welcome back, ' + success.email + '!');
@@ -58,8 +58,8 @@ $('#sumbit').on("click", function() {
         loginFailure.style.display = 'block';
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log($(loginFailure).children('h1')
-          .text(error.message));
+        $(loginFailure).children('h1')
+          .text(error.message);
       });
     };
     
