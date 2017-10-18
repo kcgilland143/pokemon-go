@@ -21,6 +21,7 @@ $('#sumbit').on("click", function() {
         $('#berriesButton').hide();
 
         initialPokemon();
+        initMapHandler();
         initPouchHandler();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
@@ -37,9 +38,10 @@ $('#sumbit').on("click", function() {
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
-
-        initPouchHandler()
         
+        initPouchHandler()
+        initMapHandler()
+
         loginSuccess.style.display = 'block';
         $(loginSuccess).children('h1')
           .text('Welcome back, ' + success.email + '!');
