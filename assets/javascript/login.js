@@ -20,6 +20,7 @@ $('#sumbit').on("click", function() {
 
 
         initialPokemon();
+        initMapHandler();
         initPouchHandler();
       }).catch(function(error) {
         loginFailure.style.display = 'block';
@@ -33,7 +34,10 @@ $('#sumbit').on("click", function() {
         $('#userPortal').hide();
         userId = firebase.auth().currentUser;
         userRef = database.ref().child("Users").child(userId.uid);
+        
         initPouchHandler()
+        initMapHandler()
+
         loginSuccess.style.display = 'block';
 
         userRef.child("markers").on('value', function(snap) { markers = snap.val(); });
