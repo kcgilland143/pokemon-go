@@ -1,6 +1,9 @@
 function battleMode() {
   $('#battleMode').css("display", "block");
-      battleTheme.play();
+  
+  battleTheme.play();
+  renderPokeInBattle(opponent, $('#catch'))
+  renderPokeInBattle(user, $('#user'))
 
 
   $('#attackButton').unbind().click(function() {
@@ -53,8 +56,11 @@ function battleMode() {
     if (opponent.health < 10 && opponent.health > 0) {
       catched.play();
       initPokeBattleValues(opponent)
-      userRef.child('pokemon').push(opponent);
+      initPokeBattleValues(user)
       $('#battleMode').css("display", "none");
+      userRef.child('pokemon').push(opponent);
+      userRef.child('pokemon').child(user.key).update(user)
+      loadPokemon()
       pokeCollected.style.display = 'block';
       $(pokeCollected).children('h1')
           .text("Congratulations! you've caught a " + opponent.name + "!");

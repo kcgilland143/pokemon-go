@@ -82,18 +82,17 @@ var bindMarkerEvents = function(marker) {
     
         } else {
           if ($pokemoncollection.children().length > 0) {
-                $('#catch').empty() //questionable if 
-                loadPokemon();
-                battleMode(); //go here
-                //initialize new opponent
-                opponent = this.poke
-                renderPokeInBattle(opponent, $('#catch'))
-              } else { 
-                userRef.child('pokemon').push(this.poke)
+            $('#catch').empty() //questionable if 
+            opponent = this.poke
+            battleMode(); //go here
+            if (!user) {
+              loadPokemon();
+            }
+          } else { 
+            userRef.child('pokemon').push(this.poke)
 
-                alert("you need to find more poke on the map")
-              }
-          $('#pouch').css("display", "block"); 
+            alert("you need to find more poke on the map")
+          } 
         }
       });    
     }.bind(marker))

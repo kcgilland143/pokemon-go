@@ -71,7 +71,7 @@ $pokemoncollection.isotope({
       },
   },
   sortBy: 'hp'
-});
+})
 
 //isotope controls
 

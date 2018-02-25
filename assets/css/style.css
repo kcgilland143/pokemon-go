@@ -4,6 +4,7 @@
 
 *{
     margin:0; padding:0;
+    box-sizing: border-box;
 }
 
 html{
@@ -157,13 +158,8 @@ button {
 /*centers map and main container*/
 
 #mainContainer {
-  position: absolute;
+  position: relative;
   margin: auto;
-  margin-top:200px;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   width: 80%;
   height: 70%;
   background-color: black;
@@ -233,15 +229,22 @@ button {
 /*pouch div*/
 
 #pouch {
-    position:relative;
+    position: relative;
     float:left;
-    margin:5% 0 5% 5%;
-    width: 550px;
-    height: 80%;
+    margin:5% 0 5% 2.5%;
+    max-width: 550px;
+    min-width: 400px;
+    height: 85%;
+    width: 60%;
     display: none;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
     overflow:hidden;
+    z-index: 10;
+}
+
+#pouch.pushed {
+  width: calc(95% - 550px);
 }
 
 #pouchControls {
@@ -281,11 +284,7 @@ button {
 
 #div1 {
     position:relative;
-    margin:4%;
-    width:500px;
-    height:500px;
-    overflow-y:scroll;
-    overflow-x:hidden;
+    margin-left:3%;
 }
 
 #div2 {
@@ -296,8 +295,8 @@ button {
 /*pokemon selectors*/
 
 #pokemonCollection {
-  width:500px;
-  height:auto;
+  height: 490px !important;
+  position: relative;
 }
 
 .pokeSelectorButton {
@@ -351,9 +350,11 @@ button {
 #battleMode {
     position: relative;
     float:left;
-    margin:5% 0 5% 10%;
-    height: 80%;
-    width: 550px;
+    margin:5% 0 5% 2.5%;
+    height: 85%;
+    min-width: 400px;
+    max-width: 550px;
+    width: 60%;
     background: rgba(0,0,0,.8);
     display: none;
     border-radius:20px;
@@ -397,20 +398,24 @@ button {
 }
 
 #attackButton {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 180px;
     background: red;
     height: 50px;
     width: 100px;
-    margin:25% 2% 0 30%;
+    margin:2%;
     color: white;
 }
 
 #catchButton {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 290px;
     background: blue;
     height: 50px;
     width: 100px;
-    margin:25% 2% 0 0;
+    margin:2%;
     color: white;
 }
 
@@ -427,20 +432,37 @@ button {
   height: 100%;
 }
 
+h2.hp, h2.attack {
+  display: inline;
+  font-size: 18px;
+  margin-left: 15px;
+  margin-bottom: 0px;
+}
+
+#catch h3, #user h3{
+  position: absolute;
+  font-size: 20px;
+  text-transform: capitalize;
+  left: 1.5em;
+  bottom: 0;
+}
+
 #catch {
-  position: relative;
-  float:left;
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 200px;
-  height: 200px;
-  margin-left:15%;
+  height: 165px;
+  margin-top:2%;
 }
 
 #user {
-  position: relative;
-  float:left;
+  position: absolute;
+  bottom: 0;
+  left: 15px;
   width: 200px;
-  height: 200px;
-  margin:;
+  height: 165px;
+  margin-bottom: 2%;
 }
 
 .pokeBattle {
@@ -451,22 +473,17 @@ button {
   bottom:0;
   left:0;
   right:0;
-  margin:auto;
+  margin:0 auto;
   z-index:5;
 }
 
 img.hp{
-  width:25px;
-  margin:0 3% 3% 0;
+  width:16px;
+  margin:0 1% 0 0;
+  margin-left:-16px;
 }
 
-.hp{
-  position:relative;
-  float:left;
-  margin-top:200px;
-}
-
-.attack{
+img.attack{
   position:relative;
   float:left;
   margin-top:0;
@@ -504,84 +521,39 @@ h3:last-child{
   #header{
     width:60%;
   }
-  #pouch{
-    width:550px;
-    margin:5% 0 5% 5%;
-  }
-  #div1{
-    width:500px;
-  }
-  #battleMode{
-    width:550px;
-    margin:5% 0 5% 5%;
-  }
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1245px) {
   #bentoBox{
-    width:90%;
-    margin:0 5%;
+    width:100%;
+    margin:0 0;
   }
   #mainContainer{
-    width:90%;
+    width:100%;
   }
   #header{
     width:60%;
   }
-  #pouch{
-    width:600px;
-    height:40%;
-    margin:5% 0 5% 5%;
-  }
   #div1{
-    width:550px;
-    height:180px;
-    margin:2%;
-  }
-  #pokemonCollection{
-    width:550px;
-    height:auto;
-  }
-  #battleMode{
-    width:600px;
-    height:40%;
-    margin:5% 5% 0 5%;
+    width: 98%;
+    margin: 2%;
   }
   #mainFrame{
     padding-top:0;
   }
-  #user{
-    margin:5% 0 0 5%;
-  }
-  #catch{
-    margin:5% 0 0 5%;
-  }
-  #attackButton{
-    margin:2% 10% 2% 2%;
-  }
-  #catchButton{
-    margin:2%;
-  }
 }
 
-@media only screen and (max-width: 900px){
-  #pouch{
-    width:450px;
-    height:30%;
+@media only screen and (max-width: 1075px){
+  #mainContainer{
+    width: 100%
   }
-  #div1{
-    width:420px;
-  }
-  #pokemonCollection{
-    width:420px;
+  #pouch.pushed{
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 300px;
   }
   #battleMode{
-    width:450px;
-  }
-  .hp, .attack, h3:last-child{
-    font-size:18px;
-  }
-  #attackButton, #catchButton{
-
+    margin:5% 0 5% 0;
   }
 }

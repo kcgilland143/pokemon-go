@@ -131,6 +131,9 @@ $('#pokemonCollection').on("click", "button", function() {
 })
 
 function loadPokemon() {
-    $pokemoncollection.isotope('layout')
     $('#pouch').css("display", "block");
+    if ($('#battleMode').css('display') === 'block') {
+      $('#pouch').addClass('pushed')
+    } else $('#pouch').removeClass('pushed')
+    $pokemoncollection.isotope('layout');
 }
