@@ -85,9 +85,6 @@ var bindMarkerEvents = function(marker) {
             $('#catch').empty() //questionable if 
             opponent = this.poke
             battleMode(); //go here
-            if (!user) {
-              loadPokemon();
-            }
           } else { 
             userRef.child('pokemon').push(this.poke)
 

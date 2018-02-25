@@ -1,9 +1,11 @@
 function battleMode() {
   $('#battleMode').css("display", "block");
   
-  battleTheme.play();
   renderPokeInBattle(opponent, $('#catch'))
-  renderPokeInBattle(user, $('#user'))
+  if (user) {
+    renderPokeInBattle(user, $('#user'))
+  } else loadPokemon()
+  battleTheme.play();
 
 
   $('#attackButton').unbind().click(function() {
