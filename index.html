@@ -74,10 +74,12 @@
                 </select>
           </div>
           <div class="input-group">
-                <input type="text" id="email" class="form-control" name="search" placeholder="Email" required>
+              <label for="email"></label>
+                <input type="text" id="email" name="email" class="form-control" placeholder="Email" autocomplete="email" required autofocus>
           </div>
           <div class="input-group">
-              <input type="text" id="password" class="form-control" name="begin" placeholder="Password" required>
+              <label for="password">Password: </label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="password" required>
           </div>
           <div class="input-group">
               <button id="sumbit" class="btn btn-default" type="button">Submit</button>  
