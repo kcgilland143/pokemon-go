@@ -239,7 +239,7 @@ button {
     display: none;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
-    overflow:hidden;
+    overflow-y: scroll;
     z-index: 10;
 }
 
@@ -271,10 +271,8 @@ button {
 }
 
 #closePouch {
-  position:absolute;
   float:right;
-  right:28px;
-  top:15px;
+  margin: 0.5em 0.5em 0 0;
 }
 
 .glyphicon-remove{
@@ -352,7 +350,7 @@ button {
     float:left;
     margin:5% 0 5% 2.5%;
     height: 85%;
-    min-width: 400px;
+    min-width: 270px;
     max-width: 550px;
     width: 60%;
     background: rgba(0,0,0,.8);
@@ -558,5 +556,26 @@ h3:last-child{
   }
   #battleMode{
     margin:5% 0 5% 0;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  #catchButton {
+    bottom: 60px;
+    left: 180px;
+  }
+
+  #battleMode {
+    width: 95%;
+    margin-left: 2.5%;
+  }
+
+  #pouch {
+    width: 95%;
+    margin-left: 2.5%;
+  }
+
+  #pouchControls {
+    font-size: 0.9em;
   }
 }
