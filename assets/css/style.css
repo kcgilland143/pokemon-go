@@ -233,7 +233,7 @@ button {
     float:left;
     margin:5% 0 5% 2.5%;
     max-width: 550px;
-    min-width: 400px;
+    min-width: 270px;
     height: 85%;
     width: 60%;
     display: none;
@@ -542,7 +542,6 @@ h3:last-child{
     padding-top:0;
     width: 100%;
   }
-}
 
 @media only screen and (max-width: 1075px){
   #mainContainer{
@@ -555,7 +554,7 @@ h3:last-child{
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 200px;
+    /*min-width: 200px;*/
   }
   #battleMode{
     margin:5% 0 5% 0;
